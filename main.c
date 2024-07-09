@@ -16,6 +16,7 @@
 #include "lvgl/examples/lv_examples.h"
 #include "lvgl/demos/lv_demos.h"
 #include "lv_drivers/sdl/sdl.h"
+#include "lvgl/demos/cell/cell.h"
 
 /*********************
  *      DEFINES
@@ -91,8 +92,8 @@ int main(int argc, char **argv)
 //  lv_example_flex_3();
 //  lv_example_label_1();
 
-    lv_demo_widgets();
-
+    // lv_demo_widgets();
+  main_screen_init();
   while(1) {
       /* Periodically call the lv_task handler.
        * It could be done in a timer interrupt or an OS task too.*/

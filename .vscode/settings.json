@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "*.cpp": "cpp",
+    "lv_demos.h": "c",
+    "stdlib.h": "c",
+    "lv_demo_widgets.h": "c",
+    "lvgl.h": "c",
+    "light_model.h": "c",
+    "cell.h": "c"
+  }
+}
