@@ -4,12 +4,22 @@ void LightViewInit(LightView *view) {
   view->abs_ = NULL;
   view->turn_left_ = NULL;
   view->turn_right_ = NULL;
+  view->high_beam_ = NULL;
+  view->engine_fault_ = NULL;
+  view->pos_light_ = NULL;
+  view->maintain_ = NULL;
+  view->voltage_ = NULL;
 }
 
 void LightViewCreate(LightView *view) {
   LightViewOne(view, view->abs_, view->light->abs);
   LightViewOne(view, view->turn_left_, view->light->turn_left);
   LightViewOne(view, view->turn_right_, view->light->turn_right);
+  LightViewOne(view, view->high_beam_, view->light->high_beam);
+  LightViewOne(view, view->engine_fault_, view->light->engine_fault);
+  LightViewOne(view, view->pos_light_, view->light->pos_light);
+  LightViewOne(view, view->maintain_, view->light->maintain);
+  LightViewOne(view, view->voltage_, view->light->voltage);
 }
 
 void Display(lv_obj_t *control, DisplayTable table) {

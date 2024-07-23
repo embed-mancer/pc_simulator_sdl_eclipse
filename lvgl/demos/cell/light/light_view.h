@@ -53,6 +53,7 @@ typedef struct light_view {
   lv_obj_t *tcs_;
   lv_obj_t *location_;
   lv_obj_t *clearance_;
+  lv_obj_t *pos_light_;
 
   lv_obj_t *bg_;
   Light *light;

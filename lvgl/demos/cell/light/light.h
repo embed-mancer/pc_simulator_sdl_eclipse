@@ -29,6 +29,11 @@ typedef struct {
   image_pos abs;
   image_pos turn_left;
   image_pos turn_right;
+  image_pos high_beam;
+  image_pos engine_fault;
+  image_pos pos_light;
+  image_pos maintain;
+  image_pos voltage;
 }Light;
 
 void LightInit();
