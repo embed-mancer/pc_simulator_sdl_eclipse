@@ -6,7 +6,7 @@ Light light_main = {
   .turn_right = {.x = 743, .y = 9, .image = "A:light/turn_right.png" },
   .high_beam = {.x = 171, .y = 13, .image = "A:light/high_beam.png" },
   .engine_fault = {.x = 250, .y = 13, .image = "A:light/engine_fault.png" },
-  .pos_light = {.x = 512, .y = 16, .image = "A:light/pos_light.png" },
+  .location = {.x = 512, .y = 16, .image = "A:light/location.png" },
   .maintain = {.x = 592, .y = 20, .image = "A:light/maintain.png" },
   .voltage = {.x = 670, .y = 17, .image = "A:light/voltage.png" },
 };

@@ -6,7 +6,7 @@ void LightViewInit(LightView *view) {
   view->turn_right_ = NULL;
   view->high_beam_ = NULL;
   view->engine_fault_ = NULL;
-  view->pos_light_ = NULL;
+  view->location_ = NULL;
   view->maintain_ = NULL;
   view->voltage_ = NULL;
 }
@@ -17,7 +17,7 @@ void LightViewCreate(LightView *view) {
   LightViewOne(view, view->turn_right_, view->light->turn_right);
   LightViewOne(view, view->high_beam_, view->light->high_beam);
   LightViewOne(view, view->engine_fault_, view->light->engine_fault);
-  LightViewOne(view, view->pos_light_, view->light->pos_light);
+  LightViewOne(view, view->location_, view->light->location);
   LightViewOne(view, view->maintain_, view->light->maintain);
   LightViewOne(view, view->voltage_, view->light->voltage);
 }
@@ -46,6 +46,31 @@ void LightViewTurnRight(LightView *view, DisplayTable table) {
 void LightViewAbs(LightView *view, DisplayTable table) {
   if (view->abs_)
     Display(view->abs_, table);
+}
+
+void LightViewHighBeam(LightView *view, DisplayTable table) {
+  if (view->high_beam_)
+    Display(view->high_beam_, table);
+}
+
+void LightViewEngine(LightView *view, DisplayTable table) {
+  if (view->engine_fault_)
+    Display(view->engine_fault_, table);
+}
+
+void LightViewLocation(LightView *view, DisplayTable table) {
+  if (view->location_)
+    Display(view->location_, table);
+}
+
+void LightViewMaintain(LightView *view, DisplayTable table) {
+  if (view->maintain_)
+    Display(view->maintain_, table);
+}
+
+void LightViewVoltage(LightView *view, DisplayTable table) {
+  if (view->voltage_)
+    Display(view->voltage_, table);
 }
 
 void LightViewOne(LightView *view, lv_obj_t *lv, image_pos pos) {

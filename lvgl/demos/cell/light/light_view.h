@@ -53,7 +53,6 @@ typedef struct light_view {
   lv_obj_t *tcs_;
   lv_obj_t *location_;
   lv_obj_t *clearance_;
-  lv_obj_t *pos_light_;
 
   lv_obj_t *bg_;
   Light *light;
@@ -67,6 +66,11 @@ void LightViewOne(LightView *view, lv_obj_t *lv, image_pos pos);
 void LightViewTurnLeft(LightView *view, DisplayTable table);
 void LightViewTurnRight(LightView *view, DisplayTable table);
 void LightViewAbs(LightView *view, DisplayTable table);
+void LightViewHighBeam(LightView *view, DisplayTable table);
+void LightViewEngine(LightView *view, DisplayTable table);
+void LightViewLocation(LightView *view, DisplayTable table);
+void LightViewMaintain(LightView *view, DisplayTable table);
+void LightViewVoltage(LightView *view, DisplayTable table);
 
 #ifdef __cplusplus
 }

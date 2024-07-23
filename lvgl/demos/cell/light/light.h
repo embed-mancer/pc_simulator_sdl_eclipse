@@ -31,7 +31,7 @@ typedef struct {
   image_pos turn_right;
   image_pos high_beam;
   image_pos engine_fault;
-  image_pos pos_light;
+  image_pos location;
   image_pos maintain;
   image_pos voltage;
 }Light;
