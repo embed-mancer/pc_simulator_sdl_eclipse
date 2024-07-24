@@ -1,30 +1,30 @@
 /**
-* @file main_screen.h
+* @file motor_controller.h
 *
 * @brief This message displayed in Doxygen Files index
 *
 * @ingroup PackageName
 * (note: this needs exactly one @defgroup somewhere)
 *
-* @date	2024-07-08-16-53
+* @date	2024-07-23-18-00
 * @author Nemausa
 *
 */
-#ifndef MAIN_SCREEN_H_
-#define MAIN_SCREEN_H_
+#ifndef MOTOR_CONTROLLER_H_
+#define MOTOR_CONTROLLER_H_
+
+#include "../view/gear_view.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-void main_screen_init();
-void main_scrren_light();
-void MainScreenGear();
+void NotifyGear(GearView *view);
 
 #ifdef __cplusplus
 }
 #endif
 
 
-#endif // MAIN_SCREEN_H_
+#endif // MOTOR_CONTROLLER_H_

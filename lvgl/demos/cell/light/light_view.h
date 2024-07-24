@@ -60,8 +60,7 @@ typedef struct light_view {
 
 void LightViewInit(LightView *view);
 void LightViewCreate(LightView *view);
-void LightViewOne(LightView *view, lv_obj_t *lv, image_pos pos);
-
+void LightViewOne(lv_obj_t *bg, lv_obj_t *lv, image_pos pos);
 
 void LightViewTurnLeft(LightView *view, DisplayTable table);
 void LightViewTurnRight(LightView *view, DisplayTable table);

@@ -6,6 +6,7 @@
     "lv_demo_widgets.h": "c",
     "lvgl.h": "c",
     "light_model.h": "c",
-    "cell.h": "c"
+    "cell.h": "c",
+    "light.h": "c"
   }
 }

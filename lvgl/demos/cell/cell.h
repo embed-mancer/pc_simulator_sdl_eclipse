@@ -14,8 +14,11 @@
 #define CELL_H_
 
 #include <stdlib.h>
+#include "lvgl/lvgl.h"
+#include "tool/tool.h"
 
 #include "light/light_view.h"
+#include "view/gear_view.h"
 #include "screens/main_screen.h"
 
 
