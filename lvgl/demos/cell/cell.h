@@ -19,6 +19,9 @@
 
 #include "light/light_view.h"
 #include "view/gear_view.h"
+#include "view/oil_view.h"
+#include "view/water_view.h"
+#include "view/rpm_view.h"
 #include "screens/main_screen.h"
 
 

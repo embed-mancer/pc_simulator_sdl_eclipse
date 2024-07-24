@@ -14,6 +14,7 @@
 #define MOTOR_CONTROLLER_H_
 
 #include "../view/gear_view.h"
+#include "../view/oil_view.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -21,6 +22,7 @@ extern "C"
 #endif
 
 void NotifyGear(GearView *view);
+void NotifyOil(OilView *view);
 
 #ifdef __cplusplus
 }

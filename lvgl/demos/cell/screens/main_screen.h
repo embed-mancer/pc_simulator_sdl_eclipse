@@ -21,6 +21,9 @@ extern "C"
 void main_screen_init();
 void main_scrren_light();
 void MainScreenGear();
+void MainScreenOil();
+void MainScreenWater();
+void MainScreenRpm();
 
 #ifdef __cplusplus
 }

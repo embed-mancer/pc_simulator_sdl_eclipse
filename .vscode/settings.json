@@ -7,6 +7,7 @@
     "lvgl.h": "c",
     "light_model.h": "c",
     "cell.h": "c",
-    "light.h": "c"
+    "light.h": "c",
+    "gear_view.h": "c"
   }
 }

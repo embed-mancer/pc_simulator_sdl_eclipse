@@ -7,6 +7,9 @@
 lv_obj_t *main_scr = NULL;
 LightView *light;
 GearView *gear;
+OilView *main_oil;
+WaterView *main_water;
+RpmView *main_rpm;
 
 void main_screen_init() {
   main_scr = lv_obj_create(NULL);
@@ -15,6 +18,9 @@ void main_screen_init() {
 
   main_scrren_light();
   MainScreenGear();
+  MainScreenOil();
+  MainScreenWater();
+  MainScreenRpm();
 }
 
 void main_scrren_light() {
@@ -34,4 +40,102 @@ void MainScreenGear() {
   gear->pos_value = pos_value;
   GearViewInit(gear);
   GearViewCreate(gear);
+}
+
+void MainScreenOil() {
+  main_oil = malloc(sizeof(OilView));
+  main_oil->bg = main_scr;
+  image_pos pos_icon = {.image = "A:oil/icon.png", .x = 380, .y = 441};
+  image_pos pos_line = {.image = "A:oil/line.png", .x = 343, .y = 234};
+  image_pos pos_block[8] = {
+    [0] = {.image = "A:oil/1.png", .x = 361, .y = 401},
+    [1] = {.image = "A:oil/2.png", .x = 353, .y = 376},
+    [2] = {.image = "A:oil/3.png", .x = 349, .y = 353},
+    [3] = {.image = "A:oil/4.png", .x = 348, .y = 335},
+    [4] = {.image = "A:oil/5.png", .x = 347, .y = 309},
+    [5] = {.image = "A:oil/6.png", .x = 348, .y = 273},
+    [6] = {.image = "A:oil/7.png", .x = 351, .y = 258},
+    [7] = {.image = "A:oil/8.png", .x = 358, .y = 238},
+  };
+  main_oil->pos_icon = pos_icon;
+  main_oil->pos_line = pos_line;
+  for (int i = 0; i < 8; ++i)
+    main_oil->pos_block[i] = pos_block[i];
+  OilViewInit(main_oil);
+  OilViewCreate(main_oil);
+}
+
+void MainScreenWater() {
+  main_water = malloc(sizeof(WaterView));
+  main_water->bg = main_scr;
+  image_pos pos_icon = {.image = "A:water/icon.png", .x = 418, .y = 416};
+  image_pos pos_line = {.image = "A:water/line.png", .x = 384, .y = 251};
+  image_pos pos_block[8] = {
+    [0] = {.image = "A:water/1.png", .x = 399, .y = 388},
+    [1] = {.image = "A:water/2.png", .x = 390, .y = 364},
+    [2] = {.image = "A:water/3.png", .x = 389, .y = 353},
+    [3] = {.image = "A:water/4.png", .x = 388, .y = 335},
+    [4] = {.image = "A:water/5.png", .x = 388, .y = 314},
+    [5] = {.image = "A:water/6.png", .x = 388, .y = 291},
+    [6] = {.image = "A:water/7.png", .x = 388, .y = 260},
+    [7] = {.image = "A:water/8.png", .x = 392, .y = 256},
+  };
+  main_water->pos_icon = pos_icon;
+  main_water->pos_line = pos_line;
+  for (int i = 0; i < 8; ++i)
+    main_water->pos_block[i] = pos_block[i];
+  WaterViewInit(main_water);
+  WaterViewCreate(main_water);
+}
+
+void MainScreenRpm() {
+  main_rpm = malloc(sizeof(RpmView));
+  main_rpm->bg = main_scr;
+  image_pos pos_icon = {.image = "A:rpm/icon.png", .x = 698, .y = 156};
+  image_pos pos_line = {.image = "A:rpm/line.png", .x = 264, .y = 35};
+  image_pos pos_block[24] = {
+    [0] = {.image = "A:rpm/1.png", .x = 320, .y = 416},
+    [1] = {.image = "A:rpm/2.png", .x = 312, .y = 391},
+    [2] = {.image = "A:rpm/3.png", .x = 306, .y = 363},
+    [3] = {.image = "A:rpm/4.png", .x = 304, .y = 337},
+    [4] = {.image = "A:rpm/5.png", .x = 304, .y = 301},
+    [5] = {.image = "A:rpm/6.png", .x = 305, .y = 278},
+    [6] = {.image = "A:rpm/7.png", .x = 309, .y = 248},
+    [7] = {.image = "A:rpm/8.png", .x = 817, .y = 223},
+    [8] = {.image = "A:rpm/8.png", .x = 327, .y = 196},
+    [9] = {.image = "A:rpm/9.png", .x = 341, .y = 172},
+    [10] = {.image = "A:rpm/10.png", .x = 357, .y = 150},
+    [11] = {.image = "A:rpm/11.png", .x = 377, .y = 131},
+    [12] = {.image = "A:rpm/12.png", .x = 398, .y = 113},
+    [13] = {.image = "A:rpm/13.png", .x = 423, .y = 99},
+    [14] = {.image = "A:rpm/14.png", .x = 447, .y = 86},
+    [15] = {.image = "A:rpm/15.png", .x = 475, .y = 79},
+    [16] = {.image = "A:rpm/16.png", .x = 503, .y = 73},
+    [17] = {.image = "A:rpm/17.png", .x = 534, .y = 72},
+    [18] = {.image = "A:rpm/18.png", .x = 561, .y = 70},
+    [19] = {.image = "A:rpm/19.png", .x = 590, .y = 72},
+    [20] = {.image = "A:rpm/20.png", .x = 616, .y = 78},
+    [21] = {.image = "A:rpm/21.png", .x = 643, .y = 86},
+    [22] = {.image = "A:rpm/22.png", .x = 667, .y = 97},
+    [23] = {.image = "A:rpm/23.png", .x = 692, .y = 112},
+  };
+
+  image_pos pos_num[7] = {
+    [0] = {.image = "A:rpm/num_0.png", .x = 303, .y = 452},
+    [1] = {.image = "A:rpm/num_2.png", .x = 276, .y = 328},
+    [2] = {.image = "A:rpm/num_4.png", .x = 301, .y = 204},
+    [3] = {.image = "A:rpm/num_6.png", .x = 377, .y = 105},
+    [4] = {.image = "A:rpm/num_8.png", .x = 489, .y = 49},
+    [5] = {.image = "A:rpm/num_10.png", .x = 612, .y = 49},
+    [6] = {.image = "A:rpm/num_12.png", .x = 728, .y = 103},
+  };
+  main_rpm->pos_icon = pos_icon;
+  main_rpm->pos_line = pos_line;
+  for (int i = 0; i < 24; ++i)
+    main_rpm->pos_block[i] = pos_block[i];
+  for (int i = 0; i < 7; ++i)
+    main_rpm->pos_num[i] = pos_num[i];
+
+  RpmViewInit(main_rpm);
+  RpmViewCreate(main_rpm);
 }
