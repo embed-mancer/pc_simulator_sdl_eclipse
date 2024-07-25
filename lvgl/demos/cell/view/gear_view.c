@@ -9,8 +9,8 @@ void GearViewInit(GearView *view) {
 }
 
 void GearViewCreate(GearView *view) {
-  LightViewOne(view->bg_, view->key, view->pos_key);
-  LightViewOne(view->bg_, view->value, view->pos_value);
+  LightViewOne(view->bg_, &view->key, view->pos_key);
+  LightViewOne(view->bg_, &view->value, view->pos_value);
   strcpy(sz_img, view->pos_key.image);
 }
 

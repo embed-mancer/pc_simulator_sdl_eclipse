@@ -9,10 +9,10 @@ void OilViewInit(OilView *view) {
 
 void OilViewCreate(OilView *view) {
   for (int i = 0; i < 8; ++i) {
-    LightViewOne(view->bg, view->block[i], view->pos_block[i]);
+    LightViewOne(view->bg, &view->block[i], view->pos_block[i]);
   }
-  LightViewOne(view->bg, view->icon, view->pos_icon);
-  LightViewOne(view->bg, view->line, view->pos_line);
+  LightViewOne(view->bg, &view->icon, view->pos_icon);
+  LightViewOne(view->bg, &view->line, view->pos_line);
 }
 
 void OilViewUpdate(OilView *view, int value) {

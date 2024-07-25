@@ -11,13 +11,13 @@ void RpmViewInit(RpmView *view) {
 
 void RpmViewCreate(RpmView *view) {
   for (int i = 0; i < 24; ++i) {
-    LightViewOne(view->bg, view->block[i], view->pos_block[i]);
+    LightViewOne(view->bg, &view->block[i], view->pos_block[i]);
   }
   for (int i = 0; i < 7; ++i) {
-    LightViewOne(view->bg, view->num[i], view->pos_num[i]);
+    LightViewOne(view->bg, &view->num[i], view->pos_num[i]);
   }
-  LightViewOne(view->bg, view->icon, view->pos_icon);
-  LightViewOne(view->bg, view->line, view->pos_line); 
+  LightViewOne(view->bg, &view->icon, view->pos_icon);
+  LightViewOne(view->bg, &view->line, view->pos_line); 
 }
 
 void RpmViewUpdate(RpmView *view, int value) {

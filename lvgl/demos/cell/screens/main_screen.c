@@ -10,6 +10,7 @@ GearView *gear;
 OilView *main_oil;
 WaterView *main_water;
 RpmView *main_rpm;
+OtherView *main_other;
 
 void main_screen_init() {
   main_scr = lv_obj_create(NULL);
@@ -21,6 +22,7 @@ void main_screen_init() {
   MainScreenOil();
   MainScreenWater();
   MainScreenRpm();
+  MainScreenOther();
 }
 
 void main_scrren_light() {
@@ -138,4 +140,44 @@ void MainScreenRpm() {
 
   RpmViewInit(main_rpm);
   RpmViewCreate(main_rpm);
+}
+
+void MainScreenOther() {
+  main_other = malloc(sizeof(OtherView));
+  main_other->bg = main_scr;
+  image_pos pos_mode = {.image = "A:other/mode.png", .x = 17, .y = 434};
+  image_pos pos_odo_key = {.image = "A:other/odo_key.png", .x = 539, .y = 376};
+  lable_pos pos_odo_value = {.x = 605, .y = 376, .w = 110, .h = 20, 
+                             .color = kColorWhite, .font = kPlagiata_27, 
+                             .value_type = 2, .text.i = 999999};
+  image_pos pos_odo_unit = {.image = "A:other/odo_unit.png", .x = 715, .y = 376};
+
+  image_pos pos_trip_key = {.image = "A:other/trip_key.png", .x = 545, .y = 404};
+  lable_pos pos_trip_value = {.x = 611, .y = 404, .w = 80, .h = 20, 
+                             .color = kColorWhite, .font = kPlagiata_27, 
+                             .value_type = 1, .text.f = 1.0};
+  image_pos pos_trip_unit = {.image = "A:other/trip_unit.png", .x = 693, .y = 404};
+
+  image_pos pos_avg_key = {.image = "A:other/avg_key.png", .x = 524, .y = 436};
+  lable_pos pos_avg_value = {.x = 627, .y = 435, .w = 50, .h = 20, 
+                             .color = kColorWhite, .font = kPlagiata_37, 
+                             .value_type = 2, .text.i = 0};
+  image_pos pos_avg_unit = {.image = "A:other/avg_unit.png", .x = 681, .y = 436};
+
+  main_other->pos_mode = pos_mode;
+  main_other->pos_odo_key = pos_odo_key;
+  main_other->pos_odo_value = pos_odo_value;
+  main_other->pos_odo_unit = pos_odo_unit;
+
+  main_other->pos_trip_key = pos_trip_key;
+  main_other->pos_trip_value = pos_trip_value;
+  main_other->pos_trip_unit = pos_trip_unit;
+
+  main_other->pos_avg_key = pos_avg_key;
+  main_other->pos_avg_value = pos_avg_value;
+  main_other->pos_avg_unit = pos_avg_unit;
+
+  OtherViewInit(main_other);
+  OtherViewCreate(main_other);
+  OtherViewUpdate(main_other);
 }

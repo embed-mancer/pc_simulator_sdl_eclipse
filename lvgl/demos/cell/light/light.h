@@ -13,28 +13,12 @@
 #ifndef LIGHT_H_
 #define LIGHT_H_
 
+#include "../cell.h"
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
-typedef struct {
- int x;
- int y;
- char image[32];
- char prefix[32];
-}image_pos;
-
-typedef struct {
-  image_pos abs;
-  image_pos turn_left;
-  image_pos turn_right;
-  image_pos high_beam;
-  image_pos engine_fault;
-  image_pos location;
-  image_pos maintain;
-  image_pos voltage;
-}Light;
 
 void LightInit();
 

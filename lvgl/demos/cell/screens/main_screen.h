@@ -24,6 +24,7 @@ void MainScreenGear();
 void MainScreenOil();
 void MainScreenWater();
 void MainScreenRpm();
+void MainScreenOther();
 
 #ifdef __cplusplus
 }
