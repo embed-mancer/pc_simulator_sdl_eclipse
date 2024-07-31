@@ -17,6 +17,8 @@ void GearViewCreate(GearView *view) {
 void GearViewUpdate(GearView *view, int value) {
   char sz[4];
   sprintf(sz, "%d", value);
-  ReplaceSubstr(sz_img, "n", sz);
+  char *temp = ReplaceSubstr(sz_img, "9", sz);
+  strcpy(view->pos_key.image, temp);
   lv_img_set_src(view->key, view->pos_key.image);
+  free(temp);
 }

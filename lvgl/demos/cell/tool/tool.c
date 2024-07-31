@@ -25,19 +25,44 @@ lv_coord_t ToolGetWidth(TextFont font) {
   }
 }
 
-void ReplaceSubstr(char *str, char *oldStr, char *newStr) {
-  char *p = str;
-  char *q = newStr;
-  while (*str) {
-    if (strncmp(str, oldStr, strlen(oldStr)) == 0) {
-      while (*q) {
-        *str++ = *q++;
-      }
-      q = newStr;
-    } else {
-      *str++ = *p++;
-    }
+char* 
+ReplaceSubstr(const char* str, const char* old_substr, const char* new_substr) {
+  const char* p = str;
+  char* result;
+  int count = 0;
+  int old_len = strlen(old_substr);
+  int new_len = strlen(new_substr);
+
+  // Count the number of occurrences of old_substr
+  while ((p = strstr(p, old_substr))) {
+      count++;
+      p += old_len;
   }
+
+  // Allocate memory for the new string
+  result = (char*)malloc(strlen(str) + count * (new_len - old_len) + 1);
+  if (!result) return NULL;
+
+  p = str;
+  char* res_ptr = result;
+  while ((p = strstr(p, old_substr))) {
+      // Copy up to the old_substr
+      size_t len = p - str;
+      strncpy(res_ptr, str, len);
+      res_ptr += len;
+
+      // Copy new_substr
+      strcpy(res_ptr, new_substr);
+      res_ptr += new_len;
+
+      // Advance the pointer
+      p += old_len;
+      str = p;
+  }
+  // Copy the rest of the string
+  strcpy(res_ptr, str);
+
+  return result;
 }
 
 lv_obj_t* Label(lv_obj_t *bg, lv_obj_t **lv, lable_pos pos) {
