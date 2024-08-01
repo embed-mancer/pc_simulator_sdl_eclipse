@@ -19,11 +19,12 @@ extern "C"
 #endif
 
 void main_screen_init();
-void main_scrren_light();
+void MainScreenLight();
 void MainScreenGear();
 void MainScreenOil();
 void MainScreenWater();
 void MainScreenRpm();
+void MainScreenSpeed();
 void MainScreenOther();
 
 #ifdef __cplusplus

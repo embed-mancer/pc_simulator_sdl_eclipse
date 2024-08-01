@@ -10,6 +10,7 @@ GearView *gear;
 OilView *main_oil;
 WaterView *main_water;
 RpmView *main_rpm;
+SpeedView *main_speed;
 OtherView *main_other;
 
 void main_screen_init() {
@@ -17,15 +18,16 @@ void main_screen_init() {
   set_screen_color(main_scr, lv_color_black());
   lv_scr_load(main_scr);
 
-  main_scrren_light();
+  MainScreenLight();
   MainScreenGear();
   MainScreenOil();
   MainScreenWater();
   MainScreenRpm();
   MainScreenOther();
+  MainScreenSpeed();
 }
 
-void main_scrren_light() {
+void MainScreenLight() {
   light = malloc(sizeof(LightView));
   light->bg_ = main_scr;
   light->light = &light_main;
@@ -103,23 +105,23 @@ void MainScreenRpm() {
     [4] = {.image = "A:rpm/5.png", .x = 304, .y = 301},
     [5] = {.image = "A:rpm/6.png", .x = 305, .y = 278},
     [6] = {.image = "A:rpm/7.png", .x = 309, .y = 248},
-    [7] = {.image = "A:rpm/8.png", .x = 817, .y = 223},
-    [8] = {.image = "A:rpm/8.png", .x = 327, .y = 196},
-    [9] = {.image = "A:rpm/9.png", .x = 341, .y = 172},
-    [10] = {.image = "A:rpm/10.png", .x = 357, .y = 150},
-    [11] = {.image = "A:rpm/11.png", .x = 377, .y = 131},
-    [12] = {.image = "A:rpm/12.png", .x = 398, .y = 113},
-    [13] = {.image = "A:rpm/13.png", .x = 423, .y = 99},
-    [14] = {.image = "A:rpm/14.png", .x = 447, .y = 86},
-    [15] = {.image = "A:rpm/15.png", .x = 475, .y = 79},
-    [16] = {.image = "A:rpm/16.png", .x = 503, .y = 73},
-    [17] = {.image = "A:rpm/17.png", .x = 534, .y = 72},
-    [18] = {.image = "A:rpm/18.png", .x = 561, .y = 70},
-    [19] = {.image = "A:rpm/19.png", .x = 590, .y = 72},
-    [20] = {.image = "A:rpm/20.png", .x = 616, .y = 78},
-    [21] = {.image = "A:rpm/21.png", .x = 643, .y = 86},
-    [22] = {.image = "A:rpm/22.png", .x = 667, .y = 97},
-    [23] = {.image = "A:rpm/23.png", .x = 692, .y = 112},
+    [7] = {.image = "A:rpm/8.png", .x = 317, .y = 223},
+    [8] = {.image = "A:rpm/9.png", .x = 327, .y = 196},
+    [9] = {.image = "A:rpm/10.png", .x = 341, .y = 172},
+    [10] = {.image = "A:rpm/11.png", .x = 357, .y = 150},
+    [11] = {.image = "A:rpm/12.png", .x = 377, .y = 131},
+    [12] = {.image = "A:rpm/13.png", .x = 398, .y = 113},
+    [13] = {.image = "A:rpm/14.png", .x = 423, .y = 99},
+    [14] = {.image = "A:rpm/15.png", .x = 447, .y = 86},
+    [15] = {.image = "A:rpm/16.png", .x = 475, .y = 79},
+    [16] = {.image = "A:rpm/17.png", .x = 503, .y = 73},
+    [17] = {.image = "A:rpm/18.png", .x = 534, .y = 72},
+    [18] = {.image = "A:rpm/19.png", .x = 561, .y = 70},
+    [19] = {.image = "A:rpm/20.png", .x = 590, .y = 72},
+    [20] = {.image = "A:rpm/21.png", .x = 616, .y = 78},
+    [21] = {.image = "A:rpm/22.png", .x = 643, .y = 86},
+    [22] = {.image = "A:rpm/23.png", .x = 667, .y = 97},
+    [23] = {.image = "A:rpm/24.png", .x = 691, .y = 112},
   };
 
   image_pos pos_num[7] = {
@@ -142,10 +144,38 @@ void MainScreenRpm() {
   RpmViewCreate(main_rpm);
 }
 
+void MainScreenSpeed() {
+  main_speed = malloc(sizeof(SpeedView));
+  main_speed->bg = main_scr;
+  image_pos pos_unit = {.image = "A:speed/km.png", .x = 726, .y = 346};
+  image_pos pos_block[3] = {
+    [0] = {.image = "A:speed/0.png", .x = 320, .y = 212},
+    [1] = {.image = "A:speed/0.png", .x = 312, .y = 212},
+    [2] = {.image = "A:speed/0.png", .x = 306, .y = 212},
+  };
+  strcpy(main_speed->sz_block[0], "A:speed/0.png");
+  strcpy(main_speed->sz_block[1], "A:speed/1.png");
+  strcpy(main_speed->sz_block[2], "A:speed/2.png");
+  strcpy(main_speed->sz_block[3], "A:speed/3.png");
+  strcpy(main_speed->sz_block[4], "A:speed/4.png");
+  strcpy(main_speed->sz_block[5], "A:speed/5.png");
+  strcpy(main_speed->sz_block[6], "A:speed/6.png");
+  strcpy(main_speed->sz_block[7], "A:speed/7.png");
+  strcpy(main_speed->sz_block[8], "A:speed/8.png");
+  strcpy(main_speed->sz_block[9], "A:speed/9.png");
+  main_speed->pos_block[0] = pos_block[0];
+  main_speed->pos_block[1] = pos_block[1];
+  main_speed->pos_block[2] = pos_block[2];
+  main_speed->pos_unit = pos_unit;
+  SpeedViewInit(main_speed);
+  SpeedViewCreate(main_speed);
+}
+
 void MainScreenOther() {
   main_other = malloc(sizeof(OtherView));
   main_other->bg = main_scr;
   image_pos pos_mode = {.image = "A:other/mode.png", .x = 17, .y = 434};
+  image_pos pos_beta = {.image = "A:other/beta.png", .x = 506, .y = 129};
   image_pos pos_odo_key = {.image = "A:other/odo_key.png", .x = 539, .y = 376};
   lable_pos pos_odo_value = {.x = 602, .y = 376, .w = 110, .h = 20, 
                              .color = kColorWhite, .font = kPlagiata_27, 
@@ -165,6 +195,7 @@ void MainScreenOther() {
   image_pos pos_avg_unit = {.image = "A:other/avg_unit.png", .x = 681, .y = 436};
 
   main_other->pos_mode = pos_mode;
+  main_other->pos_beta = pos_beta;
   main_other->pos_odo_key = pos_odo_key;
   main_other->pos_odo_value = pos_odo_value;
   main_other->pos_odo_unit = pos_odo_unit;

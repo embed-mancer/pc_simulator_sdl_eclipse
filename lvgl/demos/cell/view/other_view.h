@@ -22,6 +22,7 @@ extern "C"
 
 typedef struct other_view {
   lv_obj_t *mode;
+  lv_obj_t *beta_logo;
   lv_obj_t *odo_key;
   lv_obj_t *odo_value;
   lv_obj_t *odo_unit;
@@ -35,6 +36,7 @@ typedef struct other_view {
   lv_obj_t *bg;
 
   image_pos pos_mode;
+  image_pos pos_beta;
   image_pos pos_odo_key;
   image_pos pos_odo_unit;
   image_pos pos_trip_key;
@@ -44,7 +46,7 @@ typedef struct other_view {
   lable_pos pos_odo_value;
   lable_pos pos_trip_value;
   lable_pos pos_avg_value;
-} OtherView ;
+} OtherView;
 
 void OtherViewInit(OtherView *view);
 void OtherViewCreate(OtherView *view);

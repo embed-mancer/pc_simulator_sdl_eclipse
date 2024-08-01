@@ -2,6 +2,7 @@
 
 void OtherViewInit(OtherView *view) {
   view->mode = NULL;
+  view->beta_logo = NULL;
   view->odo_key = NULL;
   view->odo_value = NULL;
   view->odo_unit = NULL;
@@ -15,6 +16,7 @@ void OtherViewInit(OtherView *view) {
 
 void OtherViewCreate(OtherView *view) {
   LightViewOne(view->bg, &view->mode, view->pos_mode);
+  LightViewOne(view->bg, &view->beta_logo, view->pos_beta);
   LightViewOne(view->bg, &view->odo_key, view->pos_odo_key);
   LightViewOne(view->bg, &view->odo_unit, view->pos_odo_unit);
   LightViewOne(view->bg, &view->trip_key, view->pos_trip_key);
@@ -34,17 +36,13 @@ void OtherViewUpdate(OtherView *view) {
 
 void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, lable_pos pos) {
   char* temp = lv_label_get_text(value);
-  int end = strlen(temp) - 1;
   lv_point_t pos_temp;
-  lv_label_get_letter_pos(value, end, &pos_temp);
-  // lv_txt_get_size(&pos_temp, temp, ToolGetFont(pos.font), 0, 3, 0, LV_TEXT_FLAG_NONE);
-  lv_coord_t width = lv_txt_get_width(temp, end+1, ToolGetFont(pos.font), 0, LV_TEXT_FLAG_NONE);
+  lv_coord_t letter_space = lv_obj_get_style_text_letter_space(value, LV_PART_MAIN);
+  lv_coord_t width = lv_txt_get_width(temp, strlen(temp), 
+                     ToolGetFont(pos.font), letter_space, LV_TEXT_FLAG_NONE);
   width = width + 10;
-  // int x = lv_obj_get_x(value);
-  // int width = pos_temp.y;
   lv_obj_set_pos(value, pos.x + 5, pos.y);
   lv_obj_set_width(value, width);
 
   lv_obj_set_x(unit, pos.x + width);
-  printf("temp = %s width = %d font = %d\n", temp, width, pos.font);
 }
