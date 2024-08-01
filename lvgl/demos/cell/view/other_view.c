@@ -37,10 +37,14 @@ void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, lable_pos pos) {
   int end = strlen(temp) - 1;
   lv_point_t pos_temp;
   lv_label_get_letter_pos(value, end, &pos_temp);
-  int x = lv_obj_get_x(value);
-  int width = pos_temp.y + 30;
-  lv_obj_set_pos(value, pos.x+5, pos.y);
+  // lv_txt_get_size(&pos_temp, temp, ToolGetFont(pos.font), 0, 3, 0, LV_TEXT_FLAG_NONE);
+  lv_coord_t width = lv_txt_get_width(temp, end+1, ToolGetFont(pos.font), 0, LV_TEXT_FLAG_NONE);
+  width = width + 10;
+  // int x = lv_obj_get_x(value);
+  // int width = pos_temp.y;
+  lv_obj_set_pos(value, pos.x + 5, pos.y);
   lv_obj_set_width(value, width);
 
   lv_obj_set_x(unit, pos.x + width);
+  printf("temp = %s width = %d font = %d\n", temp, width, pos.font);
 }

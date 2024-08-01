@@ -147,19 +147,19 @@ void MainScreenOther() {
   main_other->bg = main_scr;
   image_pos pos_mode = {.image = "A:other/mode.png", .x = 17, .y = 434};
   image_pos pos_odo_key = {.image = "A:other/odo_key.png", .x = 539, .y = 376};
-  lable_pos pos_odo_value = {.x = 605, .y = 376, .w = 110, .h = 20, 
+  lable_pos pos_odo_value = {.x = 602, .y = 376, .w = 110, .h = 20, 
                              .color = kColorWhite, .font = kPlagiata_27, 
                              .value_type = 2, .text.i = 999999};
   image_pos pos_odo_unit = {.image = "A:other/odo_unit.png", .x = 715, .y = 376};
 
   image_pos pos_trip_key = {.image = "A:other/trip_key.png", .x = 545, .y = 404};
-  lable_pos pos_trip_value = {.x = 611, .y = 404, .w = 80, .h = 20, 
+  lable_pos pos_trip_value = {.x = 609, .y = 404, .w = 80, .h = 20, 
                              .color = kColorWhite, .font = kPlagiata_27, 
                              .value_type = 1, .text.f = 1.0};
   image_pos pos_trip_unit = {.image = "A:other/trip_unit.png", .x = 693, .y = 404};
 
   image_pos pos_avg_key = {.image = "A:other/avg_key.png", .x = 524, .y = 436};
-  lable_pos pos_avg_value = {.x = 627, .y = 435, .w = 50, .h = 20, 
+  lable_pos pos_avg_value = {.x = 620, .y = 435, .w = 50, .h = 20, 
                              .color = kColorWhite, .font = kPlagiata_37, 
                              .value_type = 2, .text.i = 0};
   image_pos pos_avg_unit = {.image = "A:other/avg_unit.png", .x = 681, .y = 436};
