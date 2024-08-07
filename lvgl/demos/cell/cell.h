@@ -60,6 +60,13 @@ typedef struct {
   image_pos voltage;
 }Light;
 
+typedef struct {
+  int pre;
+  int current;
+  int data;
+  int acc;
+}data_acc;
+
 #include <stdlib.h>
 #include "lvgl/lvgl.h"
 #include "light/light.h"

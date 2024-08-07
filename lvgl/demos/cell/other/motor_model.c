@@ -5,6 +5,7 @@ static int water = 0;
 static int gear = 0;
 static int mode = 0;
 static int avg_speed = 0;
+static int speed = 0;
 static int odo = 0;
 static double trip = 0;
 static int rpm = 0;
@@ -42,6 +43,10 @@ void MotorModelSetRpm(int value) {
   rpm = value;
 }
 
+void MotorModelSetSpeed(int value) {
+  speed = value;
+}
+
 int MotorModelGetOil() {
   return oil;
 }
@@ -72,4 +77,8 @@ double MotorModelGetTrip() {
 
 int MotorModelGetRpm() {
   return rpm;
+}
+
+int MotorModelSpeed() {
+  return speed;
 }

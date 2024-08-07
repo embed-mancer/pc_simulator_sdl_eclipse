@@ -33,7 +33,8 @@ typedef struct speed_view {
 void SpeedViewInit(SpeedView *view);
 void SpeedViewCreate(SpeedView *view);
 void SpeedViewUpdate(SpeedView *view, int value);
-
+void SpeedViewRun();
+int SpeedViewCurrent();
 
 #ifdef __cplusplus
 }

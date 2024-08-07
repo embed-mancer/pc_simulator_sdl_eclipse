@@ -35,7 +35,8 @@ typedef struct rpm_view {
 void RpmViewInit(RpmView *view);
 void RpmViewCreate(RpmView *view);
 void RpmViewUpdate(RpmView *view, int value);
-
+void RpmViewRun();
+int RpmViewCurrent();
 
 
 #ifdef __cplusplus

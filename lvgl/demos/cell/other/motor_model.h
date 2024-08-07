@@ -26,6 +26,7 @@ void MotorModelSetAvgSpeed(int value);
 void MotorModelSetODO(int value);
 void MotorModelSetTrip(int value);
 void MotorModelSetRpm(int value);
+void MotorModelSetSpeed(int value);
 
 int MotorModelGetOil();
 int MotorModelGetWater();
@@ -35,6 +36,7 @@ int MotorModelGetAvgSpeed();
 int MotorModelGetODO();
 double MotorModelGetTrip();
 int MotorModelGetRpm();
+int MotorModelSpeed();
 
 #ifdef __cplusplus
 }

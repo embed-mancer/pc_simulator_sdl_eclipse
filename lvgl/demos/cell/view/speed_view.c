@@ -1,4 +1,7 @@
 #include "speed_view.h"
+#include "../other/motor_model.h"
+
+static data_acc acc;
 
 void SpeedViewInit(SpeedView *view) {
   view->unit = NULL;
@@ -18,7 +21,7 @@ void SpeedViewCreate(SpeedView *view) {
 
 void SpeedViewUpdate(SpeedView *view, int value) {
   int mid = 612;
-  int width = 124;
+  int width = 128;
   if (value < 10) {
     lv_obj_set_x(view->block[2], mid-width/2);
     lv_obj_add_flag(view->block[0], LV_OBJ_FLAG_HIDDEN);
@@ -41,4 +44,21 @@ void SpeedViewUpdate(SpeedView *view, int value) {
     lv_img_set_src(view->block[1], view->sz_block[value/10%10]);
     lv_img_set_src(view->block[2], view->sz_block[value%10]);
   }
+}
+
+void SpeedViewRun() {
+  int data = MotorModelSpeed();
+  if (acc.current < data) {
+    acc.current += acc.acc;
+    if (acc.current > data)
+      acc.current = data;
+  } else if (acc.current > data) {
+    acc.current -= acc.acc;
+    if (acc.current < data)
+      acc.current = data;
+  }
+}
+
+int SpeedViewCurrent() {
+  return acc.current;
 }
