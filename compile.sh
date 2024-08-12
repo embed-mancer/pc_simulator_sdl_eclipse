@@ -4,7 +4,7 @@ start_ms=$(ruby -e 'puts (Time.now.to_f * 1000).to_i')
 
 mkdir -p build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug   ..
 # make  VERBOSE=1 install
 make -j 
 

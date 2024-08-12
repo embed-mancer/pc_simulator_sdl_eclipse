@@ -80,6 +80,7 @@ typedef struct {
 #include "view/speed_view.h"
 #include "view/other_view.h"
 #include "screens/main_screen.h"
+#include "tool/checkself.h"
 
 
 #ifdef __cplusplus

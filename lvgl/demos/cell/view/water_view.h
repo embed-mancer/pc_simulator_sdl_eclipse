@@ -24,14 +24,16 @@ extern "C"
 }
 #endif
 
+#define kWaterNum 8
+
 typedef struct water_view {
   lv_obj_t *icon;
   lv_obj_t *line;
-  lv_obj_t *block[8];
+  lv_obj_t *block[kWaterNum];
   lv_obj_t *bg;
   image_pos pos_icon;
   image_pos pos_line;
-  image_pos pos_block[8];
+  image_pos pos_block[kWaterNum];
 } WaterView;
 
 void WaterViewInit(WaterView *view);

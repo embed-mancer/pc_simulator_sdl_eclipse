@@ -75,3 +75,14 @@ void LightNotifyAll(LightView *view) {
   LightNotifyMaintain(view);
   LightNotifyVoltage(view);
 }
+
+void LightCheck(LightView *view) {
+  LightViewTurnLeft(view, kShow);
+  LightViewAbs(view, kShow);
+  LightViewTurnRight(view, kShow);
+  LightViewHighBeam(view, kShow);
+  LightViewEngine(view, kShow);
+  LightViewLocation(view, kShow);
+  LightViewMaintain(view, kShow);
+  LightViewVoltage(view, kShow);
+}

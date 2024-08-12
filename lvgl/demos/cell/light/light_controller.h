@@ -30,6 +30,7 @@ void LightNotifyEngine(LightView *view);
 void LightNotifyLocation(LightView *view);
 void LightNotifyMaintain(LightView *view);
 void LightNotifyVoltage(LightView *view);
+void LightCheck(LightView *view);
 
 #ifdef __cplusplus
 }

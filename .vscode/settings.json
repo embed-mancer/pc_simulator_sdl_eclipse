@@ -10,6 +10,7 @@
     "light.h": "c",
     "gear_view.h": "c",
     "light_view.h": "c",
-    "memory": "c"
+    "memory": "c",
+    "checkself.h": "c"
   }
 }

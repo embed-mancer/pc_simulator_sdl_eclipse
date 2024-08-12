@@ -16,5 +16,14 @@ void OilViewCreate(OilView *view) {
 }
 
 void OilViewUpdate(OilView *view, int value) {
-
+  if (value == 0) {
+    for (int i = 0; i < 8; ++i)
+      lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
+  } else {
+    int index = value - 1;
+    for (int i = 0; i <= index; i++)
+      lv_obj_clear_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
+    for (int i = index + 1; i < 8; ++i)
+      lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
+  }
 }
