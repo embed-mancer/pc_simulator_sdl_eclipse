@@ -16,7 +16,7 @@ void SpeedViewCreate(SpeedView *view) {
   LightViewOne(view->bg, &view->unit, view->pos_unit);
   lv_obj_add_flag(view->block[0], LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(view->block[1], LV_OBJ_FLAG_HIDDEN);
-  SpeedViewUpdate(view, 188);
+  SpeedViewUpdate(view, 0);
 }
 
 void SpeedViewUpdate(SpeedView *view, int value) {

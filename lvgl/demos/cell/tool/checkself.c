@@ -46,11 +46,11 @@ void CheckSelfTask(lv_timer_t *timer) {
 
   if (!begin_update) {
     uint32_t temp = lv_tick_elaps(begin_tick);
-    uint32_t time = temp < (kCheckTime / 2) ? temp : (kCheckTime - temp);
     if (temp > kCheckTime) {
       CheckSelfFinish();
       return;
     }
+    uint32_t time = temp < (kCheckTime / 2) ? temp : (kCheckTime - temp);
     int oil_value = time / oil;
     int water_value = time / water;
     int rmp_value = time / rpm * 1000;

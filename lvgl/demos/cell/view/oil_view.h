@@ -20,14 +20,16 @@ extern "C"
 {
 #endif
 
+#define kOilNum 8
+
 typedef struct oil_view {
   lv_obj_t *icon;
   lv_obj_t *line;
-  lv_obj_t *block[8];
+  lv_obj_t *block[kOilNum];
   lv_obj_t *bg;
   image_pos pos_icon;
   image_pos pos_line;
-  image_pos pos_block[8];
+  image_pos pos_block[kOilNum];
 } OilView;
 
 void OilViewInit(OilView *view);

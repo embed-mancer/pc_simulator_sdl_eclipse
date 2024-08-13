@@ -20,6 +20,7 @@ void RpmViewCreate(RpmView *view) {
   LightViewOne(view->bg, &view->line, view->pos_line); 
   for (int i = 0; i < 24; ++i) {
     LightViewOne(view->bg, &view->block[i], view->pos_block[i]);
+    lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
 }
 

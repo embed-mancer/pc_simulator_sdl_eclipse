@@ -15,7 +15,9 @@ SpeedView *main_speed;
 OtherView *main_other;
 
 void main_scrren_task_cb(lv_timer_t *timer) {
-  // LightNotifyAll(light);
+  if (CheckSelfIsChecking())
+    return;
+  LightNotifyAll(light);
   // SpeedViewRun();
   // RpmViewRun();
 }
@@ -47,6 +49,7 @@ void MainScreenLight() {
 
 void MainScreenGear() {
   gear = malloc(sizeof(GearView));
+  gear->bg_ = main_scr;
   gear->bg_ = main_scr;
   image_pos pos_key = {.image = "A:gear/n.png", .x = 84, .y = 155};
   image_pos pos_value = {.image = "A:gear/icon.png", .x = 84, .y = 253};

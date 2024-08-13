@@ -1,6 +1,5 @@
 #include "water_view.h"
 
-
 void WaterViewInit(WaterView *view) {
   view->icon = NULL;
   view->line = NULL;
@@ -11,6 +10,7 @@ void WaterViewInit(WaterView *view) {
 void WaterViewCreate(WaterView *view) {
   for (int i = 0; i < kWaterNum; ++i) {
     LightViewOne(view->bg, &view->block[i], view->pos_block[i]);
+    lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
   LightViewOne(view->bg, &view->icon, view->pos_icon);
   LightViewOne(view->bg, &view->line, view->pos_line);
