@@ -7,6 +7,7 @@
 /*********************
  *      INCLUDES
  *********************/
+#include "lvgl/demos/cell/view/view_speed.h"
 #define _DEFAULT_SOURCE /* needed for usleep() */
 #include <stdlib.h>
 #include <unistd.h>
@@ -16,6 +17,7 @@
 #include "lvgl/examples/lv_examples.h"
 #include "lvgl/demos/lv_demos.h"
 #include "lv_drivers/sdl/sdl.h"
+#include "lvgl/demos/cell/cell.h"
 
 /*********************
  *      DEFINES
@@ -91,8 +93,7 @@ int main(int argc, char **argv)
 //  lv_example_flex_3();
 //  lv_example_label_1();
 
-    lv_demo_widgets();
-
+  speed_arc(); 
   while(1) {
       /* Periodically call the lv_task handler.
        * It could be done in a timer interrupt or an OS task too.*/
