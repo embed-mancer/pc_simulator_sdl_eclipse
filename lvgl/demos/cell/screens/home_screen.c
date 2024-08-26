@@ -1,18 +1,21 @@
 #include "home_screen.h"
+#include "menu_screen.h"
 #include "screen_interface.h"
 #include "../view/view_speed.h"
 #include "../view/view_other.h"
 
-lv_obj_t *home_bg = NULL;
+lv_obj_t *home_screen = NULL;
 SpeedView *home_speed = NULL;
 
 void HomeScreenTask(lv_timer_t *timer) {
 }
 
 void HomeScreenInit() {
-  home_bg = lv_obj_create(NULL);
-  ScrrenInterfaceColor(home_bg, lv_color_white());
-  lv_scr_load(home_bg);
+  MenuScreenInit();
+  return;
+  home_screen = lv_obj_create(NULL);
+  ScrrenInterfaceColor(home_screen, lv_color_white());
+  lv_scr_load(home_screen);
 
   HomeScreenSpeed();
   HomeScreenOther();
@@ -23,7 +26,7 @@ void HomeScreenInit() {
 
 void HomeScreenSpeed() {
   home_speed = malloc(sizeof(SpeedView));
-  home_speed->bg = home_bg;
+  home_speed->bg = home_screen;
   ViewSpeedInit(home_speed);
   ViewSpeedCreate(home_speed);
 }

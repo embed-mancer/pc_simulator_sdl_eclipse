@@ -364,7 +364,9 @@
                                 LV_FONT_DECLARE(AlternateGotNo2D_20)\
                                 LV_FONT_DECLARE(AlternateGotNo2D_45)\
                                 LV_FONT_DECLARE(AlternateGotNo2D_105)\
-                                LV_FONT_DECLARE(NimbusSanNovT_12)
+                                LV_FONT_DECLARE(NimbusSanNovT_12)\
+                                LV_FONT_DECLARE(NimbusSanNovT_14)\
+                                LV_FONT_DECLARE(NimbusSanNovT_33)
 /*Always set a default font*/
 #define LV_FONT_DEFAULT &lv_font_montserrat_14
 
