@@ -1,30 +1,31 @@
 /**
-* @file cell.h
+* @file home_screen.h
 *
 * @brief This message displayed in Doxygen Files index
 *
 * @ingroup PackageName
 * (note: this needs exactly one @defgroup somewhere)
 *
-* @date	2024-08-22-15-22
+* @date	2024-08-22-10-41
 * @author Nemausa
 *
 */
-#ifndef CELL_HPP_
-#define CELL_HPP_
+#ifndef HOME_SCREEN_HPP_
+#define HOME_SCREEN_HPP_
 
-#include "../../lvgl.h"
-#include <stdlib.h>
-#include "screens/home_screen.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+void HomeScreenInit();
+void HomeScreenSpeed();
+void HomeScreenOther();
+
 #ifdef __cplusplus
 }
 #endif
 
 
-#endif // CELL_HPP_
+#endif // HOME_SCREEN_HPP_

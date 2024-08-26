@@ -7,6 +7,7 @@
 /*********************
  *      INCLUDES
  *********************/
+#include "lvgl/demos/cell/screens/home_screen.h"
 #include "lvgl/demos/cell/view/view_speed.h"
 #define _DEFAULT_SOURCE /* needed for usleep() */
 #include <stdlib.h>
@@ -81,7 +82,7 @@ int main(int argc, char **argv)
 //  lv_example_checkbox_1();
 //  lv_example_colorwheel_1();
 //  lv_example_chart_6();
-//  lv_example_table_2();
+ // lv_example_table_2();
 //  lv_example_scroll_2();
 //  lv_example_textarea_1();
 //  lv_example_msgbox_1();
@@ -92,8 +93,7 @@ int main(int argc, char **argv)
 //  lv_example_tabview_1();
 //  lv_example_flex_3();
 //  lv_example_label_1();
-
-  speed_arc(); 
+  HomeScreenInit();
   while(1) {
       /* Periodically call the lv_task handler.
        * It could be done in a timer interrupt or an OS task too.*/

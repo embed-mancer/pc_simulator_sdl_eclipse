@@ -1,15 +1,48 @@
 #include "view_speed.h"
-#include "lvgl/src/core/lv_obj.h"
-#include "lvgl/src/core/lv_obj_pos.h"
-#include <lvgl/lvgl.h>
 
-static void speed_changed_event_cb(lv_event_t * e);
+static lv_obj_t *speed_value[2];
 
-static void set_angle(void * obj, int32_t v)
-{
-    lv_arc_set_value(obj, v);
+char *sz_block[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+
+static void set_angle(void * obj, int32_t v) {
+  lv_arc_set_value(obj, v);
 }
 
+void ViewSpeedInit(SpeedView *view) {
+  view->unit = NULL;
+  view->block[0] = NULL;
+  view->block[1] = NULL;
+  view->block[2] = NULL;
+}
+
+void ViewSpeedCreate(SpeedView *view) {
+  view->block[0] = lv_label_create(view->bg);
+  view->block[1] = lv_label_create(view->bg);
+  lv_obj_set_pos(view->block[0], 222, 100);
+  lv_obj_set_pos(view->block[1], 222, 100);
+  lv_label_set_text(view->block[0], "0");
+  lv_obj_set_style_text_font(view->block[0], &AlternateGotNo2D_105, 0);
+  lv_obj_set_style_text_font(view->block[1], &AlternateGotNo2D_105, 0);
+  lv_obj_set_style_text_color(view->block[0], lv_color_black(), 0); 
+  lv_obj_set_style_text_color(view->block[1], lv_color_black(), 0); 
+  ViewSpeedUpdate(view, 0); 
+}
+
+void ViewSpeedUpdate(SpeedView *view,int value) {
+  int mid = 240;
+  int width = 36;
+  if (value < 10) {
+    lv_obj_set_x(view->block[0], mid-width/2);
+    lv_obj_add_flag(view->block[1], LV_OBJ_FLAG_HIDDEN);
+    lv_label_set_text(view->block[0], sz_block[value]);
+  } else if (value < 100){
+    lv_obj_set_x(view->block[0], mid-width);
+    lv_obj_set_x(view->block[1], mid);
+    lv_obj_clear_flag(view->block[1], LV_OBJ_FLAG_HIDDEN);
+    lv_label_set_text(view->block[0], sz_block[value/10]);
+    lv_label_set_text(view->block[1], sz_block[value%10]);
+  }
+}
 
 void speed_arc(void) {
   /*Create an Arc*/
@@ -36,15 +69,4 @@ void speed_arc(void) {
   lv_anim_set_repeat_delay(&a, 500);
   lv_anim_set_values(&a, 0, 100);
   lv_anim_start(&a);
-}
-
-static void speed_changed_event_cb(lv_event_t * e)
-{
-    lv_obj_t * arc = lv_event_get_target(e);
-    lv_obj_t * label = lv_event_get_user_data(e);
-
-    lv_label_set_text_fmt(label, "%d%%", lv_arc_get_value(arc));
-
-    /*Rotate the label to the current position of the arc*/
-    lv_arc_rotate_obj_to_angle(arc, label, 25);
 }
