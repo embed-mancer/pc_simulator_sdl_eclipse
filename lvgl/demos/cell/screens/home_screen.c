@@ -14,7 +14,7 @@ void HomeScreenInit() {
   MenuScreenInit();
   return;
   home_screen = lv_obj_create(NULL);
-  ScrrenInterfaceColor(home_screen, lv_color_white());
+  ScreenInterfaceColor(home_screen, lv_color_white());
   lv_scr_load(home_screen);
 
   HomeScreenSpeed();
@@ -33,4 +33,18 @@ void HomeScreenSpeed() {
 
 void HomeScreenOther() {
   ViewOtherCreate();
+}
+
+void HomeScreenClick(ClickTable table) {
+  switch (table) {
+    case kShortSet:
+      ScreenInterfaceSetPage(kPageMenu);
+      break;
+    case kLongSet:
+      break;
+    case kShortDown:
+      break;
+    case kLongDown:
+      break;
+  }  
 }

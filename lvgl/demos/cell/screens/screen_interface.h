@@ -20,7 +20,15 @@ extern "C"
 {
 #endif
 
-void ScrrenInterfaceColor(lv_obj_t *, lv_color_t);
+typedef enum {
+  kPageHome,
+  kPageMenu,
+  kPageEnd,
+} PageTable;
+
+void ScreenInterfaceColor(lv_obj_t *, lv_color_t);
+PageTable ScreenInterfacePage();
+void ScreenInterfaceSetPage(PageTable);
 
 #ifdef __cplusplus
 }

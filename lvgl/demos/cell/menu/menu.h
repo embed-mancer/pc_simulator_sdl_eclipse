@@ -14,6 +14,7 @@
 #define MENU_H_
 
 #include "lvgl/lvgl.h"
+#include "../tool/button_manager.h"
 
 LV_IMG_DECLARE(menu_day_left_normal);
 LV_IMG_DECLARE(menu_day_left_selected);

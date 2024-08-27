@@ -13,6 +13,7 @@
 #ifndef HOME_SCREEN_HPP_
 #define HOME_SCREEN_HPP_
 
+#include "../tool/button_manager.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -22,6 +23,7 @@ extern "C"
 void HomeScreenInit();
 void HomeScreenSpeed();
 void HomeScreenOther();
+void HomeScreenClick(ClickTable);
 
 #ifdef __cplusplus
 }

@@ -23,6 +23,8 @@ extern "C"
 void ViewMenuInit();
 void ViewMenuCrate();
 void ViewMenuLabel(lv_obj_t *label, const char* text, lv_coord_t x, lv_coord_t y);
+void ViewMenuClick(ClickTable);
+void ViewMenuUpdate();
 
 #ifdef __cplusplus
 }

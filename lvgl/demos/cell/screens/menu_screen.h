@@ -13,6 +13,8 @@
 #ifndef MENU_SCREEN_HPP_
 #define MENU_SCREEN_HPP_
 
+#include "../tool/button_manager.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -20,6 +22,7 @@ extern "C"
 
 void MenuScreenInit();
 void MenuScreenCreate();
+void MenuScreenClick(ClickTable);
 
 #ifdef __cplusplus
 }

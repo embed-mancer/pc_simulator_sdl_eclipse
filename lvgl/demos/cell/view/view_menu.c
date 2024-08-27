@@ -2,8 +2,9 @@
 #include "lvgl/lvgl.h"
 
 extern lv_obj_t *menu_bg;
+int view_menu_id = 0;
 
-lv_img_dsc_t *dsc_day[] = {&menu_day_bg, &menu_day_center_bg, &menu_day_left_normal,
+const lv_img_dsc_t *dsc_day[] = {&menu_day_bg, &menu_day_center_bg, &menu_day_left_normal,
     &menu_day_left_selected, &menu_day_right_normal, &menu_day_right_selected,
     &menu_day_time_set_icon, &menu_day_brightness_icon, &menu_day_tp_info_icon, &menu_day_language_icon,
     &menu_day_unit_set_icon, &menu_day_connetion_icon};
@@ -16,7 +17,7 @@ lv_obj_t *bg;
 lv_obj_t *center_bg;
 
 extern lv_obj_t *menu_screen;
-lv_img_dsc_t *images[15];
+const lv_img_dsc_t *images[15];
 
 void ViewMenuInit() {
   for (int i = 0; i < sizeof(dsc_day)/sizeof(dsc_day[0]); ++i)
@@ -66,7 +67,7 @@ void ViewMenuCrate() {
   lv_obj_set_pos(img_icons[3], 391, 44);
   lv_obj_set_pos(img_icons[4], 427, 126);
   lv_obj_set_pos(img_icons[5], 391, 208);
-  
+
   ViewMenuLabel(label_icons[0], "TIME SET", 94, 49);
   ViewMenuLabel(label_icons[1], "BRIGHTNESS", 60, 131);
   ViewMenuLabel(label_icons[2], "TP INFO", 94, 213);
@@ -80,4 +81,34 @@ void ViewMenuLabel(lv_obj_t *label, const char* text, lv_coord_t x, lv_coord_t y
   lv_obj_set_style_text_font(label, &NimbusSanNovT_14, 0);
   lv_obj_set_style_text_color(label, lv_color_black(), 0);
   lv_label_set_text(label, text);
+}
+
+void ViewMenuClick(ClickTable table) {
+  switch (table) {
+    case kShortSet:
+      break;
+    case kLongSet:
+      break;
+    case kShortDown:
+      view_menu_id = (++view_menu_id) % 6;
+      ViewMenuUpdate();
+      break;
+    case kLongDown:
+
+      break;
+  } 
+}
+
+void ViewMenuUpdate() {
+  lv_img_set_src(img_blocks[0], images[2]);
+  lv_img_set_src(img_blocks[1], images[2]);
+  lv_img_set_src(img_blocks[2], images[2]);
+  lv_img_set_src(img_blocks[3], images[4]);
+  lv_img_set_src(img_blocks[4], images[4]);
+  lv_img_set_src(img_blocks[5], images[4]);
+  if (view_menu_id < 3) {
+    lv_img_set_src(img_blocks[view_menu_id], images[3]);
+  } else {
+    lv_img_set_src(img_blocks[view_menu_id], images[5]);
+  }
 }

@@ -12,3 +12,16 @@ void MenuScreenInit() {
 void MenuScreenCreate() {
   ViewMenuInit();
 }
+
+void MenuScreenClick(ClickTable table) {
+  switch (table) {
+    case kShortSet:
+      break;
+    case kLongSet:
+      break;
+    case kShortDown:
+      break;
+    case kLongDown:
+      break;
+  }  
+}

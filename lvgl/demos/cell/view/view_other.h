@@ -27,7 +27,7 @@ void ViewOtherBattery();
 void ViewOtherTrip();
 void ViewOtherODO();
 void ViewOtherLabel(lv_obj_t *label, const char* text, lv_color_t color,
-                    lv_font_t *font, lv_coord_t x, lv_coord_t y, 
+                    const lv_font_t *font, lv_coord_t x, lv_coord_t y, 
                     lv_coord_t width);
 
 #ifdef __cplusplus
