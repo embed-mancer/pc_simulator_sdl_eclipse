@@ -21,6 +21,7 @@ typedef struct ui_component{
   void (*refresh)();
   void (*click)(ClickTable id);
   void (*switch_display)();
+  void (*destory)();
   void (*open_window);
   void (*close_window);
 } UIComponent; 

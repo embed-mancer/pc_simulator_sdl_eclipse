@@ -5,6 +5,12 @@
 static UIComponent *current_screen = NULL;
 uint8_t menu_page_id;
 
+typedef UIComponent* (*CompontentFactory)(void);
+
+CompontentFactory compontent_factories[] = {
+  [kTheme] = MenuThemeInit,
+};
+
 void MenuManager() {
   menu_page_id = kTheme; 
   UIComponent * screen = MenuManagerCreateComponent(menu_page_id);
@@ -12,7 +18,8 @@ void MenuManager() {
 }
 
 void MenuManagerSwitchScreen(UIComponent *screen) {
-  if (current_screen) {
+  if (current_screen && current_screen->close_window) {
+    current_screen->destory();
     free(current_screen);
     current_screen = NULL;
   }
@@ -63,11 +70,10 @@ void MenuManagerUpdateTick() {
 
 }
 
+// Use facotry
 UIComponent* MenuManagerCreateComponent(MenuPage page) {
-  switch (page) {
-    case kTheme:
-      return MenuThemeInit();
-    default:
-      return NULL;
-  }
+  if (page < sizeof(compontent_factories) / sizeof(compontent_factories[0]))
+    return compontent_factories[page]();
+
+  return NULL;
 }

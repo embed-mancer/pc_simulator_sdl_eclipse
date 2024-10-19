@@ -20,6 +20,10 @@ static void CloseWindow() {
 
 }
 
+static void Destory() {
+
+}
+
 UIComponent* MenuThemeInit() {
   UIComponent * component = (UIComponent*)lv_mem_alloc(sizeof(UIComponent));    
   if (component == NULL) {
@@ -30,6 +34,7 @@ UIComponent* MenuThemeInit() {
   component->switch_display = SwitchDisplay;
   component->open_window = OpenWindow;
   component->close_window = CloseWindow;
+  component->destory = Destory;
 
   return component;
 }
