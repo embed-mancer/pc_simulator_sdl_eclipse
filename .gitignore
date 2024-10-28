@@ -11,3 +11,4 @@ demo
 /.tracecompass
 build/
 bin/
+tags

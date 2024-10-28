@@ -3,7 +3,7 @@
 
 #include "screen_interface.h"
 #include "../cell.h"
-#include "../light/light_controller.h"
+#include "../light/light_control.h"
 
 lv_obj_t *main_scr = NULL;
 LightView *light;
@@ -17,7 +17,8 @@ OtherView *main_other;
 void main_scrren_task_cb(lv_timer_t *timer) {
   // if (CheckSelfIsChecking())
   //   return;
-  LightNotifyAll(light);
+  // LightNotifyAll(light);
+  // LightControlAll(light);
 }
 
 void main_screen_init() {

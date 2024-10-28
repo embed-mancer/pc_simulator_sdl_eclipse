@@ -18,13 +18,15 @@ void LightViewCreate(LightView *view) {
   }
 }
 
-void Display(lv_obj_t *control, DisplayTable table) {
+void LightViewDisplay(Icon *icon, DisplayTable table) {
+  if (!icon->is_needed)
+    return;
   switch (table) {
     case kHide:
-      lv_obj_add_flag(control, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_add_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);
       break;
     case kShow:
-      lv_obj_clear_flag(control, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_clear_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);
       break;
   }
 }

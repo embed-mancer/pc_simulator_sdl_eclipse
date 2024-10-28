@@ -1,6 +1,6 @@
 #include "checkself.h"
 #include "lvgl/lvgl.h"
-#include "../light/light_controller.h"
+#include "../light/light_control.h"
 #include "constrant.h"
 
 extern LightView *light;
@@ -55,7 +55,7 @@ void CheckSelfTask(lv_timer_t *timer) {
     int water_value = time / water;
     int rmp_value = time / rpm * 1000;
     int speed_value = time / speed;
-    LightCheck(light);
+    LightControlCheck(light);
     OilViewUpdate(main_oil, oil_value);
     WaterViewUpdate(main_water, water_value);
     RpmViewUpdate(main_rpm, rmp_value);
