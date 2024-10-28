@@ -15,11 +15,9 @@ SpeedView *main_speed;
 OtherView *main_other;
 
 void main_scrren_task_cb(lv_timer_t *timer) {
-  if (CheckSelfIsChecking())
-    return;
+  // if (CheckSelfIsChecking())
+  //   return;
   LightNotifyAll(light);
-  // SpeedViewRun();
-  // RpmViewRun();
 }
 
 void main_screen_init() {
@@ -28,13 +26,13 @@ void main_screen_init() {
   lv_scr_load(main_scr);
 
   MainScreenLight();
-  MainScreenGear();
-  MainScreenOil();
-  MainScreenWater();
-  MainScreenRpm();
-  MainScreenOther();
-  MainScreenSpeed();
-  CheckSelfInit();
+  // MainScreenGear();
+  // MainScreenOil();
+  // MainScreenWater();
+  // MainScreenRpm();
+  // MainScreenOther();
+  // MainScreenSpeed();
+  // CheckSelfInit();
   lv_timer_t *timer = lv_timer_create(main_scrren_task_cb, 33, NULL);
   lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
 }
@@ -44,7 +42,6 @@ void MainScreenLight() {
   light->bg_ = main_scr;
   light->light = &light_main;
   LightViewInit(light);
-  LightViewCreate(light);
 }
 
 void MainScreenGear() {
