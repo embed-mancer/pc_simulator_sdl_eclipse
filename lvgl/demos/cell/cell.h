@@ -14,14 +14,14 @@
 #define CELL_H_
 
 #if __linux__
-#define JUNRUI_LVGL_DIR "A:"
+#define RES_PRFIX "A:"
 #else
 
 #ifndef JUNRUI_LVGL_STORAGE_PATH
 #define JUNRUI_LVGL_STORAGE_PATH "/rodata/ui"
 #endif
 
-#define JUNRUI_LVGL_DIR "L:" JUNRUI_LVGL_STORAGE_PATH "/"
+#define RES_PRFIX "L:" JUNRUI_LVGL_STORAGE_PATH "/"
 
 #endif
 
