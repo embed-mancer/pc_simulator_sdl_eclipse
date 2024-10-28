@@ -14,14 +14,14 @@
 #define CELL_H_
 
 #if __linux__
-#define JUNRUI_LVGL_DIR "A:"
+#define RES_PRFIX "A:"
 #else
 
 #ifndef JUNRUI_LVGL_STORAGE_PATH
 #define JUNRUI_LVGL_STORAGE_PATH "/rodata/ui"
 #endif
 
-#define JUNRUI_LVGL_DIR "L:" JUNRUI_LVGL_STORAGE_PATH "/"
+#define RES_PRFIX "L:" JUNRUI_LVGL_STORAGE_PATH "/"
 
 #endif
 
@@ -41,6 +41,12 @@ union Text {
   double f;
   int i;
 };
+
+typedef struct {
+  lv_obj_t *obj;
+  const char *name;
+  bool is_needed;
+} Icon;
 
 typedef enum {
   kColorWhite,
@@ -64,14 +70,7 @@ typedef struct {
 } lable_pos;
 
 typedef struct {
-  image_pos abs;
-  image_pos turn_left;
-  image_pos turn_right;
-  image_pos high_beam;
-  image_pos engine_fault;
-  image_pos location;
-  image_pos maintain;
-  image_pos voltage;
+  image_pos pos[30];
 } Light;
 
 typedef struct {
@@ -85,6 +84,8 @@ typedef struct {
 #include "lvgl/lvgl.h"
 #include "tool/tool.h"
 #include <stdlib.h>
+
+#include "tool/enums.h"
 
 #include "light/light_view.h"
 #include "screens/main_screen.h"
@@ -104,4 +105,4 @@ extern "C" {
 }
 #endif
 
-#endif // CELL_H_
+#endif  // CELL_H_
