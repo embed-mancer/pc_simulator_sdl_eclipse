@@ -7,6 +7,16 @@ void LightViewInit(LightView *view) {
   }
   view->icons[kTurnLeft].is_needed = true;
   view->icons[kTurnRight].is_needed = true;
+  view->icons[kAutoStartStop].is_needed = true;
+  view->icons[kTire].is_needed = true;
+  view->icons[kHighBeam].is_needed = true;
+  view->icons[kOilPressure].is_needed = true;
+  view->icons[kABS].is_needed = true;
+  view->icons[kEngineFault].is_needed = true;
+  view->icons[kWifi].is_needed = true;
+  view->icons[kBtPair].is_needed = true;
+  view->icons[kBtIcon].is_needed = true;
+  view->icons[kVoltage].is_needed = true;
   LightViewCreate(view);
 }
 
@@ -16,6 +26,13 @@ void LightViewCreate(LightView *view) {
       LightViewOne(view->bg_, &view->icons[i].obj, view->light->pos[i]);
     }
   }
+}
+
+void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, image_pos pos) {
+  if (*lv) return;
+  *lv = lv_img_create(bg);
+  lv_obj_set_pos(*lv, pos.x, pos.y);
+  lv_img_set_src(*lv, pos.image);
 }
 
 void LightViewDisplay(Icon *icon, DisplayTable table) {
@@ -31,9 +48,3 @@ void LightViewDisplay(Icon *icon, DisplayTable table) {
   }
 }
 
-void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, image_pos pos) {
-  if (*lv) return;
-  *lv = lv_img_create(bg);
-  lv_obj_set_pos(*lv, pos.x, pos.y);
-  lv_img_set_src(*lv, pos.image);
-}

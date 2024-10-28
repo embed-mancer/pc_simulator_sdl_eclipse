@@ -10,5 +10,5 @@ demo
 /.metadata/
 /.tracecompass
 build/
-bin/
+bin/main
 tags

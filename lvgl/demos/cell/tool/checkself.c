@@ -11,84 +11,125 @@ extern RpmView *main_rpm;
 extern SpeedView *main_speed;
 extern OtherView *main_other;
 
-lv_timer_t *check_timer = NULL;;
+typedef struct {
+  int check_time;
+  int oil_divisor;
+  int water_divisor;
+  float rpm_divisor;
+  float speed_divisor;
+} CheckConfig;
 
-float speed;
-float rpm;
-int water;
-int oil;
+static CheckConfig config = {3000, 18, 18, 26.0, 400.0};
 
-int anim_tick = 0;
-bool anim_update = true;
-int begin_tick = 0;
-bool begin_update = true;
+typedef enum {
+  kStateIdle,
+  kStateWaiting,
+  kStateChecking,
+  kStateFinished
+} CheckState;
 
-bool is_checking_ = false;
+typedef struct {
+  lv_timer_t *timer;
+  CheckState state;
+  uint32_t start_tick;
+  float speed_factor;
+  float rpm_factor;
+  int water_factor;
+  int oil_factor;
+  bool is_checking;
+} CheckSelfManager;
+
+static CheckSelfManager manager = {NULL, kStateIdle, 0, 0, 0, 0, 0, false};
+
+void CheckSelfUpdateViews(int oil_value, int water_value, int rpm_value,
+                          int speed_value) {
+  // OilViewUpdate(main_oil, oil_value);
+  // WaterViewUpdate(main_water, water_value);
+  // RpmViewUpdate(main_rpm, rpm_value);
+  // SpeedViewUpdate(main_speed, speed_value);
+}
+
+void CheckStateIdle() {
+}
+
+void CheckStateWaiting() {
+  if (lv_tick_elaps(manager.start_tick) > 3000) {
+    manager.state = kStateChecking;
+    manager.start_tick = lv_tick_get();
+  }
+}
+
+void CheckStateChecking() {
+  manager.is_checking = true;
+  uint32_t check_elapsed = lv_tick_elaps(manager.start_tick);
+  if (check_elapsed >= kCheckTime) {
+    manager.state = kStateFinished;
+    return;
+  }
+
+  uint32_t half_check = kCheckTime / 2;
+  uint32_t progress_time =
+      check_elapsed < half_check ? check_elapsed : (kCheckTime - check_elapsed);
+
+  int oil_value = progress_time / manager.oil_factor;
+  int water_value = progress_time / manager.water_factor;
+  int rpm_value = (progress_time / manager.rpm_factor) * 1000;
+  int speed_value = progress_time / manager.speed_factor;
+
+  LightControlCheck(light);
+  CheckSelfUpdateViews(oil_value, water_value, rpm_value, speed_value);
+}
+
+void CheckStateFinished() {
+  CheckSelfFinish();
+}
 
 void CheckSelfTask(lv_timer_t *timer) {
-  if (lv_tick_get() > 3000) {
-    if (anim_update) {
-      anim_update = false;
-      anim_tick = lv_tick_get();
-    }
+  switch (manager.state) {
+    case kStateIdle:
+      CheckStateIdle();
+      break;
+    case kStateWaiting:
+      CheckStateWaiting();
+      break;
+    case kStateChecking:
+      CheckStateChecking();
+      break;
+    case kStateFinished:
+      CheckStateFinished();
+      break;
+    default:
+      break;
   }
-
-  if (!anim_update) {
-    if (lv_tick_elaps(anim_tick) > 500) {
-      if (begin_update) {
-        begin_tick = lv_tick_get();
-        begin_update = false;
-        anim_update = true;
-        is_checking_ = true;
-      }
-    }
-  }
-
-  if (!begin_update) {
-    uint32_t temp = lv_tick_elaps(begin_tick);
-    if (temp > kCheckTime) {
-      CheckSelfFinish();
-      return;
-    }
-    uint32_t time = temp < (kCheckTime / 2) ? temp : (kCheckTime - temp);
-    int oil_value = time / oil;
-    int water_value = time / water;
-    int rmp_value = time / rpm * 1000;
-    int speed_value = time / speed;
-    LightControlCheck(light);
-    OilViewUpdate(main_oil, oil_value);
-    WaterViewUpdate(main_water, water_value);
-    RpmViewUpdate(main_rpm, rmp_value);
-    SpeedViewUpdate(main_speed, speed_value);
-  }
-
 }
 
 void CheckSelfInit() {
-  oil = kCheckTime / 2 / 9 + 1;
-  water = kCheckTime / 2 / 9 + 1;
-  rpm = kCheckTime / 2/ 13.0 + 1;
-  speed = kCheckTime / 2 / 200.0;
-  const int period = 33;
-  check_timer = lv_timer_create(CheckSelfTask, period, NULL);
-  lv_timer_set_repeat_count(check_timer, LV_ANIM_REPEAT_INFINITE);
+  manager.oil_factor = config.check_time / config.oil_divisor + 1;
+  manager.water_factor = config.check_time / config.water_divisor + 1;
+  manager.rpm_factor = config.check_time / config.rpm_divisor + 1;
+  manager.speed_factor = config.check_time / config.speed_divisor;
+
+  manager.timer = lv_timer_create(CheckSelfTask, 33, NULL);
+  lv_timer_set_repeat_count(manager.timer, LV_ANIM_REPEAT_INFINITE);
+
+  manager.state = kStateWaiting;
+  manager.start_tick = lv_tick_get();
 }
 
 void CheckSelfFinish() {
-  if (check_timer) {
-    OilViewUpdate(main_oil, 0);
-    WaterViewUpdate(main_water, 0);
-    RpmViewUpdate(main_rpm, 0);
-    SpeedViewUpdate(main_speed, 0);
-    is_checking_ = false;
-    lv_timer_del(check_timer);
+  if (manager.timer) {
+    lv_timer_del(manager.timer);
+    manager.timer = NULL;
   }
+  manager.is_checking = false;
+  manager.state = kStateIdle;
+  CheckSelfUpdateViews(0, 0, 0, 0);
 }
 
 bool CheckSelfIsChecking() {
-  return is_checking_;
+  return manager.is_checking;
 }
 
 void CheckSelfChecking(bool is_checking) {
-  is_checking_ = is_checking;
+  manager.is_checking = is_checking;
 }

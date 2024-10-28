@@ -2,7 +2,7 @@ BasedOnStyle: Google
 IndentWidth: 2
 UseTab: Never
 
-IncludeBlocks: Preserve
+# IncludeBlocks: Preserve
 # IncludeCategories:
 #   - Regex:           '^<.*>'
 #     Priority:       1

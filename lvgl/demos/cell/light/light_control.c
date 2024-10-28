@@ -26,10 +26,6 @@ void LightControlIcon(LightView *view, LightEnum icon_type) {
   LightViewDisplay(&view->icons[icon_type], state);
 }
 
-void LightControlCheck(LightView *view) {
-  LightViewDisplay(&view->icons[kABS], kShow);
-}
-
 void LightControlAll(LightView *view) {
   LightControlTurnLeft(view);
   LightControlTurnRight(view);
@@ -42,4 +38,19 @@ void LightControlAll(LightView *view) {
   LightControlWifi(view);
   LightControlBtIcon(view);
   LightControlBtPair(view);
+  LightControlVoltage(view);
+}
+
+void LightControlCheck(LightView *view) {
+  for (int i = 0; i <= kVoltage; i++)
+    LightViewDisplay(&view->icons[i], kShow);
+  LightViewDisplay(&view->icons[kVoltage], kShow);
+}
+
+void LightControlVoltage(LightView *view) {
+  double voltage = LightModelGetVoltage();
+  if (voltage < 11.3)
+    LightViewDisplay(&view->icons[kVoltage], kHide);
+  else
+    LightViewDisplay(&view->icons[kVoltage], kShow);
 }

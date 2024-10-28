@@ -1,7 +1,6 @@
 #include "light_model.h"
 #include <stdio.h>
 
-
 static int light_states[kLightCount] = {0};
 static double voltage_ = 0.0;
 

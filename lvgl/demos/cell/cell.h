@@ -36,11 +36,11 @@ typedef struct {
   char prefix[32];
 } image_pos;
 
-union Text {
+typedef union {
   char sz[32];
   double f;
   int i;
-};
+} LabelValue;
 
 typedef struct {
   lv_obj_t *obj;
@@ -51,23 +51,35 @@ typedef struct {
 typedef enum {
   kColorWhite,
   kColorBlack,
-} TextColor;
+  kColorRed,
+  kColorGreen,
+  kColorBlue,
+  kColorCount
+} color_t;
 
 typedef enum {
   kPlagiata_27,
   kPlagiata_37,
-} TextFont;
+  kSourceHanSansCN_18,
+  kFontCount
+} font_t;
+
+typedef enum {
+  kTextChar,
+  kTextFloat,
+  kTextInt,
+} value_type_t;
 
 typedef struct {
   lv_coord_t x;
   lv_coord_t y;
   lv_coord_t w;
   lv_coord_t h;
-  TextColor color;
-  TextFont font;
-  int value_type;
-  union Text text;
-} lable_pos;
+  color_t color;
+  font_t font;
+  value_type_t value_type;
+  LabelValue value;
+} label_pos;
 
 typedef struct {
   image_pos pos[30];

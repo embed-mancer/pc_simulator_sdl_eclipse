@@ -34,7 +34,7 @@ void OtherViewUpdate(OtherView *view) {
   OtherViewChangePos(view->avg_value, view->avg_unit, view->pos_avg_value);
 }
 
-void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, lable_pos pos) {
+void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, label_pos pos) {
   char* temp = lv_label_get_text(value);
   lv_point_t pos_temp;
   lv_coord_t letter_space = lv_obj_get_style_text_letter_space(value, LV_PART_MAIN);
