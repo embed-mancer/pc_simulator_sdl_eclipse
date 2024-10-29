@@ -14,9 +14,7 @@ FontMap fontMap[kFontCount] = {{kPlagiata_27, &Plagiata_27},
                                {kPlagiata_37, &Plagiata_37},
                                {kSourceHanSansCN_18, &SourceHanSansCN_18}};
 
-void ToolInit() {
-  ToolInitColorMap();
-}
+void ToolInit() { ToolInitColorMap(); }
 
 void ToolInitColorMap() {
   colorMap[kColorWhite] = lv_color_make(255, 255, 255);
@@ -125,15 +123,12 @@ label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
       strcpy(pos.value.sz, text.sz);
       pos.value.sz[sizeof(pos.value.sz) - 1] = '\0';
       break;
-
     case kTextFloat:
       pos.value.f = text.f;
       break;
-
     case kTextInt:
       pos.value.i = text.i;
       break;
-
     default:
       pos.value.i = 0;
       break;

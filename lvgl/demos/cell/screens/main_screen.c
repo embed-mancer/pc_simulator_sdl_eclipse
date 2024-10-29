@@ -1,15 +1,15 @@
 #include "main_screen.h"
-#include "lvgl/lvgl.h"
 
-#include "screen_interface.h"
 #include "../cell.h"
 #include "../light/light_control.h"
+#include "lvgl/lvgl.h"
+#include "screen_interface.h"
 
 lv_obj_t *main_scr = NULL;
 LightView *light;
 GearView *gear;
-OilView *main_oil;
-WaterView *main_water;
+GuageView *main_oil;
+GuageView *main_water;
 RpmView *main_rpm;
 SpeedView *main_speed;
 OtherView *main_other;
@@ -27,9 +27,9 @@ void main_screen_init() {
 
   ToolInit();
   MainScreenLight();
-  // MainScreenGear();
   MainScreenOil();
-  // MainScreenWater();
+  MainScreenWater();
+  // MainScreenGear();
   // MainScreenRpm();
   // MainScreenOther();
   // MainScreenSpeed();
@@ -57,7 +57,7 @@ void MainScreenGear() {
 }
 
 void MainScreenOil() {
-  main_oil = malloc(sizeof(OilView));
+  main_oil = malloc(sizeof(GuageView));
   main_oil->bg = main_scr;
   main_oil->pos_icon =
       CreateImagePos(RES_PRFIX "home/night/oil_normal.png", 30, 430);
@@ -65,37 +65,31 @@ void MainScreenOil() {
       CreateImagePos(RES_PRFIX "home/night/oil_line.png", 91, 444);
   main_oil->pos_block[0] =
       CreateImagePos(RES_PRFIX "home/night/oil_width.png", 92, 444);
-  main_oil->pos_E =
+  main_oil->pos_label[0] =
       CreateLabelPos(75, 440, 10, 20, kColorRed, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"E"});
-  main_oil->pos_F =
+  main_oil->pos_label[1] =
       CreateLabelPos(298, 440, 10, 20, kColorWhite, kSourceHanSansCN_18,
                      kTextChar, (LabelValue){"F"});
-  OilViewInit(main_oil, kOilViewModeWidth);
+  GuageViewInit(main_oil, kGuageViewModeWidth);
 }
 
 void MainScreenWater() {
-  main_water = malloc(sizeof(WaterView));
+  main_water = malloc(sizeof(GuageView));
   main_water->bg = main_scr;
-  image_pos pos_icon = {
-      .image = RES_PRFIX "water/icon.png", .x = 418, .y = 416};
-  image_pos pos_line = {
-      .image = RES_PRFIX "water/line.png", .x = 384, .y = 251};
-  image_pos pos_block[8] = {
-      [0] = {.image = RES_PRFIX "water/1.png", .x = 399, .y = 388},
-      [1] = {.image = RES_PRFIX "water/2.png", .x = 390, .y = 364},
-      [2] = {.image = RES_PRFIX "water/3.png", .x = 389, .y = 353},
-      [3] = {.image = RES_PRFIX "water/4.png", .x = 388, .y = 335},
-      [4] = {.image = RES_PRFIX "water/5.png", .x = 388, .y = 314},
-      [5] = {.image = RES_PRFIX "water/6.png", .x = 388, .y = 291},
-      [6] = {.image = RES_PRFIX "water/7.png", .x = 388, .y = 260},
-      [7] = {.image = RES_PRFIX "water/8.png", .x = 392, .y = 256},
-  };
-  main_water->pos_icon = pos_icon;
-  main_water->pos_line = pos_line;
-  for (int i = 0; i < 8; ++i) main_water->pos_block[i] = pos_block[i];
-  WaterViewInit(main_water);
-  WaterViewCreate(main_water);
+  main_water->pos_icon =
+      CreateImagePos(RES_PRFIX "home/night/water_normal.png", 487, 430);
+  main_water->pos_line =
+      CreateImagePos(RES_PRFIX "home/night/water_line.png", 554, 444);
+  main_water->pos_block[0] =
+      CreateImagePos(RES_PRFIX "home/night/water_width.png", 554, 444);
+  main_water->pos_label[0] =
+      CreateLabelPos(764, 441, 10, 20, kColorRed, kSourceHanSansCN_18,
+                     kTextChar, (LabelValue){"H"});
+  main_water->pos_label[1] =
+      CreateLabelPos(531, 441, 10, 20, kColorWhite, kSourceHanSansCN_18,
+                     kTextChar, (LabelValue){"C"});
+  GuageViewInit(main_water, kGuageViewModeWidth);
 }
 
 void MainScreenRpm() {

@@ -1,32 +1,11 @@
-/**
-* @file motor_controller.h
-*
-* @brief This message displayed in Doxygen Files index
-*
-* @ingroup PackageName
-* (note: this needs exactly one @defgroup somewhere)
-*
-* @date	2024-07-23-18-00
-* @author Nemausa
-*
-*/
 #ifndef MOTOR_CONTROLLER_H_
 #define MOTOR_CONTROLLER_H_
 
 #include "../view/gear_view.h"
-#include "../view/oil_view.h"
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#include "../view/guage_view.h"
 
 void NotifyGear(GearView *view);
-void NotifyOil(OilView *view);
-
-#ifdef __cplusplus
-}
-#endif
+void NotifyOil(GuageView *view);
 
 
 #endif // MOTOR_CONTROLLER_H_

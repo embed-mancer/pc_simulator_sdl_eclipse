@@ -29,6 +29,12 @@
 
 #include "lvgl/lvgl.h"
 
+typedef enum {
+  kDay,
+  kNight,
+  kThemeCount
+} ThemeTable;
+
 typedef struct {
   int x;
   int y;
@@ -103,18 +109,9 @@ typedef struct {
 #include "screens/main_screen.h"
 #include "tool/checkself.h"
 #include "view/gear_view.h"
-#include "view/oil_view.h"
+#include "view/guage_view.h"
 #include "view/other_view.h"
 #include "view/rpm_view.h"
 #include "view/speed_view.h"
-#include "view/water_view.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif  // CELL_H_

@@ -47,7 +47,7 @@ void SpeedViewUpdate(SpeedView *view, int value) {
 }
 
 void SpeedViewRun() {
-  int data = MotorModelSpeed();
+  int data = MotorModelGetSpeed();
   if (acc.current < data) {
     acc.current += acc.acc;
     if (acc.current > data)

@@ -7,78 +7,28 @@ static int mode = 0;
 static int avg_speed = 0;
 static int speed = 0;
 static int odo = 0;
-static double trip = 0;
+static double trip = 0.0;
 static int rpm = 0;
+static ThemeTable theme = kDay;
 
+void MotorModelSetOil(int value) { oil = value >= 0 ? value : 0; }
+void MotorModelSetWater(int value) { water = value >= 0 ? value : 0; }
+void MotorModelSetGear(int value) { gear = value >= 0 ? value : 0; }
+void MotorModelSetMode(int value) { mode = value >= 0 ? value : 0; }
+void MotorModelSetAvgSpeed(int value) { avg_speed = value >= 0 ? value : 0; }
+void MotorModelSetSpeed(int value) { speed = value >= 0 ? value : 0; }
+void MotorModelSetODO(int value) { odo = value >= 0 ? value : 0; }
+void MotorModelSetTrip(double value) { trip = value >= 0 ? value : 0.0; }
+void MotorModelSetRpm(int value) { rpm = value >= 0 ? value : 0; }
+void MotorModelSetTheme(ThemeTable new_theme) { theme = new_theme; }
 
-void MotorModelSetOil(int value) {
-  oil = value;
-}
-
-void MotorModelSetWater(int value) {
-  water = value;
-}
-
-void MotorModelSetGear(int value) {
-  gear = value;
-}
-
-void MotorModelSetMode(int value) {
-  mode = value;
-}
-
-void MotorModelSetAvgSpeed(int value) {
-  avg_speed = value;
-}
-
-void MotorModelSetODO(int value) {
-  odo = value;
-}
-
-void MotorModelSetTrip(int value) {
-  trip = value / 10.0;
-}
-
-void MotorModelSetRpm(int value) {
-  rpm = value;
-}
-
-void MotorModelSetSpeed(int value) {
-  speed = value;
-}
-
-int MotorModelGetOil() {
-  return oil;
-}
-
-int MotorModelGetWater() {
-  return water;
-}
-
-int MotorModelGetGear() {
-  return water;
-}
-
-int MotorModeGetMode() {
-  return mode;
-}
-
-int MotorModelGetAvgSpeed() {
-  return avg_speed;
-}
-
-int MotorModelGetODO() {
-  return odo;
-}
-
-double MotorModelGetTrip() {
-  return trip;
-}
-
-int MotorModelGetRpm() {
-  return rpm;
-}
-
-int MotorModelSpeed() {
-  return speed;
-}
+int MotorModelGetOil() { return oil; }
+int MotorModelGetWater() { return water; }
+int MotorModelGetGear() { return gear; }
+int MotorModelGetMode() { return mode; }
+int MotorModelGetAvgSpeed() { return avg_speed; }
+int MotorModelGetSpeed() { return speed; }
+int MotorModelGetODO() { return odo; }
+double MotorModelGetTrip() { return trip; }
+int MotorModelGetRpm() { return rpm; }
+ThemeTable MotorModelGetTheme() { return theme; }

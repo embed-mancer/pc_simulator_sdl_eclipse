@@ -1,20 +1,7 @@
 BasedOnStyle: Google
 IndentWidth: 2
 UseTab: Never
-
-<<<<<<< HEAD
-IncludeBlocks: Preserve
-=======
-# IncludeBlocks: Preserve
->>>>>>> v8-3/mj213-test
-# IncludeCategories:
-#   - Regex:           '^<.*>'
-#     Priority:       1
-#   - Regex:           '^\.\./.*'
-#     Priority:       2
-#   - Regex:           '^\./.*'
-#     Priority:       3
-#   - Regex:           '.*'
-#     Priority:       4
-SortIncludes: false
-AllowShortFunctionsOnASingleLine: None
+BreakBeforeBraces: Attach # 允许在同一行上附加大括号
+BinPackParameters: true  # 参数打包在同一行
+BinPackArguments: true  # 参数打包在同一行
+AllowShortIfStatementsOnASingleLine: true  # 确保短的 if 语句在同一行
