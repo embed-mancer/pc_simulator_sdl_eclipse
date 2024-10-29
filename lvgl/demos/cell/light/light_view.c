@@ -28,20 +28,23 @@ void LightViewCreate(LightView *view) {
   }
 }
 
-void Display(lv_obj_t *control, DisplayTable table) {
-  switch (table) {
-    case kHide:
-      lv_obj_add_flag(control, LV_OBJ_FLAG_HIDDEN);
-      break;
-    case kShow:
-      lv_obj_clear_flag(control, LV_OBJ_FLAG_HIDDEN);
-      break;
-  }
-}
-
 void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, image_pos pos) {
   if (*lv) return;
   *lv = lv_img_create(bg);
   lv_obj_set_pos(*lv, pos.x, pos.y);
   lv_img_set_src(*lv, pos.image);
 }
+
+void LightViewDisplay(Icon *icon, DisplayTable table) {
+  if (!icon->is_needed)
+    return;
+  switch (table) {
+    case kHide:
+      lv_obj_add_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);
+      break;
+    case kShow:
+      lv_obj_clear_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);
+      break;
+  }
+}
+

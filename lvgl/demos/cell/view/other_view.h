@@ -43,15 +43,15 @@ typedef struct other_view {
   image_pos pos_trip_unit;
   image_pos pos_avg_key;
   image_pos pos_avg_unit;
-  lable_pos pos_odo_value;
-  lable_pos pos_trip_value;
-  lable_pos pos_avg_value;
+  label_pos pos_odo_value;
+  label_pos pos_trip_value;
+  label_pos pos_avg_value;
 } OtherView;
 
 void OtherViewInit(OtherView *view);
 void OtherViewCreate(OtherView *view);
 void OtherViewUpdate(OtherView *view);
-void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, lable_pos pos);
+void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, label_pos pos);
 
 #ifdef __cplusplus
 }
