@@ -43,7 +43,7 @@ static CheckSelfManager manager = {NULL, kStateIdle, 0, 0, 0, 0, 0, false};
 
 void CheckSelfUpdateViews(int oil_value, int water_value, int rpm_value,
                           int speed_value) {
-  // OilViewUpdate(main_oil, oil_value);
+  OilViewUpdate(main_oil, oil_value);
   // WaterViewUpdate(main_water, water_value);
   // RpmViewUpdate(main_rpm, rpm_value);
   // SpeedViewUpdate(main_speed, speed_value);
@@ -72,6 +72,7 @@ void CheckStateChecking() {
       check_elapsed < half_check ? check_elapsed : (kCheckTime - check_elapsed);
 
   int oil_value = progress_time / manager.oil_factor;
+  printf("oil_value = %d progress_time = %d oil_factor=%d\n", oil_value, progress_time, manager.oil_factor);
   int water_value = progress_time / manager.water_factor;
   int rpm_value = (progress_time / manager.rpm_factor) * 1000;
   int speed_value = progress_time / manager.speed_factor;

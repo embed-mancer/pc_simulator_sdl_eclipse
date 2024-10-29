@@ -30,7 +30,7 @@ void OilViewCreate(OilView *view) {
     view->block[0] = lv_img_create(view->bg);
     lv_img_set_src(view->block[0], view->pos_block[0].image);
     lv_obj_set_pos(view->block[0], view->pos_block[0].x, view->pos_block[0].y);
-    lv_obj_set_width(view->block[0], 20);
+    lv_obj_set_width(view->block[0], 195);
     Label(view->bg, &view->E, view->pos_E);
     Label(view->bg, &view->F, view->pos_F);
   }
@@ -55,7 +55,7 @@ void OilViewUpdate(OilView *view, int value) {
         lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
     }
   } else if (view->mode == kOilViewModeWidth) {
-    int block_width = 10;
+    int block_width = 195 * value / 8.0;
     lv_obj_set_size(view->block[0], block_width, 8);
   }
 }

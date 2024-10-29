@@ -17,6 +17,7 @@ OtherView *main_other;
 void main_scrren_task_cb(lv_timer_t *timer) {
   if (CheckSelfIsChecking()) return;
   LightControlAll(light);
+  NotifyOil(main_oil);
 }
 
 void main_screen_init() {
