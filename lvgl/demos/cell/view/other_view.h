@@ -4,6 +4,8 @@
 #include "../cell.h"
 
 typedef struct {
+  lv_obj_t *line_split;
+
   lv_obj_t *trip_key;
   lv_obj_t *trip_value;
   lv_obj_t *trip_unit;
@@ -22,7 +24,7 @@ typedef struct {
 
   lv_obj_t *bg;
 
-  image_pos pos_mode;
+  image_pos pos_line_split;
   label_pos pos_trip_key;
   label_pos pos_trip_value;
   label_pos pos_trip_unit;

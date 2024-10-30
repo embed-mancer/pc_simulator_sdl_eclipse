@@ -1,24 +1,7 @@
-/**
-* @file rpm_view.h
-*
-* @brief This message displayed in Doxygen Files index
-*
-* @ingroup PackageName
-* (note: this needs exactly one @defgroup somewhere)
-*
-* @date	2024-07-24-15-17
-* @author Nemausa
-*
-*/
 #ifndef RPM_VIEW_H_
 #define RPM_VIEW_H_
 
 #include "../cell.h"
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 typedef struct rpm_view {
   lv_obj_t *icon;
@@ -37,11 +20,5 @@ void RpmViewCreate(RpmView *view);
 void RpmViewUpdate(RpmView *view, int value);
 void RpmViewRun();
 int RpmViewCurrent();
-
-
-#ifdef __cplusplus
-}
-#endif
-
 
 #endif // RPM_VIEW_H_

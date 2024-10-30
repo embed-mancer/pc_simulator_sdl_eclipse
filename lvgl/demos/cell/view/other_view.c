@@ -1,4 +1,5 @@
 #include "other_view.h"
+
 #include "../other/motor_model.h"
 
 void OtherViewInit(OtherView *view) {
@@ -14,11 +15,14 @@ void OtherViewInit(OtherView *view) {
   view->battery_key = NULL;
   view->battery_value = NULL;
   view->battery_unit = NULL;
+  view->line_split = NULL;
   OtherViewCreate(view);
   OtherViewUpdate(view);
 }
 
 void OtherViewCreate(OtherView *view) {
+  view->pos_line_split =
+      CreateImagePos(RES_PRFIX "home/night/line_split.png", 33, 263);
   view->pos_trip_key =
       CreateLabelPos(31, 234, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"小计里程"});
@@ -55,6 +59,7 @@ void OtherViewCreate(OtherView *view) {
   view->pos_battery_unit =
       CreateLabelPos(180, 351, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"V"});
+  LightViewOne(view->bg, &view->line_split, view->pos_line_split);
   Label(view->bg, &view->trip_key, view->pos_trip_key);
   Label(view->bg, &view->trip_value, view->pos_trip_value);
   Label(view->bg, &view->trip_unit, view->pos_trip_unit);
@@ -93,7 +98,6 @@ void OtherViewSetTheme(OtherView *view) {
   lv_obj_set_style_text_color(view->battery_key, color, 0);
   lv_obj_set_style_text_color(view->battery_value, color, 0);
   lv_obj_set_style_text_color(view->battery_unit, color, 0);
-
 }
 
 void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, label_pos pos) {
