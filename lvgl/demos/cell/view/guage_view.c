@@ -92,4 +92,6 @@ void GuageViewSetTheme(GuageView *view) {
   UpdateImageSource(view, from, to);
   view->pos_label[1].color =
       (MotorModelGetTheme() == kNight) ? kColorWhite : kColorBlack;
+  lv_obj_set_style_text_color(view->label[1],
+                              ToolGetColor(view->pos_label[1].color), 0);
 }

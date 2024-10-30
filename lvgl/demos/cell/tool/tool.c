@@ -1,4 +1,5 @@
 #include "tool.h"
+#include "../other/motor_model.h"
 
 typedef struct {
   color_t color;
@@ -14,6 +15,7 @@ FontMap fontMap[kFontCount] = {{kPlagiata_27, &Plagiata_27},
                                {kPlagiata_37, &Plagiata_37},
                                {kSourceHanSansCN_18, &SourceHanSansCN_18},
                                {kSourceHanSansCN_22, &SourceHanSansCN_22},
+                               {kSourceHanSansCN_28, &SourceHanSansCN_28},
                                {kSourceHanSansCN_34, &SourceHanSansCN_34},
                                {kMicrosoftYaHei_20, &MicrosoftYaHei_20}};
 
@@ -118,4 +120,8 @@ label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
   }
 
   return pos;
+}
+
+lv_color_t ToolGetThemeColor() {
+    return MotorModelGetTheme() == kDay ? lv_color_black() : lv_color_white();
 }

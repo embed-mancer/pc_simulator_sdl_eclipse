@@ -13,6 +13,7 @@ GuageView *main_water;
 RpmView *main_rpm;
 SpeedView *main_speed;
 OtherView *main_other;
+TimeView *main_time;
 
 void main_scrren_task_cb(lv_timer_t *timer) {
   if (CheckSelfIsChecking()) return;
@@ -32,6 +33,7 @@ void main_screen_init() {
   MainScreenGear();
   // MainScreenRpm();
   MainScreenOther();
+  MainScreenTime();
   MainScreenSpeed();
   CheckSelfInit();
   lv_timer_t *timer = lv_timer_create(main_scrren_task_cb, 33, NULL);
@@ -164,4 +166,10 @@ void MainScreenOther() {
   main_other = malloc(sizeof(OtherView));
   main_other->bg = main_scr;
   OtherViewInit(main_other);
+}
+
+void MainScreenTime() {
+  main_time = malloc(sizeof(TimeView));
+  main_time->bg = main_scr;
+  TimeViewInit(main_time);
 }

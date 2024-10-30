@@ -15,3 +15,4 @@ lv_obj_t* Label(lv_obj_t* bg, lv_obj_t** lv, label_pos pos);
 image_pos CreateImagePos(const char* image_path, int x, int y);
 label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
                          value_type_t type, LabelValue text);
+lv_color_t ToolGetThemeColor();

@@ -69,6 +69,7 @@ typedef enum {
   kPlagiata_37,
   kSourceHanSansCN_18,
   kSourceHanSansCN_22,
+  kSourceHanSansCN_28,
   kSourceHanSansCN_34,
   kMicrosoftYaHei_20,
   kFontCount
@@ -115,6 +116,7 @@ typedef struct {
 #include "view/gear_view.h"
 #include "view/guage_view.h"
 #include "view/other_view.h"
+#include "view/time_view.h"
 #include "view/rpm_view.h"
 #include "view/speed_view.h"
 

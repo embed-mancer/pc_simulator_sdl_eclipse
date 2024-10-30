@@ -9,5 +9,6 @@ void MainScreenWater();
 void MainScreenRpm();
 void MainScreenSpeed();
 void MainScreenOther();
+void MainScreenTime();
 
 #endif // MAIN_SCREEN_H_

@@ -79,8 +79,7 @@ void OtherViewUpdate(OtherView *view) {
 }
 
 void OtherViewSetTheme(OtherView *view) {
-  lv_color_t color =
-      MotorModelGetTheme() == kDay ? lv_color_black() : lv_color_white();
+  lv_color_t color = ToolGetThemeColor();
 
   lv_obj_set_style_text_color(view->trip_key, color, 0);
   lv_obj_set_style_text_color(view->trip_value, color, 0);
@@ -94,6 +93,7 @@ void OtherViewSetTheme(OtherView *view) {
   lv_obj_set_style_text_color(view->battery_key, color, 0);
   lv_obj_set_style_text_color(view->battery_value, color, 0);
   lv_obj_set_style_text_color(view->battery_unit, color, 0);
+
 }
 
 void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, label_pos pos) {
