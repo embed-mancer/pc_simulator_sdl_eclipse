@@ -19,7 +19,7 @@ typedef struct {
   float speed_divisor;
 } CheckConfig;
 
-static CheckConfig config = {3000, 18, 18, 26.0, 400.0};
+static CheckConfig config = {3000, 18, 18, 26.0, 450.0};
 
 typedef enum {
   kStateIdle,
@@ -46,7 +46,7 @@ void CheckSelfUpdateViews(int oil_value, int water_value, int rpm_value,
   GuageViewUpdate(main_oil, oil_value);
   GuageViewUpdate(main_water, water_value);
   // RpmViewUpdate(main_rpm, rpm_value);
-  // SpeedViewUpdate(main_speed, speed_value);
+  SpeedViewUpdate(main_speed, speed_value);
 }
 
 void CheckStateIdle() {

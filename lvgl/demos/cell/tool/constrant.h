@@ -1,19 +1,7 @@
-/**
- * @file constrant.h
- *
- * @brief This message displayed in Doxygen Files index
- *
- * @ingroup PackageName
- * (note: this needs exactly one @defgroup somewhere)
- *
- * @date	2024-08-12-15-17
- * @author Nemausa
- *
- */
 #ifndef CONSTRANT_H_
 #define CONSTRANT_H_
 
-#include "lvgl/lvgl.h"
+#include <stdint.h>
 
 extern const int kMaxMsgLen; 
 extern const uint8_t kMinMsgLen; 

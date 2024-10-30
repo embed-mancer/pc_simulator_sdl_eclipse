@@ -1,6 +1,7 @@
 #include "speed_view.h"
 
 #include "../other/motor_model.h"
+#include "../tool/constrant.h"
 
 static data_acc acc;
 
@@ -51,6 +52,7 @@ static void UpdateTripleDigit(SpeedView *view, int mid, int width, int value) {
 }
 
 void SpeedViewUpdate(SpeedView *view, int value) {
+  value = (value > kMaxSpeed) ? kMaxSpeed : value;
   const int mid = 400;
   const int width = 94;
   if (value < 10) {

@@ -2,7 +2,6 @@
 
 #include "../other/motor_model.h"
 
-// Constants for dimensions
 #define BLOCK_WIDTH_MAX 195
 #define BLOCK_HEIGHT 8
 
