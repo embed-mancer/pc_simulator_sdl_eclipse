@@ -1,24 +1,26 @@
 #include "gear_view.h"
+
 #include "../cell.h"
 #include "../light/light_view.h"
 
-char sz_img[32];
 void GearViewInit(GearView *view) {
   view->key = NULL;
   view->value = NULL;
+  GearViewCreate(view);
 }
 
 void GearViewCreate(GearView *view) {
-  LightViewOne(view->bg_, &view->key, view->pos_key);
-  LightViewOne(view->bg_, &view->value, view->pos_value);
-  strcpy(sz_img, view->pos_key.image);
+  Label(view->bg_, &view->key, view->pos_key);
+  Label(view->bg_, &view->value, view->pos_value);
+  lv_obj_set_style_text_align(view->key, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->value, LV_TEXT_ALIGN_CENTER, 0);
 }
 
 void GearViewUpdate(GearView *view, int value) {
-  char sz[4];
-  sprintf(sz, "%d", value);
-  char *temp = ReplaceSubstr(sz_img, "9", sz);
-  strcpy(view->pos_key.image, temp);
-  lv_img_set_src(view->key, view->pos_key.image);
-  free(temp);
+  static char sz[4] = {0};
+  snprintf(sz, sizeof(sz), "%d", value);
+
+  if (strcmp(lv_label_get_text(view->value), sz) != 0) {
+    lv_label_set_text(view->value, sz);
+  }
 }

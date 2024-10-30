@@ -362,7 +362,8 @@
  *E.g. #define LV_FONT_CUSTOM_DECLARE   LV_FONT_DECLARE(my_font_1) LV_FONT_DECLARE(my_font_2)*/
 #define LV_FONT_CUSTOM_DECLARE LV_FONT_DECLARE(Plagiata_27)\
                                LV_FONT_DECLARE(Plagiata_37)\
-                               LV_FONT_DECLARE(SourceHanSansCN_18)
+                               LV_FONT_DECLARE(SourceHanSansCN_18)\
+                               LV_FONT_DECLARE(SourceHanSansCN_34)
 /*Always set a default font*/
 #define LV_FONT_DEFAULT &lv_font_montserrat_14
 

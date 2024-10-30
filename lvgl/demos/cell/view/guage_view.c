@@ -86,7 +86,7 @@ void GuageViewUpdate(GuageView *view, int value) {
   }
 }
 
-void GuageViewDisplay(GuageView *view) {
+void GuageViewSetTheme(GuageView *view) {
   const char *from = MotorModelGetTheme() == kNight ? "day" : "night";
   const char *to = MotorModelGetTheme() == kNight ? "night" : "day";
 

@@ -27,6 +27,6 @@ typedef struct {
 void GuageViewInit(GuageView *view, GuageViewMode mode);
 void GuageViewCreate(GuageView *view);
 void GuageViewUpdate(GuageView *view, int value);
-void GuageViewDisplay(GuageView *view);
+void GuageViewSetTheme(GuageView *view);
 
 #endif // GUAGE_VIEW_H_

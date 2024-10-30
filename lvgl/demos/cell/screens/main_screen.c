@@ -29,7 +29,7 @@ void main_screen_init() {
   MainScreenLight();
   MainScreenOil();
   MainScreenWater();
-  // MainScreenGear();
+  MainScreenGear();
   // MainScreenRpm();
   // MainScreenOther();
   // MainScreenSpeed();
@@ -48,12 +48,13 @@ void MainScreenLight() {
 void MainScreenGear() {
   gear = malloc(sizeof(GearView));
   gear->bg_ = main_scr;
-  image_pos pos_key = {.image = RES_PRFIX "gear/n.png", .x = 84, .y = 155};
-  image_pos pos_value = {.image = RES_PRFIX "gear/icon.png", .x = 84, .y = 253};
-  gear->pos_key = pos_key;
-  gear->pos_value = pos_value;
+  gear->pos_key =
+      CreateLabelPos(725, 397, 50, 20, kColorWhite, kSourceHanSansCN_18,
+                     kTextChar, (LabelValue){"GEAR"});
+  gear->pos_value =
+      CreateLabelPos(738, 359, 20, 30, kColorLimeGreen, kSourceHanSansCN_34,
+                     kTextChar, (LabelValue){"1"});
   GearViewInit(gear);
-  GearViewCreate(gear);
 }
 
 void MainScreenOil() {

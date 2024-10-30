@@ -12,7 +12,8 @@ typedef struct {
 } FontMap;
 FontMap fontMap[kFontCount] = {{kPlagiata_27, &Plagiata_27},
                                {kPlagiata_37, &Plagiata_37},
-                               {kSourceHanSansCN_18, &SourceHanSansCN_18}};
+                               {kSourceHanSansCN_18, &SourceHanSansCN_18},
+                               {kSourceHanSansCN_34, &SourceHanSansCN_34}};
 
 void ToolInit() { ToolInitColorMap(); }
 
@@ -22,6 +23,7 @@ void ToolInitColorMap() {
   colorMap[kColorRed] = lv_color_make(255, 0, 0);
   colorMap[kColorGreen] = lv_color_make(0, 255, 0);
   colorMap[kColorBlue] = lv_color_make(0, 0, 255);
+  colorMap[kColorLimeGreen] = lv_color_make(0x31, 0xC9, 0x18);
 }
 
 lv_color_t ToolGetColor(color_t color) {

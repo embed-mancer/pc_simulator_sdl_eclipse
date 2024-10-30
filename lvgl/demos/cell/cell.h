@@ -60,6 +60,7 @@ typedef enum {
   kColorRed,
   kColorGreen,
   kColorBlue,
+  kColorLimeGreen,
   kColorCount
 } color_t;
 
@@ -67,6 +68,7 @@ typedef enum {
   kPlagiata_27,
   kPlagiata_37,
   kSourceHanSansCN_18,
+  kSourceHanSansCN_34,
   kFontCount
 } font_t;
 
