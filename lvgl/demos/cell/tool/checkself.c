@@ -45,7 +45,7 @@ void CheckSelfUpdateViews(int oil_value, int water_value, int rpm_value,
                           int speed_value) {
   GuageViewUpdate(main_oil, oil_value);
   GuageViewUpdate(main_water, water_value);
-  // RpmViewUpdate(main_rpm, rpm_value);
+  RpmViewUpdate(main_rpm, rpm_value);
   SpeedViewUpdate(main_speed, speed_value);
 }
 
