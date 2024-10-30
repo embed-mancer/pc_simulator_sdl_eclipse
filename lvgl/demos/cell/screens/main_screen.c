@@ -31,7 +31,7 @@ void main_screen_init() {
   MainScreenOil();
   MainScreenWater();
   MainScreenGear();
-  // MainScreenRpm();
+  MainScreenRpm();
   MainScreenOther();
   MainScreenTime();
   MainScreenSpeed();
@@ -98,51 +98,10 @@ void MainScreenWater() {
 void MainScreenRpm() {
   main_rpm = malloc(sizeof(RpmView));
   main_rpm->bg = main_scr;
-  image_pos pos_icon = {.image = RES_PRFIX "rpm/icon.png", .x = 698, .y = 156};
-  image_pos pos_line = {.image = RES_PRFIX "rpm/line.png", .x = 264, .y = 35};
-  image_pos pos_block[24] = {
-      [0] = {.image = RES_PRFIX "rpm/1.png", .x = 320, .y = 416},
-      [1] = {.image = RES_PRFIX "rpm/2.png", .x = 312, .y = 391},
-      [2] = {.image = RES_PRFIX "rpm/3.png", .x = 306, .y = 363},
-      [3] = {.image = RES_PRFIX "rpm/4.png", .x = 304, .y = 337},
-      [4] = {.image = RES_PRFIX "rpm/5.png", .x = 304, .y = 301},
-      [5] = {.image = RES_PRFIX "rpm/6.png", .x = 305, .y = 278},
-      [6] = {.image = RES_PRFIX "rpm/7.png", .x = 309, .y = 248},
-      [7] = {.image = RES_PRFIX "rpm/8.png", .x = 317, .y = 223},
-      [8] = {.image = RES_PRFIX "rpm/9.png", .x = 327, .y = 196},
-      [9] = {.image = RES_PRFIX "rpm/10.png", .x = 341, .y = 172},
-      [10] = {.image = RES_PRFIX "rpm/11.png", .x = 357, .y = 150},
-      [11] = {.image = RES_PRFIX "rpm/12.png", .x = 377, .y = 131},
-      [12] = {.image = RES_PRFIX "rpm/13.png", .x = 398, .y = 113},
-      [13] = {.image = RES_PRFIX "rpm/14.png", .x = 423, .y = 99},
-      [14] = {.image = RES_PRFIX "rpm/15.png", .x = 447, .y = 86},
-      [15] = {.image = RES_PRFIX "rpm/16.png", .x = 475, .y = 79},
-      [16] = {.image = RES_PRFIX "rpm/17.png", .x = 503, .y = 73},
-      [17] = {.image = RES_PRFIX "rpm/18.png", .x = 534, .y = 72},
-      [18] = {.image = RES_PRFIX "rpm/19.png", .x = 561, .y = 70},
-      [19] = {.image = RES_PRFIX "rpm/20.png", .x = 590, .y = 72},
-      [20] = {.image = RES_PRFIX "rpm/21.png", .x = 616, .y = 78},
-      [21] = {.image = RES_PRFIX "rpm/22.png", .x = 643, .y = 86},
-      [22] = {.image = RES_PRFIX "rpm/23.png", .x = 667, .y = 97},
-      [23] = {.image = RES_PRFIX "rpm/24.png", .x = 691, .y = 112},
-  };
-
-  image_pos pos_num[7] = {
-      [0] = {.image = RES_PRFIX "rpm/num_0.png", .x = 303, .y = 452},
-      [1] = {.image = RES_PRFIX "rpm/num_2.png", .x = 276, .y = 328},
-      [2] = {.image = RES_PRFIX "rpm/num_4.png", .x = 301, .y = 204},
-      [3] = {.image = RES_PRFIX "rpm/num_6.png", .x = 377, .y = 105},
-      [4] = {.image = RES_PRFIX "rpm/num_8.png", .x = 489, .y = 49},
-      [5] = {.image = RES_PRFIX "rpm/num_10.png", .x = 612, .y = 49},
-      [6] = {.image = RES_PRFIX "rpm/num_12.png", .x = 728, .y = 103},
-  };
-  main_rpm->pos_icon = pos_icon;
-  main_rpm->pos_line = pos_line;
-  for (int i = 0; i < 24; ++i) main_rpm->pos_block[i] = pos_block[i];
-  for (int i = 0; i < 7; ++i) main_rpm->pos_num[i] = pos_num[i];
-
+  main_rpm->pos_line = CreateImagePos(RES_PRFIX "home/night/rpm/line.png", 0, 94);
+  main_rpm->pos_num = CreateImagePos(RES_PRFIX "home/night/rpm/num.png", 5, 166);
+  main_rpm->pos_unit = CreateImagePos(RES_PRFIX "home/night/rpm/unit.png", 713, 112);
   RpmViewInit(main_rpm);
-  RpmViewCreate(main_rpm);
 }
 
 void MainScreenSpeed() {

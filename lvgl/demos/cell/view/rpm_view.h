@@ -4,15 +4,15 @@
 #include "../cell.h"
 
 typedef struct rpm_view {
-  lv_obj_t *icon;
   lv_obj_t *line;
+  lv_obj_t *num;
+  lv_obj_t *unit;
   lv_obj_t *block[24];
-  lv_obj_t *num[7];
   lv_obj_t *bg;
-  image_pos pos_icon;
   image_pos pos_line;
+  image_pos pos_num;
+  image_pos pos_unit;
   image_pos pos_block[24];
-  image_pos pos_num[7];
 } RpmView;
 
 void RpmViewInit(RpmView *view);
