@@ -25,7 +25,7 @@ typedef struct speed_view {
   lv_obj_t *unit;
   lv_obj_t *block[3];
 
-  image_pos pos_unit;
+  label_pos pos_unit;
   image_pos pos_block[3];
   char sz_block[10][32];
 } SpeedView;
@@ -33,6 +33,7 @@ typedef struct speed_view {
 void SpeedViewInit(SpeedView *view);
 void SpeedViewCreate(SpeedView *view);
 void SpeedViewUpdate(SpeedView *view, int value);
+void SpeedViewSetTheme(SpeedView *view);
 void SpeedViewRun();
 int SpeedViewCurrent();
 

@@ -68,6 +68,7 @@ typedef enum {
   kPlagiata_27,
   kPlagiata_37,
   kSourceHanSansCN_18,
+  kSourceHanSansCN_22,
   kSourceHanSansCN_34,
   kFontCount
 } font_t;

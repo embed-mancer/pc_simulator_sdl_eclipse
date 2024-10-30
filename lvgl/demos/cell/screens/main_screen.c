@@ -32,7 +32,7 @@ void main_screen_init() {
   MainScreenGear();
   // MainScreenRpm();
   // MainScreenOther();
-  // MainScreenSpeed();
+  MainScreenSpeed();
   CheckSelfInit();
   lv_timer_t *timer = lv_timer_create(main_scrren_task_cb, 33, NULL);
   lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
@@ -146,28 +146,18 @@ void MainScreenRpm() {
 void MainScreenSpeed() {
   main_speed = malloc(sizeof(SpeedView));
   main_speed->bg = main_scr;
-  image_pos pos_unit = {.image = RES_PRFIX "speed/km.png", .x = 726, .y = 346};
-  image_pos pos_block[3] = {
-      [0] = {.image = RES_PRFIX "speed/0.png", .x = 320, .y = 212},
-      [1] = {.image = RES_PRFIX "speed/0.png", .x = 312, .y = 212},
-      [2] = {.image = RES_PRFIX "speed/0.png", .x = 306, .y = 212},
-  };
-  strcpy(main_speed->sz_block[0], RES_PRFIX "speed/0.png");
-  strcpy(main_speed->sz_block[1], RES_PRFIX "speed/1.png");
-  strcpy(main_speed->sz_block[2], RES_PRFIX "speed/2.png");
-  strcpy(main_speed->sz_block[3], RES_PRFIX "speed/3.png");
-  strcpy(main_speed->sz_block[4], RES_PRFIX "speed/4.png");
-  strcpy(main_speed->sz_block[5], RES_PRFIX "speed/5.png");
-  strcpy(main_speed->sz_block[6], RES_PRFIX "speed/6.png");
-  strcpy(main_speed->sz_block[7], RES_PRFIX "speed/7.png");
-  strcpy(main_speed->sz_block[8], RES_PRFIX "speed/8.png");
-  strcpy(main_speed->sz_block[9], RES_PRFIX "speed/9.png");
-  main_speed->pos_block[0] = pos_block[0];
-  main_speed->pos_block[1] = pos_block[1];
-  main_speed->pos_block[2] = pos_block[2];
-  main_speed->pos_unit = pos_unit;
+  for (int i = 0; i < 10; ++i) {
+    snprintf(main_speed->sz_block[i], sizeof(main_speed->sz_block[i]),
+             RES_PRFIX "home/night/speed/%d.png", i);
+  }
+  main_speed->pos_block[0] = CreateImagePos(main_speed->sz_block[0], 320, 258);
+  main_speed->pos_block[1] = CreateImagePos(main_speed->sz_block[0], 320, 258);
+  main_speed->pos_block[2] = CreateImagePos(main_speed->sz_block[0], 320, 258);
+  main_speed->pos_unit =
+      CreateLabelPos(507, 334, 55, 30, 
+                     kColorWhite, kSourceHanSansCN_22,
+                     kTextChar, (LabelValue){"km/h"});
   SpeedViewInit(main_speed);
-  SpeedViewCreate(main_speed);
 }
 
 void MainScreenOther() {
