@@ -4,6 +4,7 @@
 #define TIME_Y_POSITION 434
 #define FIX_WIDTH 14
 #define COLON_WIDTH 6
+#define DEFAULT_COLOR kColorWhite
 
 void TimeViewInit(TimeView *view) {
   view->time_hour1 = NULL;
@@ -13,53 +14,54 @@ void TimeViewInit(TimeView *view) {
   view->time_minute2 = NULL;
 
   TimeViewCreate(view);
-  // TimeViewSetTheme(view);
+  TimeViewSetTheme(view);
 }
 
 void TimeViewCreate(TimeView *view) {
   if (view->bg == NULL) {
     return;
   }
-
-  view->pos_time_hour1 = CreateLabelPos(
-      TIME_X_CENTER - COLON_WIDTH / 2 - 2 * FIX_WIDTH, TIME_Y_POSITION,
-      FIX_WIDTH, 25, kColorWhite, kSourceHanSansCN_28, kTextInt, (LabelValue)1);
-  view->pos_time_hour2 = CreateLabelPos(
-      TIME_X_CENTER - COLON_WIDTH / 2 - FIX_WIDTH, TIME_Y_POSITION, FIX_WIDTH,
-      25, kColorWhite, kSourceHanSansCN_28, kTextInt, (LabelValue)7);
-  view->pos_time_colon = CreateLabelPos(
-      TIME_X_CENTER - COLON_WIDTH / 2, TIME_Y_POSITION, COLON_WIDTH, 25,
-      kColorWhite, kSourceHanSansCN_28, kTextChar, (LabelValue){":"});
-  view->pos_time_minute1 = CreateLabelPos(
-      TIME_X_CENTER + COLON_WIDTH / 2, TIME_Y_POSITION, FIX_WIDTH, 25,
-      kColorWhite, kSourceHanSansCN_28, kTextInt, (LabelValue)1);
-  view->pos_time_minute2 = CreateLabelPos(
-      TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH, TIME_Y_POSITION, FIX_WIDTH,
-      25, kColorWhite, kSourceHanSansCN_28, kTextInt, (LabelValue)7);
-
-  lv_obj_t *labels[] = {&view->time_hour1, &view->time_hour2, &view->time_colon,
-                        &view->time_minute1, &view->time_minute2};
-  const LabelPosition *positions[] = {
-      view->pos_time_hour1, view->pos_time_hour2, view->pos_time_colon,
-      view->pos_time_minute1, view->pos_time_minute2};
-
-  for (int i = 0; i < 5; i++) {
-    Label(view->bg, labels[i], *positions[i]);
-    lv_obj_set_style_text_align(*labels[i], LV_TEXT_ALIGN_CENTER, 0);
-  }
+  int hour1_x = TIME_X_CENTER - COLON_WIDTH / 2 - 2 * FIX_WIDTH;
+  int hour2_x = TIME_X_CENTER - COLON_WIDTH / 2 - FIX_WIDTH;
+  int colon_x = TIME_X_CENTER - COLON_WIDTH / 2;
+  int min1_x = TIME_X_CENTER + COLON_WIDTH / 2;
+  int min2_x = TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH;
+  view->pos_time_hour1 =
+      CreateLabelPos(hour1_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+                     kSourceHanSansCN_28, kTextInt, (LabelValue)1);
+  view->pos_time_hour2 =
+      CreateLabelPos(hour2_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+                     kSourceHanSansCN_28, kTextInt, (LabelValue)7);
+  view->pos_time_colon =
+      CreateLabelPos(colon_x, TIME_Y_POSITION, COLON_WIDTH, 25, kColorWhite,
+                     kSourceHanSansCN_28, kTextChar, (LabelValue){":"});
+  view->pos_time_minute1 =
+      CreateLabelPos(min1_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+                     kSourceHanSansCN_28, kTextInt, (LabelValue)1);
+  view->pos_time_minute2 =
+      CreateLabelPos(min2_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+                     kSourceHanSansCN_28, kTextInt, (LabelValue)7);
+  Label(view->bg, &view->time_hour1, view->pos_time_hour1);
+  Label(view->bg, &view->time_hour2, view->pos_time_hour2);
+  Label(view->bg, &view->time_colon, view->pos_time_colon);
+  Label(view->bg, &view->time_minute1, view->pos_time_minute1);
+  Label(view->bg, &view->time_minute2, view->pos_time_minute2);
+  lv_obj_set_style_text_align(view->time_hour1, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->time_hour2, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->time_colon, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->time_minute2, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->time_minute2, LV_TEXT_ALIGN_CENTER, 0);
 }
 
-void TimeViewUpdate(TimeView *view) {
-  // Logic for updating the time would go here
-}
+void TimeViewUpdate(TimeView *view) {}
 
 void TimeViewSetTheme(TimeView *view) {
   lv_color_t color = ToolGetThemeColor();
+  color = lv_color_make(0xFF, 0, 0);
 
-  // Set color for each label
-  lv_obj_t *labels[] = {view->time_hour1, view->time_hour2, view->time_colon,
-                        view->time_minute1, view->time_minute2};
-  for (int i = 0; i < 5; i++) {
-    lv_obj_set_style_text_color(labels[i], color, 0);
-  }
-}
+  lv_obj_set_style_text_color(view->time_hour1, color, 0);
+  lv_obj_set_style_text_color(view->time_hour2, color, 0);
+  lv_obj_set_style_text_color(view->time_colon, color, 0);
+  lv_obj_set_style_text_color(view->time_minute1, color, 0);
+  lv_obj_set_style_text_color(view->time_minute2, color, 0);
+} 
