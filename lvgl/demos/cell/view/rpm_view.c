@@ -9,7 +9,7 @@ void RpmViewInit(RpmView *view) {
   view->line = NULL;
   view->num = NULL;
   view->unit = NULL;
-  for (int i = 0; i < 110; ++i) view->block[i] = NULL;
+  view->block = NULL;
   RpmViewCreate(view);
 }
 
@@ -113,27 +113,21 @@ void RpmViewCreate(RpmView *view) {
   LightViewOne(view->bg, &view->line, view->pos_line);
   LightViewOne(view->bg, &view->num, view->pos_num);
   LightViewOne(view->bg, &view->unit, view->pos_unit);
-  for (int i = 0; i < 110; ++i) {
-    LightViewOne(view->bg, &view->block[i], view->pos_block[i]);
-    lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
-  }
+  LightViewOne(view->bg, &view->block, view->pos_block[0]);
+  lv_obj_add_flag(view->block, LV_OBJ_FLAG_HIDDEN);
 }
 
 void RpmViewUpdate(RpmView *view, int value) {
   value = (value > kMaxRpm) ? kMaxRpm : value;
-  if (value > 0) {
-    int index;
-    if (value % 100 == 0)
-      index = value / 100 - 1;
-    else
-      index = value / 100;
-    for (int i = 0; i <= index; i++)
-      lv_obj_clear_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
-    for (int i = index + 1; i < 110; i++)
-      lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
+  int index = (value > 0) ? (value - 1) / 100 : -1;
+
+  if (index >= 0) {
+    lv_img_set_src(view->block, view->pos_block[index].image);
+    lv_obj_set_pos(view->block, view->pos_block[index].x,
+                   view->pos_block[index].y);
+    lv_obj_clear_flag(view->block, LV_OBJ_FLAG_HIDDEN);
   } else {
-    for (int i = 0; i < 110; ++i)
-      lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(view->block, LV_OBJ_FLAG_HIDDEN);
   }
 }
 
