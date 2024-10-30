@@ -1,61 +1,47 @@
-/**
-* @file other_view.h
-*
-* @brief This message displayed in Doxygen Files index
-*
-* @ingroup PackageName
-* (note: this needs exactly one @defgroup somewhere)
-*
-* @date	2024-07-25-10-00
-* @author Nemausa
-*
-*/
 #ifndef OTHER_VIEW_H_
 #define OTHER_VIEW_H_
 
 #include "../cell.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-typedef struct other_view {
-  lv_obj_t *mode;
-  lv_obj_t *beta_logo;
-  lv_obj_t *odo_key;
-  lv_obj_t *odo_value;
-  lv_obj_t *odo_unit;
+typedef struct {
   lv_obj_t *trip_key;
   lv_obj_t *trip_value;
   lv_obj_t *trip_unit;
+
   lv_obj_t *avg_key;
   lv_obj_t *avg_value;
   lv_obj_t *avg_unit;
 
+  lv_obj_t *ride_time_key;
+  lv_obj_t *ride_time_value;
+  lv_obj_t *ride_time_unit;
+
+  lv_obj_t *battery_key;
+  lv_obj_t *battery_value;
+  lv_obj_t *battery_unit;
+
   lv_obj_t *bg;
 
   image_pos pos_mode;
-  image_pos pos_beta;
-  image_pos pos_odo_key;
-  image_pos pos_odo_unit;
-  image_pos pos_trip_key;
-  image_pos pos_trip_unit;
-  image_pos pos_avg_key;
-  image_pos pos_avg_unit;
-  label_pos pos_odo_value;
+  label_pos pos_trip_key;
   label_pos pos_trip_value;
+  label_pos pos_trip_unit;
+  label_pos pos_avg_key;
   label_pos pos_avg_value;
+  label_pos pos_avg_unit;
+  label_pos pos_ride_time_key;
+  label_pos pos_ride_time_value;
+  label_pos pos_ride_time_unit;
+  label_pos pos_battery_key;
+  label_pos pos_battery_value;
+  label_pos pos_battery_unit;
 } OtherView;
+
 
 void OtherViewInit(OtherView *view);
 void OtherViewCreate(OtherView *view);
 void OtherViewUpdate(OtherView *view);
+void OtherViewSetTheme(OtherView *view);
 void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, label_pos pos);
-
-#ifdef __cplusplus
-}
-#endif
-
 
 #endif // OTHER_VIEW_H_

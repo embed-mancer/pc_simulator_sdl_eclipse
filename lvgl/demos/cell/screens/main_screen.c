@@ -31,7 +31,7 @@ void main_screen_init() {
   MainScreenWater();
   MainScreenGear();
   // MainScreenRpm();
-  // MainScreenOther();
+  MainScreenOther();
   MainScreenSpeed();
   CheckSelfInit();
   lv_timer_t *timer = lv_timer_create(main_scrren_task_cb, 33, NULL);
@@ -163,63 +163,5 @@ void MainScreenSpeed() {
 void MainScreenOther() {
   main_other = malloc(sizeof(OtherView));
   main_other->bg = main_scr;
-  image_pos pos_mode = {.image = RES_PRFIX "other/mode.png", .x = 17, .y = 434};
-  image_pos pos_beta = {
-      .image = RES_PRFIX "other/beta.png", .x = 506, .y = 129};
-  image_pos pos_odo_key = {
-      .image = RES_PRFIX "other/odo_key.png", .x = 539, .y = 376};
-  label_pos pos_odo_value = {.x = 602,
-                             .y = 376,
-                             .w = 110,
-                             .h = 20,
-                             .color = kColorWhite,
-                             .font = kPlagiata_27,
-                             .value_type = 2,
-                             .value.i = 999999};
-  image_pos pos_odo_unit = {
-      .image = RES_PRFIX "other/odo_unit.png", .x = 715, .y = 376};
-
-  image_pos pos_trip_key = {
-      .image = RES_PRFIX "other/trip_key.png", .x = 545, .y = 404};
-  label_pos pos_trip_value = {.x = 609,
-                              .y = 404,
-                              .w = 80,
-                              .h = 20,
-                              .color = kColorWhite,
-                              .font = kPlagiata_27,
-                              .value_type = 1,
-                              .value.f = 1.0};
-  image_pos pos_trip_unit = {
-      .image = RES_PRFIX "other/trip_unit.png", .x = 693, .y = 404};
-
-  image_pos pos_avg_key = {
-      .image = RES_PRFIX "other/avg_key.png", .x = 524, .y = 436};
-  label_pos pos_avg_value = {.x = 620,
-                             .y = 435,
-                             .w = 50,
-                             .h = 20,
-                             .color = kColorWhite,
-                             .font = kPlagiata_37,
-                             .value_type = 2,
-                             .value.i = 0};
-  image_pos pos_avg_unit = {
-      .image = RES_PRFIX "other/avg_unit.png", .x = 681, .y = 436};
-
-  main_other->pos_mode = pos_mode;
-  main_other->pos_beta = pos_beta;
-  main_other->pos_odo_key = pos_odo_key;
-  main_other->pos_odo_value = pos_odo_value;
-  main_other->pos_odo_unit = pos_odo_unit;
-
-  main_other->pos_trip_key = pos_trip_key;
-  main_other->pos_trip_value = pos_trip_value;
-  main_other->pos_trip_unit = pos_trip_unit;
-
-  main_other->pos_avg_key = pos_avg_key;
-  main_other->pos_avg_value = pos_avg_value;
-  main_other->pos_avg_unit = pos_avg_unit;
-
   OtherViewInit(main_other);
-  OtherViewCreate(main_other);
-  OtherViewUpdate(main_other);
 }

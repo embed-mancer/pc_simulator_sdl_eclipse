@@ -14,7 +14,8 @@ FontMap fontMap[kFontCount] = {{kPlagiata_27, &Plagiata_27},
                                {kPlagiata_37, &Plagiata_37},
                                {kSourceHanSansCN_18, &SourceHanSansCN_18},
                                {kSourceHanSansCN_22, &SourceHanSansCN_22},
-                               {kSourceHanSansCN_34, &SourceHanSansCN_34}};
+                               {kSourceHanSansCN_34, &SourceHanSansCN_34},
+                               {kMicrosoftYaHei_20, &MicrosoftYaHei_20}};
 
 void ToolInit() { ToolInitColorMap(); }
 

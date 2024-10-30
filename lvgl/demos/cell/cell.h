@@ -70,6 +70,7 @@ typedef enum {
   kSourceHanSansCN_18,
   kSourceHanSansCN_22,
   kSourceHanSansCN_34,
+  kMicrosoftYaHei_20,
   kFontCount
 } font_t;
 

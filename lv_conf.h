@@ -364,7 +364,8 @@
                                LV_FONT_DECLARE(Plagiata_37)\
                                LV_FONT_DECLARE(SourceHanSansCN_18)\
                                LV_FONT_DECLARE(SourceHanSansCN_22)\
-                               LV_FONT_DECLARE(SourceHanSansCN_34)
+                               LV_FONT_DECLARE(SourceHanSansCN_34)\
+                               LV_FONT_DECLARE(MicrosoftYaHei_20)
 /*Always set a default font*/
 #define LV_FONT_DEFAULT &lv_font_montserrat_14
 
