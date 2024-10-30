@@ -98,9 +98,6 @@ void MainScreenWater() {
 void MainScreenRpm() {
   main_rpm = malloc(sizeof(RpmView));
   main_rpm->bg = main_scr;
-  main_rpm->pos_line = CreateImagePos(RES_PRFIX "home/night/rpm/line.png", 0, 94);
-  main_rpm->pos_num = CreateImagePos(RES_PRFIX "home/night/rpm/num.png", 5, 166);
-  main_rpm->pos_unit = CreateImagePos(RES_PRFIX "home/night/rpm/unit.png", 713, 112);
   RpmViewInit(main_rpm);
 }
 

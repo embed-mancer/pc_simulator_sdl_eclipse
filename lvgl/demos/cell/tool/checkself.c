@@ -19,7 +19,7 @@ typedef struct {
   float speed_divisor;
 } CheckConfig;
 
-static CheckConfig config = {3000, 18, 18, 26.0, 450.0};
+static CheckConfig config = {3000, 18, 18, 25.0, 450.0};
 
 typedef enum {
   kStateIdle,
