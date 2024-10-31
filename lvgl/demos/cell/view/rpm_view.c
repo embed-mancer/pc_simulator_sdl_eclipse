@@ -14,10 +14,17 @@ void RpmViewInit(RpmView *view) {
 }
 
 void RpmViewCreate(RpmView *view) {
-  view->pos_line = CreateImagePos(RES_PRFIX "home/night/rpm/line.png", 0, 94);
-  view->pos_num = CreateImagePos(RES_PRFIX "home/night/rpm/num.png", 5, 166);
-  view->pos_unit =
-      CreateImagePos(RES_PRFIX "home/night/rpm/unit.png", 713, 112);
+  const char *theme_suffix = ToolGetThemeSuffix();
+
+  snprintf(view->pos_line.image, sizeof(view->pos_line.image),
+           RES_PRFIX "home/%s/rpm/line.png", theme_suffix);
+  snprintf(view->pos_num.image, sizeof(view->pos_num.image),
+           RES_PRFIX "home/%s/rpm/num.png", theme_suffix);
+  snprintf(view->pos_unit.image, sizeof(view->pos_unit.image),
+           RES_PRFIX "home/%s/rpm/unit.png", theme_suffix);
+  view->pos_line = CreateImagePos(view->pos_line.image, 0, 94);
+  view->pos_num = CreateImagePos(view->pos_num.image, 5, 166);
+  view->pos_unit = CreateImagePos(view->pos_unit.image, 713, 112);
   view->pos_block[0] = CreateImagePos(RES_PRFIX "home/night/rpm/1.png", 0, 176);
   view->pos_block[1] = CreateImagePos(RES_PRFIX "home/night/rpm/2.png", 0, 174);
   view->pos_block[2] = CreateImagePos(RES_PRFIX "home/night/rpm/3.png", 0, 172);
@@ -129,6 +136,15 @@ void RpmViewUpdate(RpmView *view, int value) {
   } else {
     lv_obj_add_flag(view->block, LV_OBJ_FLAG_HIDDEN);
   }
+}
+
+void RpmViewToggleDayNightMode(RpmView *view) {
+  ToolToggleDayNightMode(view->pos_line.image);
+  ToolToggleDayNightMode(view->pos_num.image);
+  ToolToggleDayNightMode(view->pos_unit.image);
+  lv_img_set_src(view->line, view->pos_line.image);
+  lv_img_set_src(view->num, view->pos_num.image);
+  lv_img_set_src(view->unit, view->pos_unit.image);
 }
 
 void RpmViewRun() {

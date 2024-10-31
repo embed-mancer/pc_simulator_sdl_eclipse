@@ -64,17 +64,13 @@ void SpeedViewUpdate(SpeedView *view, int value) {
   }
 }
 
-void SpeedViewSetTheme(SpeedView *view) {
-  const char *theme_path = (MotorModelGetTheme() == kDay)
-                               ? RES_PRFIX "home/day/speed/%d.png"
-                               : RES_PRFIX "home/night/speed/%d.png";
-
+void SpeedViewToggleDayNightMode(SpeedView *view) {
   for (int i = 0; i < 10; ++i) {
-    snprintf(view->sz_block[i], sizeof(view->sz_block[i]), theme_path, i);
+    ToolToggleDayNightMode(view->sz_block[i]);
   }
 
-  view->pos_unit.color =
-      (MotorModelGetTheme() == kNight) ? kColorWhite : kColorBlack;
+  ToolSetTextOnModeAndUpdate(view->unit, &view->pos_unit.color, kColorWhite,
+                             kColorBlack);
 }
 
 void SpeedViewRun() {
@@ -89,3 +85,20 @@ void SpeedViewRun() {
 }
 
 int SpeedViewCurrent() { return acc.current; }
+
+void SpeedViewMain(SpeedView *view) {
+  const char *theme_suffix = ToolGetThemeSuffix();
+
+  for (int i = 0; i < 10; ++i) {
+    snprintf(view->sz_block[i], sizeof(view->sz_block[i]),
+             RES_PRFIX "home/%s/speed/%d.png", theme_suffix, i);
+  }
+  view->pos_block[0] = CreateImagePos(view->sz_block[0], 320, 258);
+  view->pos_block[1] = CreateImagePos(view->sz_block[0], 320, 258);
+  view->pos_block[2] = CreateImagePos(view->sz_block[0], 320, 258);
+  color_t color =
+      (MotorModelGetDayNightMode() == kDay) ? kColorBlack : kColorWhite;
+  view->pos_unit = CreateLabelPos(507, 334, 55, 30, color, kSourceHanSansCN_22,
+                                  kTextChar, (LabelValue){"km/h"});
+  SpeedViewInit(view);
+}

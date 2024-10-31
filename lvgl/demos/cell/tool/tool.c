@@ -1,4 +1,5 @@
 #include "tool.h"
+
 #include "../other/motor_model.h"
 
 typedef struct {
@@ -123,5 +124,29 @@ label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
 }
 
 lv_color_t ToolGetThemeColor() {
-    return MotorModelGetTheme() == kDay ? lv_color_black() : lv_color_white();
+  return MotorModelGetDayNightMode() == kDay ? lv_color_black()
+                                             : lv_color_white();
+}
+
+void ToolToggleDayNightMode(char* image) {
+  if (MotorModelGetDayNightMode() == kDay)
+    ReplaceSubstr(image, "night", "day");
+  else
+    ReplaceSubstr(image, "day", "night");
+}
+
+void ToolSetTextOnMode(lv_obj_t* obj, int night_color, int day_color) {
+  int color = (MotorModelGetDayNightMode() == kNight) ? night_color : day_color;
+  lv_obj_set_style_text_color(obj, ToolGetColor(color), 0);
+}
+
+void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, color_t* color_prop,
+                                int night_color, int day_color) {
+  *color_prop =
+      (MotorModelGetDayNightMode() == kNight) ? night_color : day_color;
+  lv_obj_set_style_text_color(obj, ToolGetColor(*color_prop), 0);
+}
+
+const char* ToolGetThemeSuffix() {
+    return (MotorModelGetDayNightMode() == kDay) ? "day" : "night";
 }

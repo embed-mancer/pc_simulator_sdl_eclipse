@@ -1,8 +1,8 @@
 #ifndef GEAR_VIEW_H_
 #define GEAR_VIEW_H_
 
-#include "../light/light.h"
 #include "../cell.h"
+#include "../light/light.h"
 
 typedef struct {
   lv_obj_t *key;
@@ -15,5 +15,6 @@ typedef struct {
 void GearViewInit(GearView *view);
 void GearViewCreate(GearView *view);
 void GearViewUpdate(GearView *view, int value);
+void GearViewToggleDayNightMode(GearView *view);
 
-#endif // GEAR_VIEW_H_
+#endif  // GEAR_VIEW_H_

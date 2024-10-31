@@ -9,7 +9,7 @@ static int speed = 0;
 static int odo = 0;
 static double trip = 0.0;
 static int rpm = 0;
-static ThemeTable theme = kNight;
+static DayNightMode current_day_night_mode = kNight;
 
 void MotorModelSetOil(int value) { oil = value >= 0 ? value : 0; }
 void MotorModelSetWater(int value) { water = value >= 0 ? value : 0; }
@@ -20,7 +20,9 @@ void MotorModelSetSpeed(int value) { speed = value >= 0 ? value : 0; }
 void MotorModelSetODO(int value) { odo = value >= 0 ? value : 0; }
 void MotorModelSetTrip(double value) { trip = value >= 0 ? value : 0.0; }
 void MotorModelSetRpm(int value) { rpm = value >= 0 ? value : 0; }
-void MotorModelSetTheme(ThemeTable new_theme) { theme = new_theme; }
+void MotorModelSetDayNightMode(DayNightMode new_mode) {
+  current_day_night_mode = mode;
+}
 
 int MotorModelGetOil() { return oil; }
 int MotorModelGetWater() { return water; }
@@ -31,4 +33,4 @@ int MotorModelGetSpeed() { return speed; }
 int MotorModelGetODO() { return odo; }
 double MotorModelGetTrip() { return trip; }
 int MotorModelGetRpm() { return rpm; }
-ThemeTable MotorModelGetTheme() { return theme; }
+DayNightMode MotorModelGetDayNightMode() { return current_day_night_mode; }

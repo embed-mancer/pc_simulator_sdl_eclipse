@@ -14,7 +14,7 @@ void TimeViewInit(TimeView *view) {
   view->time_minute2 = NULL;
 
   TimeViewCreate(view);
-  TimeViewSetTheme(view);
+  TimeViewToggleDayNightMode(view);
 }
 
 void TimeViewCreate(TimeView *view) {
@@ -55,7 +55,7 @@ void TimeViewCreate(TimeView *view) {
 
 void TimeViewUpdate(TimeView *view) {}
 
-void TimeViewSetTheme(TimeView *view) {
+void TimeViewToggleDayNightMode(TimeView *view) {
   lv_color_t color = ToolGetThemeColor();
   color = lv_color_make(0xFF, 0, 0);
 

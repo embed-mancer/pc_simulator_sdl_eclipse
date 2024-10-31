@@ -27,7 +27,7 @@ typedef struct {
 void GuageViewInit(GuageView *view, GuageViewMode mode);
 void GuageViewCreate(GuageView *view);
 void GuageViewUpdate(GuageView *view, int value);
-void GuageViewSetTheme(GuageView *view);
+void GuageViewToggleDayNightMode(GuageView *view);
 void GuageViewMainOil(GuageView *view);
 void GuageViewMainWater(GuageView *view);
 

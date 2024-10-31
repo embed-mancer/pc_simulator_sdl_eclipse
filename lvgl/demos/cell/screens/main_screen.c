@@ -86,17 +86,7 @@ void MainScreenRpm() {
 void MainScreenSpeed() {
   main_speed = malloc(sizeof(SpeedView));
   main_speed->bg = main_scr;
-  for (int i = 0; i < 10; ++i) {
-    snprintf(main_speed->sz_block[i], sizeof(main_speed->sz_block[i]),
-             RES_PRFIX "home/night/speed/%d.png", i);
-  }
-  main_speed->pos_block[0] = CreateImagePos(main_speed->sz_block[0], 320, 258);
-  main_speed->pos_block[1] = CreateImagePos(main_speed->sz_block[0], 320, 258);
-  main_speed->pos_block[2] = CreateImagePos(main_speed->sz_block[0], 320, 258);
-  main_speed->pos_unit =
-      CreateLabelPos(507, 334, 55, 30, kColorWhite, kSourceHanSansCN_22,
-                     kTextChar, (LabelValue){"km/h"});
-  SpeedViewInit(main_speed);
+  SpeedViewMain(main_speed);
 }
 
 void MainScreenOther() {

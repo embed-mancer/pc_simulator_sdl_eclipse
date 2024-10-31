@@ -16,3 +16,9 @@ image_pos CreateImagePos(const char* image_path, int x, int y);
 label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
                          value_type_t type, LabelValue text);
 lv_color_t ToolGetThemeColor();
+void ToolToggleDayNightMode(char* image);
+void ToolSetTextOnMode(lv_obj_t* obj, int night_color, int day_color);
+void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, color_t* color_prop,
+                                int night_color, int day_color);
+
+const char* ToolGetThemeSuffix();

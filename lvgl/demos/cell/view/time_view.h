@@ -22,6 +22,6 @@ typedef struct {
 void TimeViewInit(TimeView *view);
 void TimeViewCreate(TimeView *view);
 void TimeViewUpdate(TimeView *view);
-void TimeViewSetTheme(TimeView *view);
+void TimeViewToggleDayNightMode(TimeView *view);
 
 #endif  // TIME_VIEW_H_

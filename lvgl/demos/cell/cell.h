@@ -32,8 +32,8 @@
 typedef enum {
   kDay,
   kNight,
-  kThemeCount
-} ThemeTable;
+  kDayNightModeCount
+} DayNightMode;
 
 typedef struct {
   int x;

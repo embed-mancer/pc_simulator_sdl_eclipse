@@ -18,6 +18,7 @@ typedef struct rpm_view {
 void RpmViewInit(RpmView *view);
 void RpmViewCreate(RpmView *view);
 void RpmViewUpdate(RpmView *view, int value);
+void RpmViewToggleDayNightMode(RpmView *view);
 void RpmViewRun();
 int RpmViewCurrent();
 

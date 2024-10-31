@@ -87,24 +87,20 @@ void GuageViewUpdate(GuageView *view, int value) {
   }
 }
 
-void GuageViewSetTheme(GuageView *view) {
-  const char *from = MotorModelGetTheme() == kNight ? "day" : "night";
-  const char *to = MotorModelGetTheme() == kNight ? "night" : "day";
+void GuageViewToggleDayNightMode(GuageView *view) {
+  const char *from = MotorModelGetDayNightMode() == kNight ? "day" : "night";
+  const char *to = MotorModelGetDayNightMode() == kNight ? "night" : "day";
 
   UpdateImageSource(view, from, to);
-  view->pos_label[1].color =
-      (MotorModelGetTheme() == kNight) ? kColorWhite : kColorBlack;
-  lv_obj_set_style_text_color(view->label[1],
-                              ToolGetColor(view->pos_label[1].color), 0);
+  ToolSetTextOnModeAndUpdate(view->label[1], &view->pos_label[1].color,
+                             kColorWhite, kColorBlack);
   lv_img_set_src(view->block[0], view->pos_block[0].image);
   lv_img_set_src(view->icon, view->pos_icon.image);
   lv_img_set_src(view->line, view->pos_line.image);
 }
 
 void GuageViewMainOil(GuageView *view) {
-  const char *theme_suffix =
-      (MotorModelGetTheme() == kDay) ? DAY_THEME : NIGHT_THEME;
-
+  const char *theme_suffix = ToolGetThemeSuffix();
   snprintf(view->pos_icon.image, sizeof(view->pos_icon.image),
            RES_PRFIX "home/%s/oil_normal.png", theme_suffix);
   snprintf(view->pos_line.image, sizeof(view->pos_line.image),
@@ -119,7 +115,8 @@ void GuageViewMainOil(GuageView *view) {
   view->pos_label[0] =
       CreateLabelPos(75, 440, 10, 20, kColorRed, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"E"});
-  color_t color = (MotorModelGetTheme() == kDay) ? kColorBlack : kColorWhite;
+  color_t color =
+      (MotorModelGetDayNightMode() == kDay) ? kColorBlack : kColorWhite;
   view->pos_label[1] =
       CreateLabelPos(298, 440, 10, 20, color, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"F"});
@@ -127,8 +124,7 @@ void GuageViewMainOil(GuageView *view) {
 }
 
 void GuageViewMainWater(GuageView *view) {
-  const char *theme_suffix =
-      (MotorModelGetTheme() == kDay) ? DAY_THEME : NIGHT_THEME;
+  const char *theme_suffix = ToolGetThemeSuffix();
 
   snprintf(view->pos_icon.image, sizeof(view->pos_icon.image),
            RES_PRFIX "home/%s/water_normal.png", theme_suffix);
@@ -144,7 +140,8 @@ void GuageViewMainWater(GuageView *view) {
   view->pos_label[0] =
       CreateLabelPos(764, 441, 10, 20, kColorRed, kSourceHanSansCN_18,
                      kTextChar, (LabelValue){"H"});
-  color_t color = (MotorModelGetTheme() == kDay) ? kColorBlack : kColorWhite;
+  color_t color =
+      (MotorModelGetDayNightMode() == kDay) ? kColorBlack : kColorWhite;
   view->pos_label[1] =
       CreateLabelPos(531, 441, 10, 20, color, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"C"});

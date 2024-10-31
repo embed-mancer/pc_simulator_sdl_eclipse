@@ -43,7 +43,7 @@ typedef struct {
 void OtherViewInit(OtherView *view);
 void OtherViewCreate(OtherView *view);
 void OtherViewUpdate(OtherView *view);
-void OtherViewSetTheme(OtherView *view);
+void OtherViewToggleDayNightMode(OtherView *view);
 void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, label_pos pos);
 
 #endif // OTHER_VIEW_H_

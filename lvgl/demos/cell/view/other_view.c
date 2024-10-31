@@ -83,7 +83,7 @@ void OtherViewUpdate(OtherView *view) {
                      view->pos_battery_value);
 }
 
-void OtherViewSetTheme(OtherView *view) {
+void OtherViewToggleDayNightMode(OtherView *view) {
   lv_color_t color = ToolGetThemeColor();
 
   lv_obj_set_style_text_color(view->trip_key, color, 0);

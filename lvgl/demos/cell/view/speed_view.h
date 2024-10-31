@@ -1,15 +1,3 @@
-/**
-* @file speed_view.h
-*
-* @brief This message displayed in Doxygen Files index
-*
-* @ingroup PackageName
-* (note: this needs exactly one @defgroup somewhere)
-*
-* @date	2024-07-24-10-53
-* @author Nemausa
-*
-*/
 #ifndef SPEED_VIEW_H
 #define SPEED_VIEW_H
 
@@ -33,9 +21,10 @@ typedef struct speed_view {
 void SpeedViewInit(SpeedView *view);
 void SpeedViewCreate(SpeedView *view);
 void SpeedViewUpdate(SpeedView *view, int value);
-void SpeedViewSetTheme(SpeedView *view);
+void SpeedViewToggleDayNightMode(SpeedView *view);
 void SpeedViewRun();
 int SpeedViewCurrent();
+void SpeedViewMain(SpeedView *view);
 
 #ifdef __cplusplus
 }
