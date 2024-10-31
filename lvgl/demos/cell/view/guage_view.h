@@ -15,12 +15,12 @@ typedef struct {
   lv_obj_t *line;
   lv_obj_t *block[kGuageNum];
   lv_obj_t *label[2];
-  lv_obj_t *bg;
-  ImagePos pos_icon;
-  ImagePos pos_line;
-  ImagePos pos_block[kGuageNum];
-  LabelPos pos_label[2];
-  GuageViewMode mode; 
+  lv_obj_t *background;
+  ImagePos icon_position;
+  ImagePos line_position;
+  ImagePos block_position[kGuageNum];
+  LabelPos label_position[2];
+  GuageViewMode mode;
   int max_value;
 } GuageView;
 
@@ -31,4 +31,4 @@ void GuageViewToggleDayNightMode(GuageView *view);
 void GuageViewMainOil(GuageView *view);
 void GuageViewMainWater(GuageView *view);
 
-#endif // GUAGE_VIEW_H_
+#endif  // GUAGE_VIEW_H_

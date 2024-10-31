@@ -64,7 +64,7 @@ void MainScreenOil() {
   if (main_oil == NULL) {
     return;
   }
-  main_oil->bg = main_scr;
+  main_oil->background = main_scr;
   GuageViewMainOil(main_oil);
 }
 
@@ -73,7 +73,7 @@ void MainScreenWater() {
   if (main_water == NULL) {
     return;
   }
-  main_water->bg = main_scr;
+  main_water->background = main_scr;
   GuageViewMainWater(main_water);
 }
 
@@ -91,7 +91,7 @@ void MainScreenSpeed() {
 
 void MainScreenOther() {
   main_other = malloc(sizeof(OtherView));
-  main_other->bg = main_scr;
+  main_other->background = main_scr;
   OtherViewInit(main_other);
 }
 

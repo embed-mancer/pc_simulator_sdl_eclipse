@@ -22,23 +22,22 @@ typedef struct {
   lv_obj_t *battery_value;
   lv_obj_t *battery_unit;
 
-  lv_obj_t *bg;
+  lv_obj_t *background;
 
-  ImagePos pos_line_split;
-  LabelPos pos_trip_key;
-  LabelPos pos_trip_value;
-  LabelPos pos_trip_unit;
-  LabelPos pos_avg_key;
-  LabelPos pos_avg_value;
-  LabelPos pos_avg_unit;
-  LabelPos pos_ride_time_key;
-  LabelPos pos_ride_time_value;
-  LabelPos pos_ride_time_unit;
-  LabelPos pos_battery_key;
-  LabelPos pos_battery_value;
-  LabelPos pos_battery_unit;
+  ImagePos line_split_position;
+  LabelPos trip_key_position;
+  LabelPos trip_value_position;
+  LabelPos trip_unit_position;
+  LabelPos avg_key_position;
+  LabelPos avg_value_position;
+  LabelPos avg_unit_position;
+  LabelPos ride_time_key_position;
+  LabelPos ride_time_value_position;
+  LabelPos ride_time_unit_position;
+  LabelPos battery_key_position;
+  LabelPos battery_value_position;
+  LabelPos battery_unit_position;
 } OtherView;
-
 
 void OtherViewInit(OtherView *view);
 void OtherViewCreate(OtherView *view);
@@ -46,4 +45,4 @@ void OtherViewUpdate(OtherView *view);
 void OtherViewToggleDayNightMode(OtherView *view);
 void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, LabelPos pos);
 
-#endif // OTHER_VIEW_H_
+#endif  // OTHER_VIEW_H_

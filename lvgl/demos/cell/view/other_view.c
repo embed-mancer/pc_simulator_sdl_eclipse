@@ -21,66 +21,72 @@ void OtherViewInit(OtherView *view) {
 }
 
 void OtherViewCreate(OtherView *view) {
-  view->pos_line_split =
+  view->line_split_position =
       CreateImagePos(RES_PRFIX "home/night/line_split.png", 33, 263);
-  view->pos_trip_key =
+  view->trip_key_position =
       CreateLabelPos(31, 234, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"小计里程"});
-  view->pos_trip_value =
+  view->trip_value_position =
       CreateLabelPos(142, 235, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextInt, (LabelValue)9999);
-  view->pos_trip_unit =
+  view->trip_unit_position =
       CreateLabelPos(180, 235, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"km"});
-  view->pos_avg_key =
+  view->avg_key_position =
       CreateLabelPos(31, 273, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"平均车速"});
-  view->pos_avg_value =
+  view->avg_value_position =
       CreateLabelPos(142, 272, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextInt, (LabelValue)58);
-  view->pos_avg_unit =
+  view->avg_unit_position =
       CreateLabelPos(180, 272, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"km"});
-  view->pos_ride_time_key =
+  view->ride_time_key_position =
       CreateLabelPos(31, 312, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"骑行时间"});
-  view->pos_ride_time_value =
+  view->ride_time_value_position =
       CreateLabelPos(142, 311, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"00:15"});
-  view->pos_ride_time_unit =
+  view->ride_time_unit_position =
       CreateLabelPos(180, 311, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"h"});
-  view->pos_battery_key =
+  view->battery_key_position =
       CreateLabelPos(31, 352, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"电池电压"});
-  view->pos_battery_value =
+  view->battery_value_position =
       CreateLabelPos(142, 351, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextFloat, (LabelValue)12.0);
-  view->pos_battery_unit =
+  view->battery_unit_position =
       CreateLabelPos(180, 351, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"V"});
-  LightViewOne(view->bg, &view->line_split, view->pos_line_split);
-  CreateLabel(view->bg, &view->trip_key, view->pos_trip_key);
-  CreateLabel(view->bg, &view->trip_value, view->pos_trip_value);
-  CreateLabel(view->bg, &view->trip_unit, view->pos_trip_unit);
-  CreateLabel(view->bg, &view->avg_key, view->pos_avg_key);
-  CreateLabel(view->bg, &view->avg_value, view->pos_avg_value);
-  CreateLabel(view->bg, &view->avg_unit, view->pos_avg_unit);
-  CreateLabel(view->bg, &view->ride_time_key, view->pos_ride_time_key);
-  CreateLabel(view->bg, &view->ride_time_value, view->pos_ride_time_value);
-  CreateLabel(view->bg, &view->ride_time_unit, view->pos_ride_time_unit);
-  CreateLabel(view->bg, &view->battery_key, view->pos_battery_key);
-  CreateLabel(view->bg, &view->battery_value, view->pos_battery_value);
-  CreateLabel(view->bg, &view->battery_unit, view->pos_battery_unit);
+  LightViewOne(view->background, &view->line_split, view->line_split_position);
+  CreateLabel(view->background, &view->trip_key, view->trip_key_position);
+  CreateLabel(view->background, &view->trip_value, view->trip_value_position);
+  CreateLabel(view->background, &view->trip_unit, view->trip_unit_position);
+  CreateLabel(view->background, &view->avg_key, view->avg_key_position);
+  CreateLabel(view->background, &view->avg_value, view->avg_value_position);
+  CreateLabel(view->background, &view->avg_unit, view->avg_unit_position);
+  CreateLabel(view->background, &view->ride_time_key,
+              view->ride_time_key_position);
+  CreateLabel(view->background, &view->ride_time_value,
+              view->ride_time_value_position);
+  CreateLabel(view->background, &view->ride_time_unit,
+              view->ride_time_unit_position);
+  CreateLabel(view->background, &view->battery_key, view->battery_key_position);
+  CreateLabel(view->background, &view->battery_value,
+              view->battery_value_position);
+  CreateLabel(view->background, &view->battery_unit,
+              view->battery_unit_position);
 }
 
 void OtherViewUpdate(OtherView *view) {
-  OtherViewChangePos(view->trip_value, view->trip_unit, view->pos_trip_value);
-  OtherViewChangePos(view->avg_value, view->avg_unit, view->pos_avg_value);
+  OtherViewChangePos(view->trip_value, view->trip_unit,
+                     view->trip_value_position);
+  OtherViewChangePos(view->avg_value, view->avg_unit, view->avg_value_position);
   OtherViewChangePos(view->ride_time_value, view->ride_time_unit,
-                     view->pos_ride_time_value);
+                     view->ride_time_key_position);
   OtherViewChangePos(view->battery_value, view->battery_unit,
-                     view->pos_battery_value);
+                     view->battery_value_position);
 }
 
 void OtherViewToggleDayNightMode(OtherView *view) {

@@ -24,3 +24,10 @@ void GearViewUpdate(GearView *view, int value) {
     lv_label_set_text(view->value, sz);
   }
 }
+
+void GearViewToggleDayNightMode(GearView *view) {
+  ToolSetTextOnModeAndUpdate(view->key, &view->key_position.color,
+                             kColorWhite, kColorBlack);
+  ToolSetTextOnModeAndUpdate(view->value, &view->value_position.color,
+                             kColorWhite, kColorBlack);
+}
