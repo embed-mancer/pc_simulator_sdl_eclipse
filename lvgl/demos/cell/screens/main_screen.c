@@ -97,6 +97,6 @@ void MainScreenOther() {
 
 void MainScreenTime() {
   main_time = malloc(sizeof(TimeView));
-  main_time->bg = main_scr;
+  main_time->background = main_scr;
   TimeViewInit(main_time);
 }

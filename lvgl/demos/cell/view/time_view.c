@@ -7,18 +7,18 @@
 #define DEFAULT_COLOR kColorWhite
 
 void TimeViewInit(TimeView *view) {
-  view->time_hour1 = NULL;
-  view->time_hour2 = NULL;
-  view->time_colon = NULL;
-  view->time_minute1 = NULL;
-  view->time_minute2 = NULL;
+  view->hour_digit1 = NULL;
+  view->hour_digit2 = NULL;
+  view->colon = NULL;
+  view->minute_digit1 = NULL;
+  view->minute_digit2 = NULL;
 
   TimeViewCreate(view);
   TimeViewToggleDayNightMode(view);
 }
 
 void TimeViewCreate(TimeView *view) {
-  if (view->bg == NULL) {
+  if (view->background == NULL) {
     return;
   }
   int hour1_x = TIME_X_CENTER - COLON_WIDTH / 2 - 2 * FIX_WIDTH;
@@ -26,31 +26,33 @@ void TimeViewCreate(TimeView *view) {
   int colon_x = TIME_X_CENTER - COLON_WIDTH / 2;
   int min1_x = TIME_X_CENTER + COLON_WIDTH / 2;
   int min2_x = TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH;
-  view->pos_time_hour1 =
+  view->hour_digit1_position =
       CreateLabelPos(hour1_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)1);
-  view->pos_time_hour2 =
+  view->hour_digit2_position =
       CreateLabelPos(hour2_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)7);
-  view->pos_time_colon =
+  view->colon_position =
       CreateLabelPos(colon_x, TIME_Y_POSITION, COLON_WIDTH, 25, kColorWhite,
                      kSourceHanSansCN_28, kTextChar, (LabelValue){":"});
-  view->pos_time_minute1 =
+  view->minute_digit1_position =
       CreateLabelPos(min1_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)1);
-  view->pos_time_minute2 =
+  view->minute_digit2_position =
       CreateLabelPos(min2_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)7);
-  CreateLabel(view->bg, &view->time_hour1, view->pos_time_hour1);
-  CreateLabel(view->bg, &view->time_hour2, view->pos_time_hour2);
-  CreateLabel(view->bg, &view->time_colon, view->pos_time_colon);
-  CreateLabel(view->bg, &view->time_minute1, view->pos_time_minute1);
-  CreateLabel(view->bg, &view->time_minute2, view->pos_time_minute2);
-  lv_obj_set_style_text_align(view->time_hour1, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_text_align(view->time_hour2, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_text_align(view->time_colon, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_text_align(view->time_minute2, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_text_align(view->time_minute2, LV_TEXT_ALIGN_CENTER, 0);
+  CreateLabel(view->background, &view->hour_digit1, view->hour_digit1_position);
+  CreateLabel(view->background, &view->hour_digit2, view->hour_digit2_position);
+  CreateLabel(view->background, &view->colon, view->colon_position);
+  CreateLabel(view->background, &view->minute_digit1,
+              view->minute_digit1_position);
+  CreateLabel(view->background, &view->minute_digit2,
+              view->minute_digit2_position);
+  lv_obj_set_style_text_align(view->hour_digit1, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->hour_digit2, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->colon, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->minute_digit1, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->minute_digit2, LV_TEXT_ALIGN_CENTER, 0);
 }
 
 void TimeViewUpdate(TimeView *view) {}
@@ -59,9 +61,9 @@ void TimeViewToggleDayNightMode(TimeView *view) {
   lv_color_t color = ToolGetThemeColor();
   color = lv_color_make(0xFF, 0, 0);
 
-  lv_obj_set_style_text_color(view->time_hour1, color, 0);
-  lv_obj_set_style_text_color(view->time_hour2, color, 0);
-  lv_obj_set_style_text_color(view->time_colon, color, 0);
-  lv_obj_set_style_text_color(view->time_minute1, color, 0);
-  lv_obj_set_style_text_color(view->time_minute2, color, 0);
-} 
+  lv_obj_set_style_text_color(view->hour_digit1, color, 0);
+  lv_obj_set_style_text_color(view->hour_digit2, color, 0);
+  lv_obj_set_style_text_color(view->colon, color, 0);
+  lv_obj_set_style_text_color(view->minute_digit1, color, 0);
+  lv_obj_set_style_text_color(view->minute_digit2, color, 0);
+}
