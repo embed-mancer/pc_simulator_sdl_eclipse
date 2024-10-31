@@ -55,12 +55,11 @@ void TimeViewCreate(TimeView *view) {
   lv_obj_set_style_text_align(view->minute_digit2, LV_TEXT_ALIGN_CENTER, 0);
 }
 
+// TODO
 void TimeViewUpdate(TimeView *view) {}
 
 void TimeViewToggleDayNightMode(TimeView *view) {
   lv_color_t color = ToolGetThemeColor();
-  color = lv_color_make(0xFF, 0, 0);
-
   lv_obj_set_style_text_color(view->hour_digit1, color, 0);
   lv_obj_set_style_text_color(view->hour_digit2, color, 0);
   lv_obj_set_style_text_color(view->colon, color, 0);

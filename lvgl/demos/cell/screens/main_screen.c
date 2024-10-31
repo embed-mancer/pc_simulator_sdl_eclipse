@@ -5,6 +5,7 @@
 #include "lvgl/lvgl.h"
 #include "screen_interface.h"
 #include "../other/motor_model.h"
+#include "../other/motor_controller.h"
 
 lv_obj_t *main_scr = NULL;
 LightView *light;
@@ -20,35 +21,51 @@ static lv_obj_t *img_bg = NULL;
 
 void main_scrren_task_cb(lv_timer_t *timer) {
   if (CheckSelfIsChecking()) return;
-  LightControlAll(light);
-  // NotifyOil(main_oil);
+
+  // for test
+  {
+    static unsigned long last_switch_time = 0;
+    static bool is_day_mode = true;
+    unsigned long current_time = lv_tick_get();
+
+    if (current_time - last_switch_time >= 5000) {
+      last_switch_time = current_time;
+
+      is_day_mode = !is_day_mode;
+      if (is_day_mode)
+        MotorModelSetDayNightMode(kNightMode);
+      else
+        MotorModelSetDayNightMode(kDayMode);
+      MainscreenToggleDayNight();
+    }
+  }
 }
 
-static void CreateBackgroundImage(lv_obj_t* screen) {
-    if (img_bg == NULL) {
-        img_bg = lv_img_create(screen);
-        lv_img_set_src(img_bg, RES_PRFIX "home/day/bg.png");
-        lv_obj_set_pos(img_bg, 0, 0);
-    }
+static void CreateBackgroundImage(lv_obj_t *screen) {
+  if (img_bg == NULL) {
+    img_bg = lv_img_create(screen);
+    lv_img_set_src(img_bg, RES_PRFIX "home/day/bg.png");
+    lv_obj_set_pos(img_bg, 0, 0);
+  }
 }
 
-static void SetScreenAppearance(lv_obj_t* screen) {
-    if (MotorModelGetDayNightMode() == kDayMode) {
-        set_screen_color(screen, lv_color_white());
-        CreateBackgroundImage(screen);
-        lv_obj_clear_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
-    } else {
-        set_screen_color(screen, lv_color_black());
-        if (img_bg) {
-            lv_obj_add_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
-        }
+static void SetScreenAppearance(lv_obj_t *screen) {
+  if (MotorModelGetDayNightMode() == kDayMode) {
+    set_screen_color(screen, lv_color_white());
+    CreateBackgroundImage(screen);
+    lv_obj_clear_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
+  } else {
+    set_screen_color(screen, lv_color_black());
+    if (img_bg) {
+      lv_obj_add_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
     }
+  }
 }
 
 void MainScreenInit() {
   main_scr = lv_obj_create(NULL);
   lv_scr_load(main_scr);
-  SetScreenAppearance(main_scr); 
+  SetScreenAppearance(main_scr);
   ToolInit();
   MainScreenLight();
   MainScreenOil();
@@ -73,9 +90,10 @@ void MainScreenLight() {
 void MainScreenGear() {
   gear = malloc(sizeof(GearView));
   gear->bg_ = main_scr;
+  Color color = ToolGetColorBase();
   gear->key_position =
-      CreateLabelPos(725, 397, 50, 20, kColorWhite, kSourceHanSansCN_18,
-                     kTextChar, (LabelValue){"GEAR"});
+      CreateLabelPos(725, 397, 50, 20, color, kSourceHanSansCN_18, kTextChar,
+                     (LabelValue){"GEAR"});
   gear->value_position =
       CreateLabelPos(738, 359, 20, 30, kColorLimeGreen, kSourceHanSansCN_34,
                      kTextChar, (LabelValue){"1"});
@@ -125,7 +143,7 @@ void MainScreenTime() {
 }
 
 void MainscreenToggleDayNight() {
-  SetScreenAppearance(main_scr); 
+  SetScreenAppearance(main_scr);
   GuageViewToggleDayNightMode(main_oil);
   GuageViewToggleDayNightMode(main_water);
   SpeedViewToggleDayNightMode(main_speed);
@@ -133,4 +151,5 @@ void MainscreenToggleDayNight() {
   OtherViewToggleDayNightMode(main_other);
   GearViewToggleDayNightMode(gear);
   TimeViewToggleDayNightMode(main_time);
+  SpeedViewUpdate(main_speed, SpeedViewCurrent());
 }

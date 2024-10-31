@@ -11,7 +11,7 @@ void MotorModelSetODO(int value);
 void MotorModelSetTrip(double value);
 void MotorModelSetRpm(int value);
 void MotorModelSetSpeed(int value);
-void MotorModelSetDayNightMode(DayNightMode new_theme);
+void MotorModelSetDayNightMode(DayNightMode new_mode);
 
 int MotorModelGetOil();
 int MotorModelGetWater();

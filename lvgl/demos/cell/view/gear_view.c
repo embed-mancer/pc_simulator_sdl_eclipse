@@ -2,6 +2,7 @@
 
 #include "../cell.h"
 #include "../light/light_view.h"
+#include "../other/motor_model.h"
 
 void GearViewInit(GearView *view) {
   view->key = NULL;
@@ -28,6 +29,11 @@ void GearViewUpdate(GearView *view, int value) {
 void GearViewToggleDayNightMode(GearView *view) {
   ToolSetTextOnModeAndUpdate(view->key, &view->key_position.color,
                              kColorWhite, kColorBlack);
-  ToolSetTextOnModeAndUpdate(view->value, &view->value_position.color,
-                             kColorWhite, kColorBlack);
+  if (MotorModelGetDayNightMode() == kDayMode) {
+    view->value_position.color =  kColorBlack ;
+    lv_obj_set_style_text_color(view->value, ToolGetColor(kColorBlack), 0);
+  } else {
+    view->value_position.color = kColorLimeGreen;
+    lv_obj_set_style_text_color(view->value, ToolGetColor(kColorLimeGreen), 0);
+  }
 }

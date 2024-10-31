@@ -21,7 +21,7 @@ void MotorModelSetODO(int value) { odo = value >= 0 ? value : 0; }
 void MotorModelSetTrip(double value) { trip = value >= 0 ? value : 0.0; }
 void MotorModelSetRpm(int value) { rpm = value >= 0 ? value : 0; }
 void MotorModelSetDayNightMode(DayNightMode new_mode) {
-  current_day_night_mode = mode;
+  current_day_night_mode = new_mode;
 }
 
 int MotorModelGetOil() { return oil; }
