@@ -146,3 +146,7 @@ void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, Color* color_prop,
 const char* ToolGetThemeSuffix() {
   return (MotorModelGetDayNightMode() == kDayMode) ? "day" : "night";
 }
+
+Color ToolGetColorBase() {
+  return (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorWhite;
+}

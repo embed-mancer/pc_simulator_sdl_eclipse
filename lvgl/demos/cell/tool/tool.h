@@ -22,3 +22,4 @@ void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, Color* color_prop,
                                 int night_color, int day_color);
 
 const char* ToolGetThemeSuffix();
+Color ToolGetColorBase();

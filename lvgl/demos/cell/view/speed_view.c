@@ -96,8 +96,7 @@ void SpeedViewMain(SpeedView *view) {
   view->block_position[0] = CreateImagePos(view->image_paths[0], 320, 258);
   view->block_position[1] = CreateImagePos(view->image_paths[0], 320, 258);
   view->block_position[2] = CreateImagePos(view->image_paths[0], 320, 258);
-  Color color =
-      (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorWhite;
+  Color color = ToolGetColorBase();
   view->unit_position =
       CreateLabelPos(507, 334, 55, 30, color, kSourceHanSansCN_22, kTextChar,
                      (LabelValue){"km/h"});

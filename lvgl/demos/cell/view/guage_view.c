@@ -4,8 +4,6 @@
 
 #define BLOCK_WIDTH_MAX 195
 #define BLOCK_HEIGHT 8
-#define DAY_THEME "day"
-#define NIGHT_THEME "night"
 
 static void UpdateImageSource(GuageView *view, const char *from,
                               const char *to) {
@@ -118,8 +116,7 @@ void GuageViewMainOil(GuageView *view) {
   view->label_position[0] =
       CreateLabelPos(75, 440, 10, 20, kColorRed, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"E"});
-  Color color =
-      (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorWhite;
+  Color color = ToolGetColorBase();
   view->label_position[1] =
       CreateLabelPos(298, 440, 10, 20, color, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"F"});
@@ -144,8 +141,7 @@ void GuageViewMainWater(GuageView *view) {
   view->label_position[0] =
       CreateLabelPos(764, 441, 10, 20, kColorRed, kSourceHanSansCN_18,
                      kTextChar, (LabelValue){"H"});
-  Color color =
-      (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorWhite;
+  Color color = ToolGetColorBase();
   view->label_position[1] =
       CreateLabelPos(531, 441, 10, 20, color, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"C"});

@@ -1,7 +1,7 @@
 #ifndef MAIN_SCREEN_H_
 #define MAIN_SCREEN_H_
 
-void main_screen_init();
+void MainScreenInit();
 void MainScreenLight();
 void MainScreenGear();
 void MainScreenOil();
@@ -10,5 +10,6 @@ void MainScreenRpm();
 void MainScreenSpeed();
 void MainScreenOther();
 void MainScreenTime();
+void MainscreenToggleDayNight();
 
 #endif // MAIN_SCREEN_H_
