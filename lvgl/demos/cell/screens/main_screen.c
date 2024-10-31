@@ -61,38 +61,20 @@ void MainScreenGear() {
 
 void MainScreenOil() {
   main_oil = malloc(sizeof(GuageView));
+  if (main_oil == NULL) {
+    return;
+  }
   main_oil->bg = main_scr;
-  main_oil->pos_icon =
-      CreateImagePos(RES_PRFIX "home/night/oil_normal.png", 30, 430);
-  main_oil->pos_line =
-      CreateImagePos(RES_PRFIX "home/night/oil_line.png", 91, 444);
-  main_oil->pos_block[0] =
-      CreateImagePos(RES_PRFIX "home/night/oil_width.png", 92, 444);
-  main_oil->pos_label[0] =
-      CreateLabelPos(75, 440, 10, 20, kColorRed, kSourceHanSansCN_18, kTextChar,
-                     (LabelValue){"E"});
-  main_oil->pos_label[1] =
-      CreateLabelPos(298, 440, 10, 20, kColorWhite, kSourceHanSansCN_18,
-                     kTextChar, (LabelValue){"F"});
-  GuageViewInit(main_oil, kGuageViewModeWidth);
+  GuageViewMainOil(main_oil);
 }
 
 void MainScreenWater() {
   main_water = malloc(sizeof(GuageView));
+  if (main_water == NULL) {
+    return;
+  }
   main_water->bg = main_scr;
-  main_water->pos_icon =
-      CreateImagePos(RES_PRFIX "home/night/water_normal.png", 487, 430);
-  main_water->pos_line =
-      CreateImagePos(RES_PRFIX "home/night/water_line.png", 554, 444);
-  main_water->pos_block[0] =
-      CreateImagePos(RES_PRFIX "home/night/water_width.png", 554, 444);
-  main_water->pos_label[0] =
-      CreateLabelPos(764, 441, 10, 20, kColorRed, kSourceHanSansCN_18,
-                     kTextChar, (LabelValue){"H"});
-  main_water->pos_label[1] =
-      CreateLabelPos(531, 441, 10, 20, kColorWhite, kSourceHanSansCN_18,
-                     kTextChar, (LabelValue){"C"});
-  GuageViewInit(main_water, kGuageViewModeWidth);
+  GuageViewMainWater(main_water);
 }
 
 void MainScreenRpm() {
@@ -112,8 +94,7 @@ void MainScreenSpeed() {
   main_speed->pos_block[1] = CreateImagePos(main_speed->sz_block[0], 320, 258);
   main_speed->pos_block[2] = CreateImagePos(main_speed->sz_block[0], 320, 258);
   main_speed->pos_unit =
-      CreateLabelPos(507, 334, 55, 30, 
-                     kColorWhite, kSourceHanSansCN_22,
+      CreateLabelPos(507, 334, 55, 30, kColorWhite, kSourceHanSansCN_22,
                      kTextChar, (LabelValue){"km/h"});
   SpeedViewInit(main_speed);
 }

@@ -4,6 +4,8 @@
 
 #define BLOCK_WIDTH_MAX 195
 #define BLOCK_HEIGHT 8
+#define DAY_THEME "day"
+#define NIGHT_THEME "night"
 
 static void UpdateImageSource(GuageView *view, const char *from,
                               const char *to) {
@@ -94,4 +96,57 @@ void GuageViewSetTheme(GuageView *view) {
       (MotorModelGetTheme() == kNight) ? kColorWhite : kColorBlack;
   lv_obj_set_style_text_color(view->label[1],
                               ToolGetColor(view->pos_label[1].color), 0);
+  lv_img_set_src(view->block[0], view->pos_block[0].image);
+  lv_img_set_src(view->icon, view->pos_icon.image);
+  lv_img_set_src(view->line, view->pos_line.image);
+}
+
+void GuageViewMainOil(GuageView *view) {
+  const char *theme_suffix =
+      (MotorModelGetTheme() == kDay) ? DAY_THEME : NIGHT_THEME;
+
+  snprintf(view->pos_icon.image, sizeof(view->pos_icon.image),
+           RES_PRFIX "home/%s/oil_normal.png", theme_suffix);
+  snprintf(view->pos_line.image, sizeof(view->pos_line.image),
+           RES_PRFIX "home/%s/oil_line.png", theme_suffix);
+  snprintf(view->pos_block[0].image, sizeof(view->pos_block[0].image),
+           RES_PRFIX "home/%s/oil_width.png", theme_suffix);
+
+  view->pos_icon = CreateImagePos(view->pos_icon.image, 30, 430);
+  view->pos_line = CreateImagePos(view->pos_line.image, 91, 444);
+  view->pos_block[0] = CreateImagePos(view->pos_block[0].image, 92, 444);
+
+  view->pos_label[0] =
+      CreateLabelPos(75, 440, 10, 20, kColorRed, kSourceHanSansCN_18, kTextChar,
+                     (LabelValue){"E"});
+  color_t color = (MotorModelGetTheme() == kDay) ? kColorBlack : kColorWhite;
+  view->pos_label[1] =
+      CreateLabelPos(298, 440, 10, 20, color, kSourceHanSansCN_18, kTextChar,
+                     (LabelValue){"F"});
+  GuageViewInit(view, kGuageViewModeWidth);
+}
+
+void GuageViewMainWater(GuageView *view) {
+  const char *theme_suffix =
+      (MotorModelGetTheme() == kDay) ? DAY_THEME : NIGHT_THEME;
+
+  snprintf(view->pos_icon.image, sizeof(view->pos_icon.image),
+           RES_PRFIX "home/%s/water_normal.png", theme_suffix);
+  snprintf(view->pos_line.image, sizeof(view->pos_line.image),
+           RES_PRFIX "home/%s/water_line.png", theme_suffix);
+  snprintf(view->pos_block[0].image, sizeof(view->pos_block[0].image),
+           RES_PRFIX "home/%s/water_width.png", theme_suffix);
+
+  view->pos_icon = CreateImagePos(view->pos_icon.image, 487, 430);
+  view->pos_line = CreateImagePos(view->pos_line.image, 554, 444);
+  view->pos_block[0] = CreateImagePos(view->pos_block[0].image, 554, 444);
+
+  view->pos_label[0] =
+      CreateLabelPos(764, 441, 10, 20, kColorRed, kSourceHanSansCN_18,
+                     kTextChar, (LabelValue){"H"});
+  color_t color = (MotorModelGetTheme() == kDay) ? kColorBlack : kColorWhite;
+  view->pos_label[1] =
+      CreateLabelPos(531, 441, 10, 20, color, kSourceHanSansCN_18, kTextChar,
+                     (LabelValue){"C"});
+  GuageViewInit(view, kGuageViewModeWidth);
 }

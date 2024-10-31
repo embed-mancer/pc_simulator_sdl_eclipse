@@ -28,5 +28,7 @@ void GuageViewInit(GuageView *view, GuageViewMode mode);
 void GuageViewCreate(GuageView *view);
 void GuageViewUpdate(GuageView *view, int value);
 void GuageViewSetTheme(GuageView *view);
+void GuageViewMainOil(GuageView *view);
+void GuageViewMainWater(GuageView *view);
 
 #endif // GUAGE_VIEW_H_

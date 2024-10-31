@@ -9,7 +9,7 @@ static int speed = 0;
 static int odo = 0;
 static double trip = 0.0;
 static int rpm = 0;
-static ThemeTable theme = kDay;
+static ThemeTable theme = kNight;
 
 void MotorModelSetOil(int value) { oil = value >= 0 ? value : 0; }
 void MotorModelSetWater(int value) { water = value >= 0 ? value : 0; }
