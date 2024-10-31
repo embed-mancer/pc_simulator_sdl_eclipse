@@ -13,11 +13,11 @@ void SpeedViewInit(SpeedView *view) {
 
 void SpeedViewCreate(SpeedView *view) {
   for (int i = 0; i < 3; ++i) {
-    LightViewOne(view->bg, &view->block[i], view->block_position[i]);
+    LightViewOne(view->background, &view->block[i], view->block_position[i]);
   }
   lv_obj_add_flag(view->block[0], LV_OBJ_FLAG_HIDDEN);
   lv_obj_add_flag(view->block[1], LV_OBJ_FLAG_HIDDEN);
-  CreateLabel(view->bg, &view->unit, view->unit_position);
+  CreateLabel(view->background, &view->unit, view->unit_position);
   SpeedViewUpdate(view, 0);
 }
 
@@ -69,8 +69,8 @@ void SpeedViewToggleDayNightMode(SpeedView *view) {
     ToolToggleDayNightMode(view->image_paths[i]);
   }
 
-  ToolSetTextOnModeAndUpdate(view->unit, &view->unit_position.color, kColorWhite,
-                             kColorBlack);
+  ToolSetTextOnModeAndUpdate(view->unit, &view->unit_position.color,
+                             kColorWhite, kColorBlack);
 }
 
 void SpeedViewRun() {
@@ -98,7 +98,8 @@ void SpeedViewMain(SpeedView *view) {
   view->block_position[2] = CreateImagePos(view->image_paths[0], 320, 258);
   Color color =
       (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorWhite;
-  view->unit_position = CreateLabelPos(507, 334, 55, 30, color, kSourceHanSansCN_22,
-                                  kTextChar, (LabelValue){"km/h"});
+  view->unit_position =
+      CreateLabelPos(507, 334, 55, 30, color, kSourceHanSansCN_22, kTextChar,
+                     (LabelValue){"km/h"});
   SpeedViewInit(view);
 }

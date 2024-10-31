@@ -85,7 +85,7 @@ void MainScreenRpm() {
 
 void MainScreenSpeed() {
   main_speed = malloc(sizeof(SpeedView));
-  main_speed->bg = main_scr;
+  main_speed->background = main_scr;
   SpeedViewMain(main_speed);
 }
 

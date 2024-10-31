@@ -4,12 +4,11 @@
 #include "../cell.h"
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 typedef struct {
-  lv_obj_t *bg;
+  lv_obj_t *background;
   lv_obj_t *unit;
   lv_obj_t *block[3];
 
@@ -30,5 +29,4 @@ void SpeedViewMain(SpeedView *view);
 }
 #endif
 
-
-#endif // SPEED_VIEW_H
+#endif  // SPEED_VIEW_H
