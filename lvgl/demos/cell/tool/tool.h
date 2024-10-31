@@ -6,19 +6,19 @@
 
 void ToolInit();
 void ToolInitColorMap();
-lv_color_t ToolGetColor(color_t color);
-const lv_font_t* ToolGetFont(font_t font);
-lv_coord_t ToolGetWidth(font_t);
+lv_color_t ToolGetColor(Color color);
+const lv_font_t* ToolGetFont(Font font);
+lv_coord_t ToolGetWidth(Font);
 
-void ReplaceSubstr(char* str, const char* old_substr, const char* new_substr);
-lv_obj_t* Label(lv_obj_t* bg, lv_obj_t** lv, label_pos pos);
-image_pos CreateImagePos(const char* image_path, int x, int y);
-label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
-                         value_type_t type, LabelValue text);
+void ReplaceSubstring(char* str, const char* old_substr, const char* new_substr);
+lv_obj_t* CreateLabel(lv_obj_t* bg, lv_obj_t** lv, LabelPos pos);
+ImagePos CreateImagePos(const char* image_path, int x, int y);
+LabelPos CreateLabelPos(int x, int y, int w, int h, Color color, Font font,
+                         ValueType type, LabelValue text);
 lv_color_t ToolGetThemeColor();
 void ToolToggleDayNightMode(char* image);
 void ToolSetTextOnMode(lv_obj_t* obj, int night_color, int day_color);
-void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, color_t* color_prop,
+void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, Color* color_prop,
                                 int night_color, int day_color);
 
 const char* ToolGetThemeSuffix();

@@ -1,58 +1,55 @@
 #include "tool.h"
-
 #include "../other/motor_model.h"
 
-typedef struct {
-  color_t color;
-  lv_color_t (*getColorFunc)();
-} ColorMap;
-lv_color_t colorMap[kColorCount];
+lv_color_t color_map[kColorCount];
 
 typedef struct {
-  font_t font;
-  const lv_font_t* fontPtr;
+  Font font;
+  const lv_font_t* font_ptr;
 } FontMap;
-FontMap fontMap[kFontCount] = {{kPlagiata_27, &Plagiata_27},
-                               {kPlagiata_37, &Plagiata_37},
-                               {kSourceHanSansCN_18, &SourceHanSansCN_18},
-                               {kSourceHanSansCN_22, &SourceHanSansCN_22},
-                               {kSourceHanSansCN_28, &SourceHanSansCN_28},
-                               {kSourceHanSansCN_34, &SourceHanSansCN_34},
-                               {kMicrosoftYaHei_20, &MicrosoftYaHei_20}};
+
+FontMap font_map[kFontCount] = {{kPlagiata_27, &Plagiata_27},
+                                {kPlagiata_37, &Plagiata_37},
+                                {kSourceHanSansCN_18, &SourceHanSansCN_18},
+                                {kSourceHanSansCN_22, &SourceHanSansCN_22},
+                                {kSourceHanSansCN_28, &SourceHanSansCN_28},
+                                {kSourceHanSansCN_34, &SourceHanSansCN_34},
+                                {kMicrosoftYaHei_20, &MicrosoftYaHei_20}};
 
 void ToolInit() { ToolInitColorMap(); }
 
 void ToolInitColorMap() {
-  colorMap[kColorWhite] = lv_color_make(255, 255, 255);
-  colorMap[kColorBlack] = lv_color_make(0, 0, 0);
-  colorMap[kColorRed] = lv_color_make(255, 0, 0);
-  colorMap[kColorGreen] = lv_color_make(0, 255, 0);
-  colorMap[kColorBlue] = lv_color_make(0, 0, 255);
-  colorMap[kColorLimeGreen] = lv_color_make(0x31, 0xC9, 0x18);
+  color_map[kColorWhite] = lv_color_make(255, 255, 255);
+  color_map[kColorBlack] = lv_color_make(0, 0, 0);
+  color_map[kColorRed] = lv_color_make(255, 0, 0);
+  color_map[kColorGreen] = lv_color_make(0, 255, 0);
+  color_map[kColorBlue] = lv_color_make(0, 0, 255);
+  color_map[kColorLimeGreen] = lv_color_make(0x31, 0xC9, 0x18);
 }
 
-lv_color_t ToolGetColor(color_t color) {
+lv_color_t ToolGetColor(Color color) {
   if (color < 0 || color >= kColorCount) {
     return lv_color_make(0, 0, 0);
   }
-  return colorMap[color];
+  return color_map[color];
 }
 
-const lv_font_t* ToolGetFont(font_t font) {
+const lv_font_t* ToolGetFont(Font font) {
   if (font < 0 || font >= kFontCount) {
     return &SourceHanSansCN_18;
   }
-  return fontMap[font].fontPtr;
+  return font_map[font].font_ptr;
 }
 
-lv_coord_t ToolGetWidth(font_t font) {
+lv_coord_t ToolGetWidth(Font font) {
   switch (font) {
     case kPlagiata_27:
       return 10;
   }
 }
 
-void ReplaceSubstr(char* str, const char* old_substr, const char* new_substr) {
+void ReplaceSubstring(char* str, const char* old_substr,
+                      const char* new_substr) {
   char* pos;
   int old_len = strlen(old_substr);
   int new_len = strlen(new_substr);
@@ -65,58 +62,55 @@ void ReplaceSubstr(char* str, const char* old_substr, const char* new_substr) {
   }
 }
 
-lv_obj_t* Label(lv_obj_t* bg, lv_obj_t** lv, label_pos pos) {
-  // if (lv)
-  //   return lv;
+lv_obj_t* CreateLabel(lv_obj_t* bg, lv_obj_t** lv, LabelPos pos) {
   lv_obj_t* obj = lv_label_create(bg);
-  if (pos.value_type == kTextChar)
+  if (pos.value_type == kTextChar) {
     lv_label_set_text(obj, pos.value.sz);
-  else if (pos.value_type == kTextFloat) {
+  } else if (pos.value_type == kTextFloat) {
     char sz[32] = {0};
-    sprintf(sz, "%.1f", pos.value.f);
+    sprintf(sz, "%.1f", pos.value.double_value);
     lv_label_set_text(obj, sz);
-  } else if (pos.value_type == kTextInt)
-    lv_label_set_text_fmt(obj, "%d", pos.value.i);
+  } else if (pos.value_type == kTextInt) {
+    lv_label_set_text_fmt(obj, "%d", pos.value.int_value);
+  }
   lv_obj_set_pos(obj, pos.x, pos.y);
-  lv_obj_set_size(obj, pos.w, pos.h);
+  lv_obj_set_size(obj, pos.width, pos.height);
   lv_obj_set_style_text_font(obj, ToolGetFont(pos.font), 0);
   lv_obj_set_style_text_color(obj, ToolGetColor(pos.color), 0);
-  // lv_obj_set_align(obj, LV_ALIGN_TOP_LEFT);
-  // lv_label_set_long_mode(obj, LV_LABEL_LONG_WRAP);
   *lv = obj;
   return obj;
 }
 
-image_pos CreateImagePos(const char* image_path, int x, int y) {
-  image_pos pos = {.x = x, .y = y};
-  strcpy(pos.image, image_path);
+ImagePos CreateImagePos(const char* image_path, int x, int y) {
+  ImagePos pos = {.x = x, .y = y};
+  strncpy(pos.image, image_path, sizeof(pos.image) - 1);
   pos.image[sizeof(pos.image) - 1] = '\0';
   return pos;
 }
 
-label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
-                         value_type_t type, LabelValue text) {
-  label_pos pos = {.x = x,
-                   .y = y,
-                   .w = w,
-                   .h = h,
-                   .color = color,
-                   .font = font,
-                   .value_type = type};
+LabelPos CreateLabelPos(int x, int y, int width, int height, Color color,
+                        Font font, ValueType type, LabelValue text) {
+  LabelPos pos = {.x = x,
+                  .y = y,
+                  .width = width,
+                  .height = height,
+                  .color = color,
+                  .font = font,
+                  .value_type = type};
 
   switch (type) {
     case kTextChar:
-      strcpy(pos.value.sz, text.sz);
+      strncpy(pos.value.sz, text.sz, sizeof(pos.value.sz) - 1);
       pos.value.sz[sizeof(pos.value.sz) - 1] = '\0';
       break;
     case kTextFloat:
-      pos.value.f = text.f;
+      pos.value.double_value = text.double_value;
       break;
     case kTextInt:
-      pos.value.i = text.i;
+      pos.value.int_value = text.int_value;
       break;
     default:
-      pos.value.i = 0;
+      pos.value.int_value = 0;
       break;
   }
 
@@ -124,29 +118,31 @@ label_pos CreateLabelPos(int x, int y, int w, int h, color_t color, font_t font,
 }
 
 lv_color_t ToolGetThemeColor() {
-  return MotorModelGetDayNightMode() == kDay ? lv_color_black()
-                                             : lv_color_white();
+  return MotorModelGetDayNightMode() == kDayMode ? lv_color_black()
+                                                 : lv_color_white();
 }
 
 void ToolToggleDayNightMode(char* image) {
-  if (MotorModelGetDayNightMode() == kDay)
-    ReplaceSubstr(image, "night", "day");
-  else
-    ReplaceSubstr(image, "day", "night");
+  if (MotorModelGetDayNightMode() == kDayMode) {
+    ReplaceSubstring(image, "night", "day");
+  } else {
+    ReplaceSubstring(image, "day", "night");
+  }
 }
 
 void ToolSetTextOnMode(lv_obj_t* obj, int night_color, int day_color) {
-  int color = (MotorModelGetDayNightMode() == kNight) ? night_color : day_color;
+  int color =
+      (MotorModelGetDayNightMode() == kNightMode) ? night_color : day_color;
   lv_obj_set_style_text_color(obj, ToolGetColor(color), 0);
 }
 
-void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, color_t* color_prop,
+void ToolSetTextOnModeAndUpdate(lv_obj_t* obj, Color* color_prop,
                                 int night_color, int day_color) {
   *color_prop =
-      (MotorModelGetDayNightMode() == kNight) ? night_color : day_color;
+      (MotorModelGetDayNightMode() == kNightMode) ? night_color : day_color;
   lv_obj_set_style_text_color(obj, ToolGetColor(*color_prop), 0);
 }
 
 const char* ToolGetThemeSuffix() {
-    return (MotorModelGetDayNightMode() == kDay) ? "day" : "night";
+  return (MotorModelGetDayNightMode() == kDayMode) ? "day" : "night";
 }

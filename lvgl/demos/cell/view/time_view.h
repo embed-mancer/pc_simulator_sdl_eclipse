@@ -12,11 +12,11 @@ typedef struct {
   lv_obj_t *time_minute1;
   lv_obj_t *time_minute2;
 
-  label_pos pos_time_hour1;
-  label_pos pos_time_hour2;
-  label_pos pos_time_colon;
-  label_pos pos_time_minute1;
-  label_pos pos_time_minute2;
+  LabelPos pos_time_hour1;
+  LabelPos pos_time_hour2;
+  LabelPos pos_time_colon;
+  LabelPos pos_time_minute1;
+  LabelPos pos_time_minute2;
 } TimeView;
 
 void TimeViewInit(TimeView *view);

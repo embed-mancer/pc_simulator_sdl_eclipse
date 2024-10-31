@@ -28,7 +28,7 @@ void LightViewCreate(LightView *view) {
   }
 }
 
-void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, image_pos pos) {
+void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, ImagePos pos) {
   if (*lv) return;
   *lv = lv_img_create(bg);
   lv_obj_set_pos(*lv, pos.x, pos.y);
@@ -36,8 +36,7 @@ void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, image_pos pos) {
 }
 
 void LightViewDisplay(Icon *icon, DisplayTable table) {
-  if (!icon->is_needed)
-    return;
+  if (!icon->is_needed) return;
   switch (table) {
     case kHide:
       lv_obj_add_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);
@@ -47,4 +46,3 @@ void LightViewDisplay(Icon *icon, DisplayTable table) {
       break;
   }
 }
-

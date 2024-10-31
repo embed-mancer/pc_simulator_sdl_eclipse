@@ -10,8 +10,8 @@ void GearViewInit(GearView *view) {
 }
 
 void GearViewCreate(GearView *view) {
-  Label(view->bg_, &view->key, view->pos_key);
-  Label(view->bg_, &view->value, view->pos_value);
+  CreateLabel(view->bg_, &view->key, view->key_position);
+  CreateLabel(view->bg_, &view->value, view->value_position);
   lv_obj_set_style_text_align(view->key, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_align(view->value, LV_TEXT_ALIGN_CENTER, 0);
 }

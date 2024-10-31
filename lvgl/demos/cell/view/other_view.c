@@ -60,18 +60,18 @@ void OtherViewCreate(OtherView *view) {
       CreateLabelPos(180, 351, 100, 25, kColorWhite, kMicrosoftYaHei_20,
                      kTextChar, (LabelValue){"V"});
   LightViewOne(view->bg, &view->line_split, view->pos_line_split);
-  Label(view->bg, &view->trip_key, view->pos_trip_key);
-  Label(view->bg, &view->trip_value, view->pos_trip_value);
-  Label(view->bg, &view->trip_unit, view->pos_trip_unit);
-  Label(view->bg, &view->avg_key, view->pos_avg_key);
-  Label(view->bg, &view->avg_value, view->pos_avg_value);
-  Label(view->bg, &view->avg_unit, view->pos_avg_unit);
-  Label(view->bg, &view->ride_time_key, view->pos_ride_time_key);
-  Label(view->bg, &view->ride_time_value, view->pos_ride_time_value);
-  Label(view->bg, &view->ride_time_unit, view->pos_ride_time_unit);
-  Label(view->bg, &view->battery_key, view->pos_battery_key);
-  Label(view->bg, &view->battery_value, view->pos_battery_value);
-  Label(view->bg, &view->battery_unit, view->pos_battery_unit);
+  CreateLabel(view->bg, &view->trip_key, view->pos_trip_key);
+  CreateLabel(view->bg, &view->trip_value, view->pos_trip_value);
+  CreateLabel(view->bg, &view->trip_unit, view->pos_trip_unit);
+  CreateLabel(view->bg, &view->avg_key, view->pos_avg_key);
+  CreateLabel(view->bg, &view->avg_value, view->pos_avg_value);
+  CreateLabel(view->bg, &view->avg_unit, view->pos_avg_unit);
+  CreateLabel(view->bg, &view->ride_time_key, view->pos_ride_time_key);
+  CreateLabel(view->bg, &view->ride_time_value, view->pos_ride_time_value);
+  CreateLabel(view->bg, &view->ride_time_unit, view->pos_ride_time_unit);
+  CreateLabel(view->bg, &view->battery_key, view->pos_battery_key);
+  CreateLabel(view->bg, &view->battery_value, view->pos_battery_value);
+  CreateLabel(view->bg, &view->battery_unit, view->pos_battery_unit);
 }
 
 void OtherViewUpdate(OtherView *view) {
@@ -100,7 +100,7 @@ void OtherViewToggleDayNightMode(OtherView *view) {
   lv_obj_set_style_text_color(view->battery_unit, color, 0);
 }
 
-void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, label_pos pos) {
+void OtherViewChangePos(lv_obj_t *value, lv_obj_t *unit, LabelPos pos) {
   char *temp = lv_label_get_text(value);
   lv_point_t pos_temp;
   lv_coord_t letter_space =

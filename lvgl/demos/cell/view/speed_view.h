@@ -8,14 +8,14 @@ extern "C"
 {
 #endif
 
-typedef struct speed_view {
+typedef struct {
   lv_obj_t *bg;
   lv_obj_t *unit;
   lv_obj_t *block[3];
 
-  label_pos pos_unit;
-  image_pos pos_block[3];
-  char sz_block[10][32];
+  LabelPos unit_position;
+  ImagePos block_position[3];
+  char image_paths[10][32];
 } SpeedView;
 
 void SpeedViewInit(SpeedView *view);

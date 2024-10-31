@@ -3,7 +3,7 @@
 #include "../other/motor_model.h"
 #include "../tool/constrant.h"
 
-static data_acc acc;
+static DataAccumulator acc;
 
 void RpmViewInit(RpmView *view) {
   view->line = NULL;
@@ -150,10 +150,10 @@ void RpmViewToggleDayNightMode(RpmView *view) {
 void RpmViewRun() {
   int data = MotorModelGetRpm();
   if (acc.current < data) {
-    acc.current += acc.acc;
+    acc.current += acc.accumulated;
     if (acc.current > data) acc.current = data;
   } else if (acc.current > data) {
-    acc.current -= acc.acc;
+    acc.current -= acc.accumulated;
     if (acc.current < data) acc.current = data;
   }
 }

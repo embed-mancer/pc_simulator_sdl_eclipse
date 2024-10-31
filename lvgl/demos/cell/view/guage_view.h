@@ -16,10 +16,10 @@ typedef struct {
   lv_obj_t *block[kGuageNum];
   lv_obj_t *label[2];
   lv_obj_t *bg;
-  image_pos pos_icon;
-  image_pos pos_line;
-  image_pos pos_block[kGuageNum];
-  label_pos pos_label[2];
+  ImagePos pos_icon;
+  ImagePos pos_line;
+  ImagePos pos_block[kGuageNum];
+  LabelPos pos_label[2];
   GuageViewMode mode; 
   int max_value;
 } GuageView;

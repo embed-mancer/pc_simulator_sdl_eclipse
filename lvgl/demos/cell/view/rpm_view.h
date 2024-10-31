@@ -9,10 +9,10 @@ typedef struct rpm_view {
   lv_obj_t *unit;
   lv_obj_t *block;
   lv_obj_t *bg;
-  image_pos pos_line;
-  image_pos pos_num;
-  image_pos pos_unit;
-  image_pos pos_block[110];
+  ImagePos pos_line;
+  ImagePos pos_num;
+  ImagePos pos_unit;
+  ImagePos pos_block[110];
 } RpmView;
 
 void RpmViewInit(RpmView *view);

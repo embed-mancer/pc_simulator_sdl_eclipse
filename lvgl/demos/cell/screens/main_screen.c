@@ -50,10 +50,10 @@ void MainScreenLight() {
 void MainScreenGear() {
   gear = malloc(sizeof(GearView));
   gear->bg_ = main_scr;
-  gear->pos_key =
+  gear->key_position =
       CreateLabelPos(725, 397, 50, 20, kColorWhite, kSourceHanSansCN_18,
                      kTextChar, (LabelValue){"GEAR"});
-  gear->pos_value =
+  gear->value_position =
       CreateLabelPos(738, 359, 20, 30, kColorLimeGreen, kSourceHanSansCN_34,
                      kTextChar, (LabelValue){"1"});
   GearViewInit(gear);

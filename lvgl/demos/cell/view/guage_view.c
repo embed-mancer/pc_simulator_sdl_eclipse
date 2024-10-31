@@ -9,11 +9,11 @@
 
 static void UpdateImageSource(GuageView *view, const char *from,
                               const char *to) {
-  ReplaceSubstr(view->pos_icon.image, from, to);
-  ReplaceSubstr(view->pos_line.image, from, to);
+  ReplaceSubstring(view->pos_icon.image, from, to);
+  ReplaceSubstring(view->pos_line.image, from, to);
   for (int i = 0; i < kGuageNum; ++i) {
     if (view->block[i] != NULL) {
-      ReplaceSubstr(view->pos_block[i].image, from, to);
+      ReplaceSubstring(view->pos_block[i].image, from, to);
     }
   }
 }
@@ -67,8 +67,8 @@ void GuageViewCreate(GuageView *view) {
     lv_obj_set_pos(view->block[0], view->pos_block[0].x, view->pos_block[0].y);
     lv_obj_set_width(view->block[0], 0);
 
-    Label(view->bg, &view->label[0], view->pos_label[0]);
-    Label(view->bg, &view->label[1], view->pos_label[1]);
+    CreateLabel(view->bg, &view->label[0], view->pos_label[0]);
+    CreateLabel(view->bg, &view->label[1], view->pos_label[1]);
   }
 }
 
@@ -88,8 +88,8 @@ void GuageViewUpdate(GuageView *view, int value) {
 }
 
 void GuageViewToggleDayNightMode(GuageView *view) {
-  const char *from = MotorModelGetDayNightMode() == kNight ? "day" : "night";
-  const char *to = MotorModelGetDayNightMode() == kNight ? "night" : "day";
+  const char *from = MotorModelGetDayNightMode() == kNightMode ? "day" : "night";
+  const char *to = MotorModelGetDayNightMode() == kNightMode ? "night" : "day";
 
   UpdateImageSource(view, from, to);
   ToolSetTextOnModeAndUpdate(view->label[1], &view->pos_label[1].color,
@@ -115,8 +115,8 @@ void GuageViewMainOil(GuageView *view) {
   view->pos_label[0] =
       CreateLabelPos(75, 440, 10, 20, kColorRed, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"E"});
-  color_t color =
-      (MotorModelGetDayNightMode() == kDay) ? kColorBlack : kColorWhite;
+  Color color =
+      (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorWhite;
   view->pos_label[1] =
       CreateLabelPos(298, 440, 10, 20, color, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"F"});
@@ -140,8 +140,8 @@ void GuageViewMainWater(GuageView *view) {
   view->pos_label[0] =
       CreateLabelPos(764, 441, 10, 20, kColorRed, kSourceHanSansCN_18,
                      kTextChar, (LabelValue){"H"});
-  color_t color =
-      (MotorModelGetDayNightMode() == kDay) ? kColorBlack : kColorWhite;
+  Color color =
+      (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorWhite;
   view->pos_label[1] =
       CreateLabelPos(531, 441, 10, 20, color, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"C"});

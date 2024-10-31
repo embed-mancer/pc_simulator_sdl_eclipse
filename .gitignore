@@ -12,3 +12,4 @@ demo
 build/
 bin/main
 tags
+format.sh

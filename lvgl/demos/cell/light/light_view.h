@@ -15,14 +15,14 @@ typedef enum {
 } DisplayTable;
 
 typedef struct light_view {
-  Icon icons[30];
+  Icon icons[20];
   lv_obj_t *bg_;
   Light *light;
 } LightView;
 
 void LightViewInit(LightView *view);
 void LightViewCreate(LightView *view);
-void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, image_pos pos);
+void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, ImagePos pos);
 void LightViewDisplay(Icon *icon, DisplayTable table);
 
 #ifdef __cplusplus

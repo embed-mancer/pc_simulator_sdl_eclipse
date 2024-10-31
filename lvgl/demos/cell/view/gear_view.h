@@ -8,8 +8,8 @@ typedef struct {
   lv_obj_t *key;
   lv_obj_t *value;
   lv_obj_t *bg_;
-  label_pos pos_key;
-  label_pos pos_value;
+  LabelPos key_position;
+  LabelPos value_position;
 } GearView;
 
 void GearViewInit(GearView *view);

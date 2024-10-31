@@ -41,11 +41,11 @@ void TimeViewCreate(TimeView *view) {
   view->pos_time_minute2 =
       CreateLabelPos(min2_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)7);
-  Label(view->bg, &view->time_hour1, view->pos_time_hour1);
-  Label(view->bg, &view->time_hour2, view->pos_time_hour2);
-  Label(view->bg, &view->time_colon, view->pos_time_colon);
-  Label(view->bg, &view->time_minute1, view->pos_time_minute1);
-  Label(view->bg, &view->time_minute2, view->pos_time_minute2);
+  CreateLabel(view->bg, &view->time_hour1, view->pos_time_hour1);
+  CreateLabel(view->bg, &view->time_hour2, view->pos_time_hour2);
+  CreateLabel(view->bg, &view->time_colon, view->pos_time_colon);
+  CreateLabel(view->bg, &view->time_minute1, view->pos_time_minute1);
+  CreateLabel(view->bg, &view->time_minute2, view->pos_time_minute2);
   lv_obj_set_style_text_align(view->time_hour1, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_align(view->time_hour2, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_align(view->time_colon, LV_TEXT_ALIGN_CENTER, 0);
