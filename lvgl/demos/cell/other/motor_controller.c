@@ -1,6 +1,5 @@
 #include "motor_controller.h"
 #include "motor_model.h"
-#include "../view/guage_view.h"
 
 void NotifyGear(GearView *view) {
   int value = MotorModelGetGear();
@@ -10,4 +9,13 @@ void NotifyGear(GearView *view) {
 void NotifyOil(GuageView *view) {
   int value = MotorModelGetOil();
   GuageViewUpdate(view, value);
+}
+
+void NotifyWater(GuageView *view) {
+  int value = MotorModelGetWater();
+  GuageViewUpdate(view, value);
+}
+
+void NotifyOther(OtherView *view) {
+  OtherViewUpdate(view);
 }

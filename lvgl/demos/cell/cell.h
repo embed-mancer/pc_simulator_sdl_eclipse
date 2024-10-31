@@ -1,18 +1,8 @@
 #ifndef CELL_H_
 #define CELL_H_
 
-#if __linux__
 #define RES_PRFIX "A:"
-#else
-
-#ifndef LVGL_STORAGE_PATH
-#define STORAGE_PATH "/rodata/ui"
-#endif
-
-#define RES_PRFIX "L:" LVGL_STORAGE_PATH "/"
-
-#endif
-
+#define kMaxImagePathLength  64
 #define cell_ui_snprintf(fmt, arg...) snprintf(fmt, 255, ##arg)
 
 #include "lvgl/lvgl.h"
@@ -49,8 +39,7 @@ typedef enum {
 typedef struct {
   int x;
   int y;
-  char image[32];
-  char prefix[32];
+  char image[kMaxImagePathLength];
 } ImagePos;
 
 typedef union {

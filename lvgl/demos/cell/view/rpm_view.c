@@ -125,7 +125,7 @@ void RpmViewCreate(RpmView *view) {
     view->block_positions[i] = CreateImagePos("", 0, 122);
     snprintf(view->block_positions[i].image,
              sizeof(view->block_positions[i].image),
-             RES_PRFIX "home/night/rpm/%d.png", i);
+             RES_PRFIX "home/night/rpm/%d.png", i+1);
   }
   LightViewOne(view->background, &view->line, view->line_position);
   LightViewOne(view->background, &view->num, view->number_position);

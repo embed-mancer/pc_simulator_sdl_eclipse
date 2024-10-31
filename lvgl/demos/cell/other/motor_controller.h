@@ -3,9 +3,12 @@
 
 #include "../view/gear_view.h"
 #include "../view/guage_view.h"
+#include "../view/other_view.h"
 
 void NotifyGear(GearView *view);
 void NotifyOil(GuageView *view);
+void NotifyWater(GuageView *view);
+void NotifyOther(OtherView *view);
 
 
 #endif // MOTOR_CONTROLLER_H_

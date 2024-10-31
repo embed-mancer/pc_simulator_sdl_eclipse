@@ -14,7 +14,6 @@ void TimeViewInit(TimeView *view) {
   view->minute_digit2 = NULL;
 
   TimeViewCreate(view);
-  TimeViewToggleDayNightMode(view);
 }
 
 void TimeViewCreate(TimeView *view) {
@@ -26,20 +25,21 @@ void TimeViewCreate(TimeView *view) {
   int colon_x = TIME_X_CENTER - COLON_WIDTH / 2;
   int min1_x = TIME_X_CENTER + COLON_WIDTH / 2;
   int min2_x = TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH;
+  Color color = ToolGetColorBase();
   view->hour_digit1_position =
-      CreateLabelPos(hour1_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+      CreateLabelPos(hour1_x, TIME_Y_POSITION, FIX_WIDTH, 25, color,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)1);
   view->hour_digit2_position =
-      CreateLabelPos(hour2_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+      CreateLabelPos(hour2_x, TIME_Y_POSITION, FIX_WIDTH, 25, color,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)7);
   view->colon_position =
-      CreateLabelPos(colon_x, TIME_Y_POSITION, COLON_WIDTH, 25, kColorWhite,
+      CreateLabelPos(colon_x, TIME_Y_POSITION, COLON_WIDTH, 25, color,
                      kSourceHanSansCN_28, kTextChar, (LabelValue){":"});
   view->minute_digit1_position =
-      CreateLabelPos(min1_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+      CreateLabelPos(min1_x, TIME_Y_POSITION, FIX_WIDTH, 25, color,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)1);
   view->minute_digit2_position =
-      CreateLabelPos(min2_x, TIME_Y_POSITION, FIX_WIDTH, 25, kColorWhite,
+      CreateLabelPos(min2_x, TIME_Y_POSITION, FIX_WIDTH, 25, color,
                      kSourceHanSansCN_28, kTextInt, (LabelValue)7);
   CreateLabel(view->background, &view->hour_digit1, view->hour_digit1_position);
   CreateLabel(view->background, &view->hour_digit2, view->hour_digit2_position);

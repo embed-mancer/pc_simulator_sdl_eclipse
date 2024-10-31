@@ -37,9 +37,10 @@ typedef struct {
   int water_factor;
   int oil_factor;
   bool is_checking;
+  int check_count;
 } CheckSelfManager;
 
-static CheckSelfManager manager = {NULL, kStateIdle, 0, 0, 0, 0, 0, false};
+static CheckSelfManager manager = {NULL, kStateIdle, 0, 0, 0, 0, 0, false, 0};
 
 void CheckSelfUpdateViews(int oil_value, int water_value, int rpm_value,
                           int speed_value) {
@@ -50,6 +51,7 @@ void CheckSelfUpdateViews(int oil_value, int water_value, int rpm_value,
 }
 
 void CheckStateIdle() {
+  // TODO
 }
 
 void CheckStateWaiting() {
@@ -60,29 +62,31 @@ void CheckStateWaiting() {
 }
 
 void CheckStateChecking() {
+  const int kMaxCheckCount = 60;
+  const int kHalfCheckCount = 30;
+
   manager.is_checking = true;
-  uint32_t check_elapsed = lv_tick_elaps(manager.start_tick);
-  if (check_elapsed >= kCheckTime) {
+  manager.check_count++;
+
+  if (manager.check_count > kMaxCheckCount) {
     manager.state = kStateFinished;
     return;
   }
 
-  uint32_t half_check = kCheckTime / 2;
-  uint32_t progress_time =
-      check_elapsed < half_check ? check_elapsed : (kCheckTime - check_elapsed);
+  int count = (manager.check_count > kHalfCheckCount)
+                  ? (kMaxCheckCount - manager.check_count)
+                  : manager.check_count;
 
-  int oil_value = progress_time / manager.oil_factor;
-  int water_value = progress_time / manager.water_factor;
-  int rpm_value = (progress_time / manager.rpm_factor) * 1000;
-  int speed_value = progress_time / manager.speed_factor;
+  int oil_value = count / 3;
+  int water_value = count / 3;
+  int rpm_value = count * 400;
+  int speed_value = count * 7.3;
 
   LightControlCheck(light);
   CheckSelfUpdateViews(oil_value, water_value, rpm_value, speed_value);
 }
 
-void CheckStateFinished() {
-  CheckSelfFinish();
-}
+void CheckStateFinished() { CheckSelfFinish(); }
 
 void CheckSelfTask(lv_timer_t *timer) {
   switch (manager.state) {
@@ -126,10 +130,6 @@ void CheckSelfFinish() {
   CheckSelfUpdateViews(0, 0, 0, 0);
 }
 
-bool CheckSelfIsChecking() {
-  return manager.is_checking;
-}
+bool CheckSelfIsChecking() { return manager.is_checking; }
 
-void CheckSelfChecking(bool is_checking) {
-  manager.is_checking = is_checking;
-}
+void CheckSelfChecking(bool is_checking) { manager.is_checking = is_checking; }
