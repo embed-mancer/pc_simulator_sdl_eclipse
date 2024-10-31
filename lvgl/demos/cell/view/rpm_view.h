@@ -8,11 +8,11 @@ typedef struct rpm_view {
   lv_obj_t *num;
   lv_obj_t *unit;
   lv_obj_t *block;
-  lv_obj_t *bg;
-  ImagePos pos_line;
-  ImagePos pos_num;
-  ImagePos pos_unit;
-  ImagePos pos_block[110];
+  lv_obj_t *background;
+  ImagePos line_position;
+  ImagePos number_position;
+  ImagePos unit_position;
+  ImagePos block_positions[110];
 } RpmView;
 
 void RpmViewInit(RpmView *view);
@@ -22,4 +22,4 @@ void RpmViewToggleDayNightMode(RpmView *view);
 void RpmViewRun();
 int RpmViewCurrent();
 
-#endif // RPM_VIEW_H_
+#endif  // RPM_VIEW_H_

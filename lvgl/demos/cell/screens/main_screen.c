@@ -79,7 +79,7 @@ void MainScreenWater() {
 
 void MainScreenRpm() {
   main_rpm = malloc(sizeof(RpmView));
-  main_rpm->bg = main_scr;
+  main_rpm->background = main_scr;
   RpmViewInit(main_rpm);
 }
 
