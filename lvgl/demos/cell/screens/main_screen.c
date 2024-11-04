@@ -23,22 +23,22 @@ void main_scrren_task_cb(lv_timer_t *timer) {
   if (CheckSelfIsChecking()) return;
 
   // for test
-  {
-    static unsigned long last_switch_time = 0;
-    static bool is_day_mode = true;
-    unsigned long current_time = lv_tick_get();
+  // {
+  //   static unsigned long last_switch_time = 0;
+  //   static bool is_day_mode = true;
+  //   unsigned long current_time = lv_tick_get();
 
-    if (current_time - last_switch_time >= 5000) {
-      last_switch_time = current_time;
+  //   if (current_time - last_switch_time >= 5000) {
+  //     last_switch_time = current_time;
 
-      is_day_mode = !is_day_mode;
-      if (is_day_mode)
-        MotorModelSetDayNightMode(kNightMode);
-      else
-        MotorModelSetDayNightMode(kDayMode);
-      MainscreenToggleDayNight();
-    }
-  }
+  //     is_day_mode = !is_day_mode;
+  //     if (is_day_mode)
+  //       MotorModelSetDayNightMode(kNightMode);
+  //     else
+  //       MotorModelSetDayNightMode(kDayMode);
+  //     MainscreenToggleDayNight();
+  //   }
+  // }
 }
 
 static void CreateBackgroundImage(lv_obj_t *screen) {

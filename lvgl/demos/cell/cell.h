@@ -1,11 +1,21 @@
 #ifndef CELL_H_
 #define CELL_H_
 
+#ifdef LVGL_DIR
+#define RES_PRFIX LVGL_DIR
+#else
 #define RES_PRFIX "A:"
-#define kMaxImagePathLength  64
+#endif
+
+#define FILENAME                                                               \
+  (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define LOG_INFO printf("[%s:%d] \n", __func__, __LINE__);
+
 #define cell_ui_snprintf(fmt, arg...) snprintf(fmt, 255, ##arg)
 
 #include "lvgl/lvgl.h"
+
+#define kMaxImageChars 64
 
 typedef enum { kDayMode, kNightMode, kDayNightModeCount } DayNightMode;
 
@@ -39,7 +49,7 @@ typedef enum {
 typedef struct {
   int x;
   int y;
-  char image[kMaxImagePathLength];
+  char image[kMaxImageChars];
 } ImagePos;
 
 typedef union {
@@ -76,19 +86,27 @@ typedef struct {
   int accumulated;
 } DataAccumulator;
 
+LV_FONT_DECLARE(Plagiata_27);
+LV_FONT_DECLARE(Plagiata_37);
+LV_FONT_DECLARE(SourceHanSansCN_18);
+LV_FONT_DECLARE(SourceHanSansCN_22);
+LV_FONT_DECLARE(SourceHanSansCN_28);
+LV_FONT_DECLARE(SourceHanSansCN_34);
+LV_FONT_DECLARE(MicrosoftYaHei_20);
+
 #include "light/light.h"
-#include "lvgl/lvgl.h"
-#include "tool/tool.h"
-#include <stdlib.h>
-#include "tool/enums.h"
 #include "light/light_view.h"
+#include "lvgl/lvgl.h"
 #include "screens/main_screen.h"
 #include "tool/checkself.h"
+#include "tool/enums.h"
+#include "tool/tool.h"
 #include "view/gear_view.h"
 #include "view/guage_view.h"
 #include "view/other_view.h"
-#include "view/time_view.h"
 #include "view/rpm_view.h"
 #include "view/speed_view.h"
+#include "view/time_view.h"
+#include <stdlib.h>
 
-#endif  // CELL_H_
+#endif // CELL_H_

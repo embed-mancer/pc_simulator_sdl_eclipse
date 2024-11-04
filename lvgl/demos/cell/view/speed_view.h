@@ -3,6 +3,10 @@
 
 #include "../cell.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
   lv_obj_t *background;
   lv_obj_t *unit;
@@ -10,7 +14,7 @@ typedef struct {
 
   LabelPos unit_position;
   ImagePos block_position[3];
-  char image_paths[10][kMaxImagePathLength];
+  char image_paths[10][kMaxImageChars];
 } SpeedView;
 
 void SpeedViewInit(SpeedView *view);
@@ -20,5 +24,9 @@ void SpeedViewToggleDayNightMode(SpeedView *view);
 void SpeedViewRun();
 int SpeedViewCurrent();
 void SpeedViewMain(SpeedView *view);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // SPEED_VIEW_H

@@ -14,6 +14,7 @@ void TimeViewInit(TimeView *view) {
   view->minute_digit2 = NULL;
 
   TimeViewCreate(view);
+  TimeViewToggleDayNightMode(view);
 }
 
 void TimeViewCreate(TimeView *view) {
