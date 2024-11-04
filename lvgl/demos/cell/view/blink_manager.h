@@ -9,10 +9,10 @@
 
 typedef struct {
   lv_obj_t *objects[MAX_BLINK_COUNT ];
-  uint8_t count;
-  bool is_hidden;
   uint32_t last_update_time;
   uint32_t blink_interval;
+  bool is_hidden;
+  uint8_t count;
 } BlinkGroup;
 
 typedef struct {

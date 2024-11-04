@@ -9,8 +9,8 @@
 #include "../view/blink_manager.h"
 
 lv_obj_t *main_scr = NULL;
-LightView *light;
-GearView *gear;
+LightView *main_light;
+GearView *main_gear;
 GuageView *main_oil;
 GuageView *main_water;
 RpmView *main_rpm;
@@ -84,23 +84,23 @@ void MainScreenInit() {
 }
 
 void MainScreenLight() {
-  light = malloc(sizeof(LightView));
-  light->bg_ = main_scr;
-  light->light = &light_main;
-  LightViewInit(light);
+  main_light = malloc(sizeof(LightView));
+  main_light->bg_ = main_scr;
+  main_light->light = &light_main;
+  LightViewInit(main_light);
 }
 
 void MainScreenGear() {
-  gear = malloc(sizeof(GearView));
-  gear->bg_ = main_scr;
+  main_gear = malloc(sizeof(GearView));
+  main_gear->background = main_scr;
   Color color = ToolGetColorBase();
-  gear->key_position =
+  main_gear->key_position =
       CreateLabelPos(725, 397, 50, 20, color, kSourceHanSansCN_18, kTextChar,
                      (LabelValue){"GEAR"});
-  gear->value_position =
+  main_gear->value_position =
       CreateLabelPos(738, 359, 20, 30, kColorLimeGreen, kSourceHanSansCN_34,
                      kTextChar, (LabelValue){"1"});
-  GearViewInit(gear);
+  GearViewInit(main_gear);
 }
 
 void MainScreenOil() {
@@ -152,7 +152,7 @@ void MainScreenToggleDayNight() {
   SpeedViewToggleDayNightMode(main_speed);
   RpmViewToggleDayNightMode(main_rpm);
   OtherViewToggleDayNightMode(main_other);
-  GearViewToggleDayNightMode(gear);
+  GearViewToggleDayNightMode(main_gear);
   TimeViewToggleDayNightMode(main_time);
   SpeedViewUpdate(main_speed, SpeedViewCurrent());
 }

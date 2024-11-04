@@ -7,7 +7,7 @@
 typedef struct {
   lv_obj_t *key;
   lv_obj_t *value;
-  lv_obj_t *bg_;
+  lv_obj_t *background;
   LabelPos key_position;
   LabelPos value_position;
 } GearView;

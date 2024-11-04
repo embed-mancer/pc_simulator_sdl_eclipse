@@ -3,8 +3,8 @@
 #include "../light/light_control.h"
 #include "constrant.h"
 
-extern LightView *light;
-extern GearView *gear;
+extern LightView *main_light;
+extern GearView *main_gear;
 extern GuageView *main_oil;
 extern GuageView *main_water;
 extern RpmView *main_rpm;
@@ -82,7 +82,7 @@ void CheckStateChecking() {
   int rpm_value = count * 400;
   int speed_value = count * 7.3;
 
-  LightControlCheck(light);
+  LightControlCheck(main_light);
   CheckSelfUpdateViews(oil_value, water_value, rpm_value, speed_value);
 }
 
