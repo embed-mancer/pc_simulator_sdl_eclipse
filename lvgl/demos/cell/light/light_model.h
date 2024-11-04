@@ -9,4 +9,4 @@ void LightModelSetState(LightEnum state, int value);
 double LightModelGetVoltage();
 void LightModelSetVoltage(double voltage);
 
-#endif // LIGHT_MODEL_H_
+#endif  // LIGHT_MODEL_H_

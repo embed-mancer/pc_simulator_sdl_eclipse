@@ -5,8 +5,8 @@
 #include "light.h"
 
 typedef enum {
- kHide,
- kShow,
+  kHide,
+  kShow,
 } DisplayTable;
 
 typedef struct light_view {
@@ -20,5 +20,4 @@ void LightViewCreate(LightView *view);
 void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, ImagePos pos);
 void LightViewDisplay(Icon *icon, DisplayTable table);
 
-
-#endif // LIGHT_VIEW_H_
+#endif  // LIGHT_VIEW_H_

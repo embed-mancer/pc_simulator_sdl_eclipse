@@ -8,7 +8,7 @@
 #define MAX_BLINK_COUNT 5
 
 typedef struct {
-  lv_obj_t *objects[MAX_BLINK_COUNT ];
+  lv_obj_t *objects[MAX_BLINK_COUNT];
   uint32_t last_update_time;
   uint32_t blink_interval;
   bool is_hidden;
@@ -23,8 +23,8 @@ typedef struct {
 
 void BlinkManagerInit(BlinkManager *bm);
 void BlinkManagerStart(BlinkManager *bm);
-bool BlinkManagerAdd(BlinkManager *bm, lv_obj_t *object, int frequency);
-bool BlinkManagerRemove(BlinkManager *bm, lv_obj_t *object, int frequency);
+bool BlinkManagerAdd(BlinkManager *bm, lv_obj_t *object, uint32_t frequency);
+bool BlinkManagerRemove(BlinkManager *bm, lv_obj_t *object, uint32_t frequency);
 void BlinkManagerRefresh(BlinkManager *bm);
 
 #endif  // BLINK_MANAGER_H_

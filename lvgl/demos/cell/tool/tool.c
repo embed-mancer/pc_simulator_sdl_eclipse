@@ -45,6 +45,8 @@ lv_coord_t ToolGetWidth(Font font) {
   switch (font) {
     case kPlagiata_27:
       return 10;
+    default:
+      return 0;
   }
 }
 

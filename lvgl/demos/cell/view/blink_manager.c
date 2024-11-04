@@ -23,9 +23,7 @@ void BlinkManagerRefresh(BlinkManager *bm) {
 }
 
 static void InitBlinkGroup(BlinkGroup *group, uint32_t blink_interval) {
-  for (uint8_t i = 0; i < MAX_BLINK_COUNT; i++) {
-    group->objects[i] = NULL;
-  }
+  memset(group->objects, 0, sizeof(group->objects));
   group->count = 0;
   group->is_hidden = true;
   group->last_update_time = 0;
@@ -56,9 +54,12 @@ void BlinkManagerInit(BlinkManager *bm) {
   InitBlinkGroup(&bm->group2, BLINK_INTERVAL_HZ_2);
 }
 
-void BlinkManagerStart(BlinkManager *bm) {}
+void BlinkManagerStart(BlinkManager *bm) {
+  bm->group1.last_update_time = lv_tick_get();
+  bm->group2.last_update_time = lv_tick_get();
+}
 
-bool BlinkManagerAdd(BlinkManager *bm, lv_obj_t *object, int frequency) {
+bool BlinkManagerAdd(BlinkManager *bm, lv_obj_t *object, uint32_t frequency) {
   switch (frequency) {
     case BLINK_INTERVAL_HZ_1:
       return AddToBlinkGroup(&bm->group1, object);
@@ -69,7 +70,8 @@ bool BlinkManagerAdd(BlinkManager *bm, lv_obj_t *object, int frequency) {
   }
 }
 
-bool BlinkManagerRemove(BlinkManager *bm, lv_obj_t *object, int frequency) {
+bool BlinkManagerRemove(BlinkManager *bm, lv_obj_t *object,
+                        uint32_t frequency) {
   switch (frequency) {
     case BLINK_INTERVAL_HZ_1:
       return RemoveFromBlinkGroup(&bm->group1, object);

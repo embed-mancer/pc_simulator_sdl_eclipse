@@ -21,30 +21,30 @@ BlinkManager *main_blink;
 
 static lv_obj_t *img_bg = NULL;
 
-void main_scrren_task_cb(lv_timer_t *timer) {
+void main_screen_task_cb(lv_timer_t *timer) {
   if (CheckSelfIsChecking()) return;
   BlinkManagerRefresh(main_blink);
   // for test
-  // {
-  //   static unsigned long last_switch_time = 0;
-  //   static bool is_day_mode = true;
-  //   unsigned long current_time = lv_tick_get();
+  {
+    static unsigned long last_switch_time = 0;
+    static bool is_day_mode = true;
+    unsigned long current_time = lv_tick_get();
 
-  //   if (current_time - last_switch_time >= 5000) {
-  //     last_switch_time = current_time;
+    if (current_time - last_switch_time >= 5000) {
+      last_switch_time = current_time;
 
-  //     is_day_mode = !is_day_mode;
-  //     if (is_day_mode)
-  //       MotorModelSetDayNightMode(kNightMode);
-  //     else
-  //       MotorModelSetDayNightMode(kDayMode);
-  //     MainScreenToggleDayNight();
-  //   }
-  // }
+      is_day_mode = !is_day_mode;
+      if (is_day_mode)
+        MotorModelSetDayNightMode(kNightMode);
+      else
+        MotorModelSetDayNightMode(kDayMode);
+      MainScreenToggleDayNight();
+    }
+  }
 }
 
 static void CreateBackgroundImage(lv_obj_t *screen) {
-  if (img_bg == NULL) {
+  if (!img_bg) {
     img_bg = lv_img_create(screen);
     lv_img_set_src(img_bg, RES_PRFIX "home/day/bg.png");
     lv_obj_set_pos(img_bg, 0, 0);
@@ -52,15 +52,16 @@ static void CreateBackgroundImage(lv_obj_t *screen) {
 }
 
 static void SetScreenAppearance(lv_obj_t *screen) {
+  lv_color_t bg_color = (MotorModelGetDayNightMode() == kDayMode)
+                            ? lv_color_white()
+                            : lv_color_black();
+  set_screen_color(screen, bg_color);
+
   if (MotorModelGetDayNightMode() == kDayMode) {
-    set_screen_color(screen, lv_color_white());
     CreateBackgroundImage(screen);
     lv_obj_clear_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
-  } else {
-    set_screen_color(screen, lv_color_black());
-    if (img_bg) {
-      lv_obj_add_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
-    }
+  } else if (img_bg) {
+    lv_obj_add_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
   }
 }
 
@@ -69,6 +70,7 @@ void MainScreenInit() {
   lv_scr_load(main_scr);
   SetScreenAppearance(main_scr);
   ToolInit();
+
   MainScreenBlink();
   MainScreenLight();
   MainScreenOil();
@@ -78,13 +80,16 @@ void MainScreenInit() {
   MainScreenOther();
   MainScreenTime();
   MainScreenSpeed();
+
   CheckSelfInit();
-  lv_timer_t *timer = lv_timer_create(main_scrren_task_cb, 33, NULL);
+
+  lv_timer_t *timer = lv_timer_create(main_screen_task_cb, 33, NULL);
   lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
 }
 
 void MainScreenLight() {
   main_light = malloc(sizeof(LightView));
+  if (!main_light) return;
   main_light->bg_ = main_scr;
   main_light->light = &light_main;
   LightViewInit(main_light);
@@ -92,6 +97,7 @@ void MainScreenLight() {
 
 void MainScreenGear() {
   main_gear = malloc(sizeof(GearView));
+  if (!main_gear) return;
   main_gear->background = main_scr;
   Color color = ToolGetColorBase();
   main_gear->key_position =
@@ -105,42 +111,42 @@ void MainScreenGear() {
 
 void MainScreenOil() {
   main_oil = malloc(sizeof(GuageView));
-  if (main_oil == NULL) {
-    return;
-  }
+  if (!main_oil) return;
   main_oil->background = main_scr;
   GuageViewMainOil(main_oil);
 }
 
 void MainScreenWater() {
   main_water = malloc(sizeof(GuageView));
-  if (main_water == NULL) {
-    return;
-  }
+  if (!main_water) return;
   main_water->background = main_scr;
   GuageViewMainWater(main_water);
 }
 
 void MainScreenRpm() {
   main_rpm = malloc(sizeof(RpmView));
+  if (!main_rpm) return;
   main_rpm->background = main_scr;
   RpmViewInit(main_rpm);
 }
 
 void MainScreenSpeed() {
   main_speed = malloc(sizeof(SpeedView));
+  if (!main_speed) return;
   main_speed->background = main_scr;
   SpeedViewMain(main_speed);
 }
 
 void MainScreenOther() {
   main_other = malloc(sizeof(OtherView));
+  if (!main_other) return;
   main_other->background = main_scr;
   OtherViewInit(main_other);
 }
 
 void MainScreenTime() {
   main_time = malloc(sizeof(TimeView));
+  if (!main_time) return;
   main_time->background = main_scr;
   TimeViewInit(main_time);
 }
@@ -159,5 +165,6 @@ void MainScreenToggleDayNight() {
 
 void MainScreenBlink() {
   main_blink = malloc(sizeof(BlinkManager));
+  if (!main_blink) return;
   BlinkManagerInit(main_blink);
 }

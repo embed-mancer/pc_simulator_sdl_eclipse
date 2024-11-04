@@ -27,13 +27,10 @@ void GearViewUpdate(GearView *view, int value) {
 }
 
 void GearViewToggleDayNightMode(GearView *view) {
-  ToolSetTextOnModeAndUpdate(view->key, &view->key_position.color,
-                             kColorWhite, kColorBlack);
-  if (MotorModelGetDayNightMode() == kDayMode) {
-    view->value_position.color =  kColorBlack ;
-    lv_obj_set_style_text_color(view->value, ToolGetColor(kColorBlack), 0);
-  } else {
-    view->value_position.color = kColorLimeGreen;
-    lv_obj_set_style_text_color(view->value, ToolGetColor(kColorLimeGreen), 0);
-  }
+  ToolSetTextOnModeAndUpdate(view->key, &view->key_position.color, kColorWhite,
+                             kColorBlack);
+  Color value_color =
+      (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorLimeGreen;
+  view->value_position.color = value_color;
+  lv_obj_set_style_text_color(view->value, ToolGetColor(value_color), 0);
 }

@@ -101,13 +101,13 @@ LV_FONT_DECLARE(MicrosoftYaHei_20);
 #include "tool/checkself.h"
 #include "tool/enums.h"
 #include "tool/tool.h"
+#include "view/blink_manager.h"
 #include "view/gear_view.h"
 #include "view/guage_view.h"
 #include "view/other_view.h"
 #include "view/rpm_view.h"
 #include "view/speed_view.h"
 #include "view/time_view.h"
-#include "view/blink_manager.h"
 #include <stdlib.h>
 
 #endif // CELL_H_
