@@ -6,6 +6,8 @@
 #define COLON_WIDTH 6
 #define DEFAULT_COLOR kColorWhite
 
+extern BlinkManager *main_blink;
+
 void TimeViewInit(TimeView *view) {
   view->hour_digit1 = NULL;
   view->hour_digit2 = NULL;
@@ -54,6 +56,7 @@ void TimeViewCreate(TimeView *view) {
   lv_obj_set_style_text_align(view->colon, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_align(view->minute_digit1, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_align(view->minute_digit2, LV_TEXT_ALIGN_CENTER, 0);
+  BlinkManagerAdd(main_blink, view->colon, BLINK_INTERVAL_HZ_1);
 }
 
 // TODO

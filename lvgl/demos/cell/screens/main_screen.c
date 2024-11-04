@@ -6,6 +6,7 @@
 #include "screen_interface.h"
 #include "../other/motor_model.h"
 #include "../other/motor_controller.h"
+#include "../view/blink_manager.h"
 
 lv_obj_t *main_scr = NULL;
 LightView *light;
@@ -16,12 +17,13 @@ RpmView *main_rpm;
 SpeedView *main_speed;
 OtherView *main_other;
 TimeView *main_time;
+BlinkManager *main_blink;
 
 static lv_obj_t *img_bg = NULL;
 
 void main_scrren_task_cb(lv_timer_t *timer) {
   if (CheckSelfIsChecking()) return;
-
+  BlinkManagerRefresh(main_blink);
   // for test
   // {
   //   static unsigned long last_switch_time = 0;
@@ -36,7 +38,7 @@ void main_scrren_task_cb(lv_timer_t *timer) {
   //       MotorModelSetDayNightMode(kNightMode);
   //     else
   //       MotorModelSetDayNightMode(kDayMode);
-  //     MainscreenToggleDayNight();
+  //     MainScreenToggleDayNight();
   //   }
   // }
 }
@@ -67,6 +69,7 @@ void MainScreenInit() {
   lv_scr_load(main_scr);
   SetScreenAppearance(main_scr);
   ToolInit();
+  MainScreenBlink();
   MainScreenLight();
   MainScreenOil();
   MainScreenWater();
@@ -142,7 +145,7 @@ void MainScreenTime() {
   TimeViewInit(main_time);
 }
 
-void MainscreenToggleDayNight() {
+void MainScreenToggleDayNight() {
   SetScreenAppearance(main_scr);
   GuageViewToggleDayNightMode(main_oil);
   GuageViewToggleDayNightMode(main_water);
@@ -152,4 +155,9 @@ void MainscreenToggleDayNight() {
   GearViewToggleDayNightMode(gear);
   TimeViewToggleDayNightMode(main_time);
   SpeedViewUpdate(main_speed, SpeedViewCurrent());
+}
+
+void MainScreenBlink() {
+  main_blink = malloc(sizeof(BlinkManager));
+  BlinkManagerInit(main_blink);
 }

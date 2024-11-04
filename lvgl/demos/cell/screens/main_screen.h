@@ -10,6 +10,7 @@ void MainScreenRpm();
 void MainScreenSpeed();
 void MainScreenOther();
 void MainScreenTime();
-void MainscreenToggleDayNight();
+void MainScreenToggleDayNight();
+void MainScreenBlink();
 
 #endif // MAIN_SCREEN_H_

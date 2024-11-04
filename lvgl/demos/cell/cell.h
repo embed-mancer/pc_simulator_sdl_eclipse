@@ -107,6 +107,7 @@ LV_FONT_DECLARE(MicrosoftYaHei_20);
 #include "view/rpm_view.h"
 #include "view/speed_view.h"
 #include "view/time_view.h"
+#include "view/blink_manager.h"
 #include <stdlib.h>
 
 #endif // CELL_H_
