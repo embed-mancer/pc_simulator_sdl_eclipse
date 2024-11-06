@@ -12,18 +12,18 @@ typedef struct {
   lv_obj_t *unit;
   lv_obj_t *block[3];
 
-  LabelPos unit_position;
-  ImagePos block_position[3];
-  char image_paths[10][kMaxImageChars];
-} SpeedView;
+  label_pos_t unit_position;
+  image_pos_t block_position[3];
+  char image_paths[10][MAX_IMAGE_CHARS ];
+} speed_view_t;
 
-void SpeedViewInit(SpeedView *view);
-void SpeedViewCreate(SpeedView *view);
-void SpeedViewUpdate(SpeedView *view, int value);
-void SpeedViewToggleDayNightMode(SpeedView *view);
-void SpeedViewRun();
-int SpeedViewCurrent();
-void SpeedViewMain(SpeedView *view);
+void speed_view_init(speed_view_t *view);
+void speed_view_create(speed_view_t *view);
+void speed_view_update(speed_view_t *view, int value);
+void speed_view_toggle_day_night_mode(speed_view_t *view);
+void speed_view_run();
+int speed_view_current();
+void speed_view_main(speed_view_t *view);
 
 #ifdef __cplusplus
 }

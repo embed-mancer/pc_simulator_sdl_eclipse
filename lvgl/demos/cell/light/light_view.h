@@ -5,19 +5,19 @@
 #include "light.h"
 
 typedef enum {
-  kHide,
-  kShow,
-} DisplayTable;
+  DISPLAY_STATE_HIDE,
+  DISPLAY_STATE_SHOW,
+} display_state_t;
 
-typedef struct light_view {
-  Icon icons[20];
-  lv_obj_t *bg_;
-  Light *light;
-} LightView;
+typedef struct {
+  icon_t icons[20];
+  lv_obj_t *background;
+  light *light;
+} light_view_t;
 
-void LightViewInit(LightView *view);
-void LightViewCreate(LightView *view);
-void LightViewOne(lv_obj_t *bg, lv_obj_t **lv, ImagePos pos);
-void LightViewDisplay(Icon *icon, DisplayTable table);
+void light_view_init(light_view_t *view);
+void light_view_create(light_view_t *view);
+void light_view_one(lv_obj_t *bg, lv_obj_t **lv, image_pos_t pos);
+void light_view_display(icon_t *icon_t, display_state_t table);
 
 #endif  // LIGHT_VIEW_H_

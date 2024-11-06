@@ -3,28 +3,27 @@
 #include "../other/motor_model.h"
 #include "../tool/constrant.h"
 
-static DataAccumulator speed_accumulator;
+static data_accumulator_t speed_accumulator;
 static const int kMidPosition = 400;
 static const int kWidth = 94;
 
-void SpeedViewInit(SpeedView *view) {
-  for (int i = 0; i < 3; ++i)
-    view->block[i] = NULL;
-  
+void speed_view_init(speed_view_t *view) {
+  for (int i = 0; i < 3; ++i) view->block[i] = NULL;
+
   view->unit = NULL;
-  SpeedViewCreate(view);
+  speed_view_create(view);
 }
 
-void SpeedViewCreate(SpeedView *view) {
+void speed_view_create(speed_view_t *view) {
   for (int i = 0; i < 3; ++i) {
-    LightViewOne(view->background, &view->block[i], view->block_position[i]);
+    light_view_one(view->background, &view->block[i], view->block_position[i]);
     lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
-  CreateLabel(view->background, &view->unit, view->unit_position);
-  SpeedViewUpdate(view, 0);
+  create_label(view->background, &view->unit, view->unit_position);
+  speed_view_update(view, 0);
 }
 
-static void SetBlockPositions(SpeedView *view, const int positions[3]) {
+static void SetBlockPositions(speed_view_t *view, const int positions[3]) {
   for (int i = 0; i < 3; ++i) {
     if (positions[i] >= 0) {
       lv_obj_set_x(view->block[i], positions[i]);
@@ -35,7 +34,7 @@ static void SetBlockPositions(SpeedView *view, const int positions[3]) {
   }
 }
 
-static void UpdateBlocks(SpeedView *view, int value) {
+static void UpdateBlocks(speed_view_t *view, int value) {
   int positions[3] = {-1, -1, -1};
   if (value < 10) {
     positions[2] = kMidPosition - kWidth / 2;
@@ -56,22 +55,22 @@ static void UpdateBlocks(SpeedView *view, int value) {
   SetBlockPositions(view, positions);
 }
 
-void SpeedViewUpdate(SpeedView *view, int value) {
-  value = (value > kMaxSpeed) ? kMaxSpeed : (value < 0) ? 0 : value;
+void speed_view_update(speed_view_t *view, int value) {
+  value = (value > MAX_SPEED) ? MAX_SPEED : (value < 0) ? 0 : value;
   UpdateBlocks(view, value);
 }
 
-void SpeedViewToggleDayNightMode(SpeedView *view) {
+void speed_view_toggle_day_night_mode(speed_view_t *view) {
   for (int i = 0; i < 10; ++i) {
-    ToolToggleDayNightMode(view->image_paths[i]);
+    tool_toggle_day_night_mode(view->image_paths[i]);
   }
 
-  ToolSetTextOnModeAndUpdate(view->unit, &view->unit_position.color,
-                             kColorWhite, kColorBlack);
+  tool_set_text_on_mode_and_update(view->unit, &view->unit_position.color,
+                                   LABEL_COLOR_WHITE, LABEL_COLOR_BLACK);
 }
 
-void SpeedViewRun() {
-  int data = MotorModelGetSpeed();
+void speed_view_run() {
+  int data = motor_model_get_speed();
   int increment = speed_accumulator.accumulated;
 
   if (speed_accumulator.current < data) {
@@ -85,10 +84,10 @@ void SpeedViewRun() {
   }
 }
 
-int SpeedViewCurrent() { return speed_accumulator.current; }
+int speed_view_current() { return speed_accumulator.current; }
 
-void SpeedViewMain(SpeedView *view) {
-  const char *theme_suffix = ToolGetThemeSuffix();
+void speed_view_main(speed_view_t *view) {
+  const char *theme_suffix = tool_get_theme_suffix();
 
   for (int i = 0; i < 10; ++i) {
     snprintf(view->image_paths[i], sizeof(view->image_paths[i]),
@@ -96,12 +95,12 @@ void SpeedViewMain(SpeedView *view) {
   }
 
   for (int i = 0; i < 3; ++i) {
-    view->block_position[i] = CreateImagePos(view->image_paths[0], 320, 258);
+    view->block_position[i] = create_image_pos(view->image_paths[0], 320, 258);
   }
 
-  Color color = ToolGetColorBase();
+  label_color_t color = tool_get_color_base();
   view->unit_position =
-      CreateLabelPos(507, 334, 55, 30, color, kSourceHanSansCN_22, kTextChar,
-                     (LabelValue){"km/h"});
-  SpeedViewInit(view);
+      create_label_pos(507, 334, 55, 30, color, LABEL_FONT_SOURCEHANSANSCN_22,
+                       VALUE_TYPE_CHAR, (label_value_t){"km/h"});
+  speed_view_init(view);
 }

@@ -107,7 +107,7 @@
 +---------v-----------+              |
 | Day-Night Mode Phase| <------------+
 | (Call each module Toggle |
-| DayNightMode)       |
+| meter_mode_t)       |
 +---------------------+
 
 

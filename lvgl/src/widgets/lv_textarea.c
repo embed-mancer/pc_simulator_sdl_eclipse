@@ -1329,11 +1329,11 @@ static void draw_cursor(lv_event_t * e)
     /*Draw the letter over the cursor only if
      *the cursor has background or the letter has different color than the original.
      *Else the original letter is drawn twice which makes it look bolder*/
-    lv_color_t label_color = lv_obj_get_style_text_color(ta->label, 0);
+    lv_color_t label_color_t = lv_obj_get_style_text_color(ta->label, 0);
     lv_draw_label_dsc_t cur_label_dsc;
     lv_draw_label_dsc_init(&cur_label_dsc);
     lv_obj_init_draw_label_dsc(obj, LV_PART_CURSOR, &cur_label_dsc);
-    if(cur_dsc.bg_opa > LV_OPA_MIN || cur_label_dsc.color.full != label_color.full) {
+    if(cur_dsc.bg_opa > LV_OPA_MIN || cur_label_dsc.color.full != label_color_t.full) {
         lv_draw_label(draw_ctx, &cur_label_dsc, &cur_area, letter_buf, NULL);
     }
 }

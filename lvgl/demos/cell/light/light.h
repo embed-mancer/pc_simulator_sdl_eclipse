@@ -3,8 +3,8 @@
 
 #include "../cell.h"
 
-void LightInit();
+void light_init();
 
-extern Light light_main;
+extern light light_main;
 
-#endif // LIGHT_H_
+#endif  // LIGHT_H_

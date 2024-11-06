@@ -1,21 +1,19 @@
 #include "motor_controller.h"
 #include "motor_model.h"
 
-void NotifyGear(GearView *view) {
-  int value = MotorModelGetGear();
-  GearViewUpdate(view, value);
+void notify_gear(gear_view_t *view) {
+  int value = motor_model_get_gear();
+  gear_view_update(view, value);
 }
 
-void NotifyOil(GuageView *view) {
-  int value = MotorModelGetOil();
-  GuageViewUpdate(view, value);
+void notify_oil(guage_view_t *view) {
+  int value = motor_model_get_oil();
+  guage_view_update(view, value);
 }
 
-void NotifyWater(GuageView *view) {
-  int value = MotorModelGetWater();
-  GuageViewUpdate(view, value);
+void notify_water(guage_view_t *view) {
+  int value = motor_model_get_water();
+  guage_view_update(view, value);
 }
 
-void NotifyOther(OtherView *view) {
-  OtherViewUpdate(view);
-}
+void notify_other(other_view_t *view) { other_view_update(view); }

@@ -5,20 +5,20 @@
 #define FIX_WIDTH 14
 #define COLON_WIDTH 6
 
-extern BlinkManager *main_blink;
+extern blink_manager_t *main_blink;
 
-void TimeViewInit(TimeView *view) {
+void time_view_init(time_view_t *view) {
   view->hour_digit1 = NULL;
   view->hour_digit2 = NULL;
   view->colon = NULL;
   view->minute_digit1 = NULL;
   view->minute_digit2 = NULL;
 
-  TimeViewCreate(view);
-  TimeViewToggleDayNightMode(view);
+  time_view_create(view);
+  time_view_toggle_day_night_mode(view);
 }
 
-void TimeViewCreate(TimeView *view) {
+void time_view_create(time_view_t *view) {
   if (view->background == NULL) {
     return;
   }
@@ -31,34 +31,39 @@ void TimeViewCreate(TimeView *view) {
       TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH       // min2_x
   };
 
-  Color color = ToolGetColorBase();
+  label_color_t color = tool_get_color_base();
   lv_obj_t **labels[5] = {&view->hour_digit1, &view->hour_digit2, &view->colon,
                           &view->minute_digit1, &view->minute_digit2};
 
-  LabelPos label_positions[5] = {
-      CreateLabelPos(positions[0], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                     kSourceHanSansCN_28, kTextInt, (LabelValue)1),
-      CreateLabelPos(positions[1], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                     kSourceHanSansCN_28, kTextInt, (LabelValue)7),
-      CreateLabelPos(positions[2], TIME_Y_POSITION, COLON_WIDTH, 25, color,
-                     kSourceHanSansCN_28, kTextChar, (LabelValue){":"}),
-      CreateLabelPos(positions[3], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                     kSourceHanSansCN_28, kTextInt, (LabelValue)1),
-      CreateLabelPos(positions[4], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                     kSourceHanSansCN_28, kTextInt, (LabelValue)7)};
+  label_pos_t label_positions[5] = {
+      create_label_pos(positions[0], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
+                       (label_value_t)1),
+      create_label_pos(positions[1], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
+                       (label_value_t)7),
+      create_label_pos(positions[2], TIME_Y_POSITION, COLON_WIDTH, 25, color,
+                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_CHAR,
+                       (label_value_t){":"}),
+      create_label_pos(positions[3], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
+                       (label_value_t)1),
+      create_label_pos(positions[4], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
+                       (label_value_t)7)};
 
   for (int i = 0; i < 5; ++i) {
-    CreateLabel(view->background, labels[i], label_positions[i]);
+    create_label(view->background, labels[i], label_positions[i]);
     lv_obj_set_style_text_align(*labels[i], LV_TEXT_ALIGN_CENTER, 0);
   }
 
-  BlinkManagerAdd(main_blink, view->colon, BLINK_INTERVAL_HZ_1);
+  blink_manager_add(main_blink, view->colon, BLINK_INTERVAL_HZ_1);
 }
 
 // TODO
-void TimeViewUpdate(TimeView *view) {}
+void time_view_update(time_view_t *view) {}
 
-void TimeViewToggleDayNightMode(TimeView *view) {
+void time_view_toggle_day_night_mode(time_view_t *view) {
   lv_color_t color = ToolGetThemeColor();
   lv_obj_t *labels[5] = {view->hour_digit1, view->hour_digit2, view->colon,
                          view->minute_digit1, view->minute_digit2};

@@ -3,9 +3,9 @@
 
 #include "lvgl/lvgl.h"
 
-void CheckSelfInit();
-void CheckSelfFinish();
-bool CheckSelfIsChecking();
-void CheckSelfChecking(bool is_checking);
+void checkself_init();
+void checkself_finish();
+bool checkself_is_checking();
+void checkself_set_checking(bool is_checking);
 
-#endif // CHECKSELF_H_
+#endif  // CHECKSELF_H_

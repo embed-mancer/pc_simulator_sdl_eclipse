@@ -4,20 +4,20 @@
 #include "../light/light_view.h"
 #include "../other/motor_model.h"
 
-void GearViewInit(GearView *view) {
+void gear_view_init(gear_view_t *view) {
   view->key = NULL;
   view->value = NULL;
-  GearViewCreate(view);
+  gear_view_create(view);
 }
 
-void GearViewCreate(GearView *view) {
-  CreateLabel(view->background, &view->key, view->key_position);
-  CreateLabel(view->background, &view->value, view->value_position);
+void gear_view_create(gear_view_t *view) {
+  create_label(view->background, &view->key, view->key_position);
+  create_label(view->background, &view->value, view->value_position);
   lv_obj_set_style_text_align(view->key, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_align(view->value, LV_TEXT_ALIGN_CENTER, 0);
 }
 
-void GearViewUpdate(GearView *view, int value) {
+void gear_view_update(gear_view_t *view, int value) {
   static char sz[4] = {0};
   snprintf(sz, sizeof(sz), "%d", value);
 
@@ -26,11 +26,12 @@ void GearViewUpdate(GearView *view, int value) {
   }
 }
 
-void GearViewToggleDayNightMode(GearView *view) {
-  ToolSetTextOnModeAndUpdate(view->key, &view->key_position.color, kColorWhite,
-                             kColorBlack);
-  Color value_color =
-      (MotorModelGetDayNightMode() == kDayMode) ? kColorBlack : kColorLimeGreen;
+void gear_view_toggle_day_night_mode(gear_view_t *view) {
+  tool_set_text_on_mode_and_update(view->key, &view->key_position.color,
+                                   LABEL_COLOR_WHITE, LABEL_COLOR_BLACK);
+  label_color_t value_color = (motor_model_get_day_night_mode() == METER_MODE_DAY)
+                                  ? LABEL_COLOR_BLACK
+                                  : LABEL_COLOR_LIME_GREEN;
   view->value_position.color = value_color;
-  lv_obj_set_style_text_color(view->value, ToolGetColor(value_color), 0);
+  lv_obj_set_style_text_color(view->value, tool_get_color(value_color), 0);
 }

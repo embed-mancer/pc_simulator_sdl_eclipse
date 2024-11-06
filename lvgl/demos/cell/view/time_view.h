@@ -12,16 +12,16 @@ typedef struct {
   lv_obj_t* minute_digit1;
   lv_obj_t* minute_digit2;
 
-  LabelPos hour_digit1_position;
-  LabelPos hour_digit2_position;
-  LabelPos colon_position;
-  LabelPos minute_digit1_position;
-  LabelPos minute_digit2_position;
-} TimeView;
+  label_pos_t hour_digit1_position;
+  label_pos_t hour_digit2_position;
+  label_pos_t colon_position;
+  label_pos_t minute_digit1_position;
+  label_pos_t minute_digit2_position;
+} time_view_t;
 
-void TimeViewInit(TimeView* view);
-void TimeViewCreate(TimeView* view);
-void TimeViewUpdate(TimeView* view);
-void TimeViewToggleDayNightMode(TimeView* view);
+void time_view_init(time_view_t* view);
+void time_view_create(time_view_t* view);
+void time_view_update(time_view_t* view);
+void time_view_toggle_day_night_mode(time_view_t* view);
 
 #endif  // TIME_VIEW_H_

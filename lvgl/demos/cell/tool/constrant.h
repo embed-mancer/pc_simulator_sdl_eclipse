@@ -3,12 +3,12 @@
 
 #include <stdint.h>
 
-extern const int kMaxMsgLen; 
-extern const uint8_t kMinMsgLen; 
-extern const uint8_t kMsgStartTag;
+extern const int MAX_MSG_LEN;
+extern const uint8_t MIN_MSG_LEN;
+extern const uint8_t MSG_START_TAG;
 
-extern const int kCheckTime;
-extern const int kMaxRpm;
-extern const int kMaxSpeed;
+extern const int CHECK_TIME;
+extern const int MAX_RPM;
+extern const int MAX_SPEED;
 
-#endif // CONSTRANT_H_
+#endif  // CONSTRANT_H_

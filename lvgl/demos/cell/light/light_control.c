@@ -1,52 +1,56 @@
 #include "light_control.h"
 #include "light_model.h"
 
-#define DEFINE_LIGHT_CONTROL_FUNC(name, icon) \
-  void LightControl##name(LightView *view) { LightControlIcon(view, icon); }
+#define DEFINE_LIGHT_CONTROL_FUNC(name, icon_t)   \
+  void light_control_##name(light_view_t *view) { \
+    ligth_control_icon(view, icon_t);             \
+  }
 
-DEFINE_LIGHT_CONTROL_FUNC(TurnLeft, kTurnLeft)
-DEFINE_LIGHT_CONTROL_FUNC(TurnRight, kTurnRight)
-DEFINE_LIGHT_CONTROL_FUNC(AutoStartStop, kAutoStartStop)
-DEFINE_LIGHT_CONTROL_FUNC(HighBeam, kHighBeam)
-DEFINE_LIGHT_CONTROL_FUNC(Tire, kTire)
-DEFINE_LIGHT_CONTROL_FUNC(Abs, kABS)
-DEFINE_LIGHT_CONTROL_FUNC(OilPressure, kOilPressure)
-DEFINE_LIGHT_CONTROL_FUNC(EngineFault, kEngineFault)
-DEFINE_LIGHT_CONTROL_FUNC(Wifi, kWifi)
-DEFINE_LIGHT_CONTROL_FUNC(BtIcon, kBtIcon)
-DEFINE_LIGHT_CONTROL_FUNC(BtPair, kBtPair)
+DEFINE_LIGHT_CONTROL_FUNC(turn_left, SIGNAL_LIGHT__TURN_LEFT)
+DEFINE_LIGHT_CONTROL_FUNC(turn_right, SIGNAL_LIGHT__TURN_RIGHT)
+DEFINE_LIGHT_CONTROL_FUNC(auto_start_stop, SIGNAL_LIGHT_AUTO_START_STOP)
+DEFINE_LIGHT_CONTROL_FUNC(high_beam, SIGNAL_LIGHT_HIGH_BEAM)
+DEFINE_LIGHT_CONTROL_FUNC(tire, SIGNAL_LIGHT_TIRE)
+DEFINE_LIGHT_CONTROL_FUNC(abs, SIGNAL_LIGHT_ABS)
+DEFINE_LIGHT_CONTROL_FUNC(oil_pressure, SIGNAL_LIGHT_OIL_PRESSURE)
+DEFINE_LIGHT_CONTROL_FUNC(engine_fault, SIGNAL_LIGHT_ENGINE_FAULT)
+DEFINE_LIGHT_CONTROL_FUNC(wifi, SIGNAL_LIGHT_WIFI)
+DEFINE_LIGHT_CONTROL_FUNC(bt_icon, SIGNAL_LIGHT_BT_ICON)
+DEFINE_LIGHT_CONTROL_FUNC(bt_pair, SIGNAL_LIGHT_BT_PAIR)
 
-void LightControlInit() {}
+void ligth_control_init() {}
 
-void LightControlIcon(LightView *view, LightEnum icon_type) {
-  int state = LightModelGetState(icon_type) ? kShow : kHide;
-  LightViewDisplay(&view->icons[icon_type], state);
+void ligth_control_icon(light_view_t *view, signal_light_t icon_type) {
+  int state = ligth_model_get_state(icon_type) ? DISPLAY_STATE_SHOW
+                                               : DISPLAY_STATE_HIDE;
+  light_view_display(&view->icons[icon_type], state);
 }
 
-void LightControlAll(LightView *view) {
-  LightControlTurnLeft(view);
-  LightControlTurnRight(view);
-  LightControlAutoStartStop(view);
-  LightControlHighBeam(view);
-  LightControlTire(view);
-  LightControlAbs(view);
-  LightControlOilPressure(view);
-  LightControlEngineFault(view);
-  LightControlWifi(view);
-  LightControlBtIcon(view);
-  LightControlBtPair(view);
-  LightControlVoltage(view);
+void ligth_control_all(light_view_t *view) {
+  light_control_turn_left(view);
+  light_control_turn_right(view);
+  light_control_auto_start_stop(view);
+  light_control_high_beam(view);
+  light_control_tire(view);
+  light_control_abs(view);
+  light_control_oil_pressure(view);
+  light_control_engine_fault(view);
+  light_control_wifi(view);
+  light_control_bt_icon(view);
+  light_control_bt_pair(view);
+  ligth_control_voltage(view);
 }
 
-void LightControlCheck(LightView *view) {
-  for (int i = 0; i <= kVoltage; ++i) LightViewDisplay(&view->icons[i], kShow);
-  LightViewDisplay(&view->icons[kVoltage], kShow);
+void ligth_control_check(light_view_t *view) {
+  for (int i = 0; i <= SIGNAL_LIGHT_VOLTAGE; ++i)
+    light_view_display(&view->icons[i], DISPLAY_STATE_SHOW);
+  light_view_display(&view->icons[SIGNAL_LIGHT_VOLTAGE], DISPLAY_STATE_SHOW);
 }
 
-void LightControlVoltage(LightView *view) {
-  double voltage = LightModelGetVoltage();
+void ligth_control_voltage(light_view_t *view) {
+  double voltage = ligth_model_get_voltage();
   if (voltage < 11.3)
-    LightViewDisplay(&view->icons[kVoltage], kHide);
+    light_view_display(&view->icons[SIGNAL_LIGHT_VOLTAGE], DISPLAY_STATE_HIDE);
   else
-    LightViewDisplay(&view->icons[kVoltage], kShow);
+    light_view_display(&view->icons[SIGNAL_LIGHT_VOLTAGE], DISPLAY_STATE_SHOW);
 }

@@ -8,22 +8,35 @@
 #include "../other/motor_controller.h"
 #include "../view/blink_manager.h"
 
+#define INIT_VIEW(view_ptr, type)                          \
+  view_ptr = (type *)allocate_memory(sizeof(type), #type); \
+  view_ptr->background = main_scr;
+
 lv_obj_t *main_scr = NULL;
-LightView *main_light;
-GearView *main_gear;
-GuageView *main_oil;
-GuageView *main_water;
-RpmView *main_rpm;
-SpeedView *main_speed;
-OtherView *main_other;
-TimeView *main_time;
-BlinkManager *main_blink;
+light_view_t *main_light;
+gear_view_t *main_gear;
+guage_view_t *main_oil;
+guage_view_t *main_water;
+rpm_view_t *main_rpm;
+speed_view_t *main_speed;
+other_view_t *main_other;
+time_view_t *main_time;
+blink_manager_t *main_blink;
 
 static lv_obj_t *img_bg = NULL;
 
+void *allocate_memory(size_t size, const char *type_name) {
+  void *ptr = malloc(size);
+  if (!ptr) {
+    printf("Failed to allocate memory for %s\n", type_name);
+    exit(EXIT_FAILURE);
+  }
+  return ptr;
+}
+
 void main_screen_task_cb(lv_timer_t *timer) {
-  if (CheckSelfIsChecking()) return;
-  BlinkManagerRefresh(main_blink);
+  if (checkself_is_checking()) return;
+  blink_manager_refresh(main_blink);
   // for test
   {
     static unsigned long last_switch_time = 0;
@@ -35,10 +48,10 @@ void main_screen_task_cb(lv_timer_t *timer) {
 
       is_day_mode = !is_day_mode;
       if (is_day_mode)
-        MotorModelSetDayNightMode(kNightMode);
+        motor_model_set_day_night_mode(METER_MODE_NIGHT);
       else
-        MotorModelSetDayNightMode(kDayMode);
-      MainScreenToggleDayNight();
+        motor_model_set_day_night_mode(METER_MODE_DAY);
+      main_screen_toggle_day_night();
     }
   }
 }
@@ -51,13 +64,13 @@ static void CreateBackgroundImage(lv_obj_t *screen) {
   }
 }
 
-static void SetScreenAppearance(lv_obj_t *screen) {
-  lv_color_t bg_color = (MotorModelGetDayNightMode() == kDayMode)
+static void set_screen_appearance(lv_obj_t *screen) {
+  lv_color_t bg_color = (motor_model_get_day_night_mode() == METER_MODE_DAY)
                             ? lv_color_white()
                             : lv_color_black();
   set_screen_color(screen, bg_color);
 
-  if (MotorModelGetDayNightMode() == kDayMode) {
+  if (motor_model_get_day_night_mode() == METER_MODE_DAY) {
     CreateBackgroundImage(screen);
     lv_obj_clear_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
   } else if (img_bg) {
@@ -65,106 +78,90 @@ static void SetScreenAppearance(lv_obj_t *screen) {
   }
 }
 
-void MainScreenInit() {
+void main_screen_init() {
   main_scr = lv_obj_create(NULL);
   lv_scr_load(main_scr);
-  SetScreenAppearance(main_scr);
-  ToolInit();
+  set_screen_appearance(main_scr);
+  tool_init();
 
-  MainScreenBlink();
-  MainScreenLight();
-  MainScreenOil();
-  MainScreenWater();
-  MainScreenGear();
-  MainScreenRpm();
-  MainScreenOther();
-  MainScreenTime();
-  MainScreenSpeed();
+  main_screen_blink();
+  main_screen_signal_light();
+  main_screen_oil();
+  main_screen_water();
+  main_screen_gear();
+  main_screen_rpm();
+  main_screen_other();
+  main_screen_time();
+  main_screen_speed();
 
-  CheckSelfInit();
+  checkself_init();
 
   lv_timer_t *timer = lv_timer_create(main_screen_task_cb, 33, NULL);
   lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
 }
 
-void MainScreenLight() {
-  main_light = malloc(sizeof(LightView));
-  if (!main_light) return;
-  main_light->bg_ = main_scr;
+void main_screen_signal_light() {
+  INIT_VIEW(main_light, light_view_t);
   main_light->light = &light_main;
-  LightViewInit(main_light);
+  light_view_init(main_light);
 }
 
-void MainScreenGear() {
-  main_gear = malloc(sizeof(GearView));
-  if (!main_gear) return;
-  main_gear->background = main_scr;
-  Color color = ToolGetColorBase();
+void main_screen_gear() {
+  INIT_VIEW(main_gear, gear_view_t);
+  label_color_t color = tool_get_color_base();
   main_gear->key_position =
-      CreateLabelPos(725, 397, 50, 20, color, kSourceHanSansCN_18, kTextChar,
-                     (LabelValue){"GEAR"});
-  main_gear->value_position =
-      CreateLabelPos(738, 359, 20, 30, kColorLimeGreen, kSourceHanSansCN_34,
-                     kTextChar, (LabelValue){"1"});
-  GearViewInit(main_gear);
+      create_label_pos(725, 397, 50, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
+                       VALUE_TYPE_CHAR, (label_value_t){"GEAR"});
+  main_gear->value_position = create_label_pos(
+      738, 359, 20, 30, LABEL_COLOR_LIME_GREEN, LABEL_FONT_SOURCEHANSANSCN_34,
+      VALUE_TYPE_CHAR, (label_value_t){"1"});
+  gear_view_init(main_gear);
 }
 
-void MainScreenOil() {
-  main_oil = malloc(sizeof(GuageView));
-  if (!main_oil) return;
-  main_oil->background = main_scr;
-  GuageViewMainOil(main_oil);
+void main_screen_oil() {
+  INIT_VIEW(main_oil, guage_view_t);
+  guage_view_main_oil(main_oil);
 }
 
-void MainScreenWater() {
-  main_water = malloc(sizeof(GuageView));
-  if (!main_water) return;
-  main_water->background = main_scr;
-  GuageViewMainWater(main_water);
+void main_screen_water() {
+  INIT_VIEW(main_water, guage_view_t);
+  guage_view_main_water(main_water);
 }
 
-void MainScreenRpm() {
-  main_rpm = malloc(sizeof(RpmView));
-  if (!main_rpm) return;
-  main_rpm->background = main_scr;
-  RpmViewInit(main_rpm);
+void main_screen_rpm() {
+  INIT_VIEW(main_rpm, rpm_view_t);
+  rpm_view_init(main_rpm);
 }
 
-void MainScreenSpeed() {
-  main_speed = malloc(sizeof(SpeedView));
-  if (!main_speed) return;
-  main_speed->background = main_scr;
-  SpeedViewMain(main_speed);
+void main_screen_speed() {
+  INIT_VIEW(main_speed, speed_view_t);
+  speed_view_main(main_speed);
 }
 
-void MainScreenOther() {
-  main_other = malloc(sizeof(OtherView));
-  if (!main_other) return;
-  main_other->background = main_scr;
-  OtherViewInit(main_other);
+void main_screen_other() {
+  INIT_VIEW(main_other, other_view_t);
+  other_view_init(main_other);
 }
 
-void MainScreenTime() {
-  main_time = malloc(sizeof(TimeView));
-  if (!main_time) return;
-  main_time->background = main_scr;
-  TimeViewInit(main_time);
+void main_screen_time() {
+  INIT_VIEW(main_time, time_view_t);
+  time_view_init(main_time);
 }
 
-void MainScreenToggleDayNight() {
-  SetScreenAppearance(main_scr);
-  GuageViewToggleDayNightMode(main_oil);
-  GuageViewToggleDayNightMode(main_water);
-  SpeedViewToggleDayNightMode(main_speed);
-  RpmViewToggleDayNightMode(main_rpm);
-  OtherViewToggleDayNightMode(main_other);
-  GearViewToggleDayNightMode(main_gear);
-  TimeViewToggleDayNightMode(main_time);
-  SpeedViewUpdate(main_speed, SpeedViewCurrent());
+void main_screen_blink() {
+  main_blink = (blink_manager_t *)allocate_memory(sizeof(blink_manager_t),
+                                                  "blink_manager_t");
+  blink_manager_init(main_blink);
 }
 
-void MainScreenBlink() {
-  main_blink = malloc(sizeof(BlinkManager));
-  if (!main_blink) return;
-  BlinkManagerInit(main_blink);
+void main_screen_toggle_day_night() {
+  set_screen_appearance(main_scr);
+  guage_view_toggle_day_night_mode(main_oil);
+  guage_view_toggle_day_night_mode(main_water);
+  speed_view_toggle_day_night_mode(main_speed);
+  rpm_view_toggle_day_night_mode(main_rpm);
+  other_view_toggle_day_night_mode(main_other);
+  gear_view_toggle_day_night_mode(main_gear);
+  time_view_toggle_day_night_mode(main_time);
+  speed_view_update(main_speed, speed_view_current());
 }

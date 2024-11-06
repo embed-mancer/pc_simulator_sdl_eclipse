@@ -2,19 +2,19 @@
 #define ENUMS_H_
 
 typedef enum {
-  kTurnLeft,
-  kTurnRight,
-  kAutoStartStop,
-  kHighBeam,
-  kTire,
-  kABS,
-  kOilPressure,
-  kEngineFault,
-  kWifi,
-  kBtIcon,
-  kBtPair,
-  kVoltage,
-  kLightCount,
-} LightEnum;
+  SIGNAL_LIGHT__TURN_LEFT,
+  SIGNAL_LIGHT__TURN_RIGHT,
+  SIGNAL_LIGHT_AUTO_START_STOP,
+  SIGNAL_LIGHT_HIGH_BEAM,
+  SIGNAL_LIGHT_TIRE,
+  SIGNAL_LIGHT_ABS,
+  SIGNAL_LIGHT_OIL_PRESSURE,
+  SIGNAL_LIGHT_ENGINE_FAULT,
+  SIGNAL_LIGHT_WIFI,
+  SIGNAL_LIGHT_BT_ICON,
+  SIGNAL_LIGHT_BT_PAIR,
+  SIGNAL_LIGHT_VOLTAGE,
+  SIGNAL_LIGHT_COUNT,
+} signal_light_t;
 
-#endif // ENUMS_H_
+#endif  // ENUMS_H_

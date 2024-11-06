@@ -3,23 +3,23 @@
 
 #include "../cell.h"
 
-typedef struct rpm_view {
+typedef struct {
   lv_obj_t *line;
   lv_obj_t *num;
   lv_obj_t *unit;
   lv_obj_t *block;
   lv_obj_t *background;
-  ImagePos line_position;
-  ImagePos number_position;
-  ImagePos unit_position;
-  ImagePos block_positions[110];
-} RpmView;
+  image_pos_t line_position;
+  image_pos_t number_position;
+  image_pos_t unit_position;
+  image_pos_t block_positions[110];
+} rpm_view_t;
 
-void RpmViewInit(RpmView *view);
-void RpmViewCreate(RpmView *view);
-void RpmViewUpdate(RpmView *view, int value);
-void RpmViewToggleDayNightMode(RpmView *view);
-void RpmViewRun();
-int RpmViewCurrent();
+void rpm_view_init(rpm_view_t *view);
+void rpm_view_create(rpm_view_t *view);
+void rpm_view_update(rpm_view_t *view, int value);
+void rpm_view_toggle_day_night_mode(rpm_view_t *view);
+void rpm_view_run();
+int rpm_view_current();
 
 #endif  // RPM_VIEW_H_

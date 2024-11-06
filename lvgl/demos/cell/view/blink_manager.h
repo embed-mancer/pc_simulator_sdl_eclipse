@@ -13,18 +13,20 @@ typedef struct {
   uint32_t blink_interval;
   bool is_hidden;
   uint8_t count;
-} BlinkGroup;
+} blink_group_t;
 
 typedef struct {
-  BlinkGroup group1;
-  BlinkGroup group2;
+  blink_group_t group1;
+  blink_group_t group2;
   uint8_t current_page;
-} BlinkManager;
+} blink_manager_t;
 
-void BlinkManagerInit(BlinkManager *bm);
-void BlinkManagerStart(BlinkManager *bm);
-bool BlinkManagerAdd(BlinkManager *bm, lv_obj_t *object, uint32_t frequency);
-bool BlinkManagerRemove(BlinkManager *bm, lv_obj_t *object, uint32_t frequency);
-void BlinkManagerRefresh(BlinkManager *bm);
+void blink_manager_init(blink_manager_t *bm);
+void blink_manager_start(blink_manager_t *bm);
+bool blink_manager_add(blink_manager_t *bm, lv_obj_t *object,
+                       uint32_t frequency);
+bool blink_manager_remove(blink_manager_t *bm, lv_obj_t *object,
+                          uint32_t frequency);
+void blink_manager_refresh(blink_manager_t *bm);
 
 #endif  // BLINK_MANAGER_H_

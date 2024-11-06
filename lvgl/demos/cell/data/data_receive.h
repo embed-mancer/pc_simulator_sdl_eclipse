@@ -3,8 +3,8 @@
 
 #include "lvgl/lvgl.h"
 
-void DataTaskInit();
-void DataTaskAdd(uint8_t *msg);
-void DataTaskProcess(uint8_t *msg);
+void data_task_init();
+void data_task_add(uint8_t *msg);
+void data_task_process(uint8_t *msg);
 
 #endif /* ifndef DATA_RECEIVE_H */

@@ -5,10 +5,9 @@
 #include "../view/guage_view.h"
 #include "../view/other_view.h"
 
-void NotifyGear(GearView *view);
-void NotifyOil(GuageView *view);
-void NotifyWater(GuageView *view);
-void NotifyOther(OtherView *view);
+void notify_gear(gear_view_t *view);
+void notify_oil(guage_view_t *view);
+void notify_water(guage_view_t *view);
+void notify_other(other_view_t *view);
 
-
-#endif // MOTOR_CONTROLLER_H_
+#endif  // MOTOR_CONTROLLER_H_
