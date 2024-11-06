@@ -87,6 +87,32 @@ Below is a simplified diagram of the different modules of the dashboard, illustr
      - `Refresh`: Update the temperature reading.
      - `ToggleDayNightMode`: Adjust the gauge for day/night display.
 
+```
++---------------------+        +---------------------+            +---------------------+
+|   System Startup    |        |   CAN Data Received |           | Button/IO Processing|
++---------+-----------+        +---------+-----------+            +---------------------+
+          |                          |                                        |
+          v                          v                                        |
++---------v-------------+        +-----v---------------+                      |
+| Module Initialization |      | Data Update Trigger   |                      |
+| (Call each Init)      |      | (Call Refresh)        | <--------------------+
++---------+-------------+      +---------+-------------+
+          |                          |
+          v                          |
++---------v-----------+              |
+|  Module Creation    |              |
+| (Call each Create)  |              |
++---------+-----------+              |
+          |                          |
+          v                          |
++---------v-----------+              |
+| Day-Night Mode Phase| <------------+
+| (Call each module Toggle |
+| meter_mode_t)       |
++---------------------+
+```
+
+
 ### Data Flow and Interactions
 - **CAN Data Processing**: The system receives real-time data from the CAN bus. Each module subscribes to the relevant data to update the UI.
 - **Central Update Trigger**: Each time new data is processed, the central data model triggers the relevant module’s `Refresh` function to ensure the dashboard reflects the most up-to-date information.
@@ -101,4 +127,3 @@ Below is a simplified diagram of the different modules of the dashboard, illustr
 This design ensures that the dashboard system is modular, maintainable, and easily extendable. Each module has a well-defined responsibility with interfaces that support initialization, UI creation, real-time refreshing, and day-night adjustments.
 
 Please let me know if you need more details on any of the modules or further explanations for leadership presentation.
-

@@ -10,6 +10,7 @@ void rpm_view_init(rpm_view_t *view) {
   view->num = NULL;
   view->unit = NULL;
   view->block = NULL;
+  view->last_index = -1;
   rpm_view_create(view);
 }
 
@@ -138,13 +139,16 @@ void rpm_view_update(rpm_view_t *view, int value) {
   value = (value > MAX_RPM) ? MAX_RPM : value;
   int index = (value > 0) ? (value - 1) / 100 : -1;
 
-  if (index >= 0) {
-    lv_img_set_src(view->block, view->block_positions[index].image);
-    lv_obj_set_pos(view->block, view->block_positions[index].x,
-                   view->block_positions[index].y);
-    lv_obj_clear_flag(view->block, LV_OBJ_FLAG_HIDDEN);
-  } else {
-    lv_obj_add_flag(view->block, LV_OBJ_FLAG_HIDDEN);
+  if (index != view->last_index) {
+    view->last_index = index;
+    if (index >= 0) {
+      lv_img_set_src(view->block, view->block_positions[index].image);
+      lv_obj_set_pos(view->block, view->block_positions[index].x,
+                     view->block_positions[index].y);
+      lv_obj_clear_flag(view->block, LV_OBJ_FLAG_HIDDEN);
+    } else {
+      lv_obj_add_flag(view->block, LV_OBJ_FLAG_HIDDEN);
+    }
   }
 }
 
@@ -155,6 +159,9 @@ void rpm_view_toggle_day_night_mode(rpm_view_t *view) {
   lv_img_set_src(view->line, view->line_position.image);
   lv_img_set_src(view->num, view->number_position.image);
   lv_img_set_src(view->unit, view->unit_position.image);
+  int current_value = rpm_view_current();
+  view->last_index = -1;
+  rpm_view_update(view, current_value);
 }
 
 void rpm_view_run() {

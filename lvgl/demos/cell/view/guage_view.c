@@ -5,40 +5,40 @@
 #define BLOCK_WIDTH_MAX 195
 #define BLOCK_HEIGHT 8
 
-static void UpdateImageSource(guage_view_t *view, const char *from,
+static void update_image_source(guage_view_t *view, const char *from,
                               const char *to) {
   replace_substring(view->icon_position.image, from, to);
   replace_substring(view->line_position.image, from, to);
-  for (int i = 0; i < kGuageNum; ++i) {
+  for (int i = 0; i < GUAGE_NUM; ++i) {
     if (view->block[i] != NULL) {
       replace_substring(view->block_position[i].image, from, to);
     }
   }
 }
 
-static void HideAllBlocks(guage_view_t *view) {
-  for (int i = 0; i < kGuageNum; ++i) {
+static void hide_all_blocks(guage_view_t *view) {
+  for (int i = 0; i < GUAGE_NUM; ++i) {
     lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
 }
 
-static void ShowBlocks(guage_view_t *view, int value) {
+static void show_blocks(guage_view_t *view, int value) {
   for (int i = 0; i < value; i++) {
     lv_obj_clear_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
-  for (int i = value; i < kGuageNum; i++) {
+  for (int i = value; i < GUAGE_NUM; i++) {
     lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
 }
 
-void guage_view_init(guage_view_t *view, guage_view_mode mode) {
-  view->icon_t = NULL;
+void guage_view_init(guage_view_t *view, guage_view_mode_t mode) {
+  view->icon = NULL;
   view->line = NULL;
   view->label[0] = NULL;
   view->label[1] = NULL;
   view->mode = mode;
-  view->max_value = kGuageNum;
-  for (int i = 0; i < kGuageNum; ++i) {
+  view->max_value = GUAGE_NUM;
+  for (int i = 0; i < GUAGE_NUM; ++i) {
     view->block[i] = NULL;
   }
   guage_view_create(view);
@@ -49,16 +49,16 @@ void guage_view_create(guage_view_t *view) {
     return;
   }
 
-  if (view->mode == kGuageViewModeBlock) {
-    for (int i = 0; i < kGuageNum; ++i) {
+  if (view->mode == GUAGE_VIEW_MODE_BLOCK) {
+    for (int i = 0; i < GUAGE_NUM; ++i) {
       light_view_one(view->background, &view->block[i],
                      view->block_position[i]);
       lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
     }
-    light_view_one(view->background, &view->icon_t, view->icon_position);
+    light_view_one(view->background, &view->icon, view->icon_position);
     light_view_one(view->background, &view->line, view->line_position);
-  } else if (view->mode == kGuageViewModeWidth) {
-    light_view_one(view->background, &view->icon_t, view->icon_position);
+  } else if (view->mode == GUAGE_VIEW_MODE_WIDTH) {
+    light_view_one(view->background, &view->icon, view->icon_position);
     light_view_one(view->background, &view->line, view->line_position);
 
     view->block[0] = lv_img_create(view->background);
@@ -75,13 +75,13 @@ void guage_view_create(guage_view_t *view) {
 void guage_view_update(guage_view_t *view, int value) {
   value = (value < 0) ? 0 : (value > view->max_value) ? view->max_value : value;
 
-  if (view->mode == kGuageViewModeBlock) {
+  if (view->mode == GUAGE_VIEW_MODE_BLOCK) {
     if (value <= 0) {
-      HideAllBlocks(view);
+      hide_all_blocks(view);
     } else {
-      ShowBlocks(view, value);
+      show_blocks(view, value);
     }
-  } else if (view->mode == kGuageViewModeWidth) {
+  } else if (view->mode == GUAGE_VIEW_MODE_WIDTH) {
     int block_width = BLOCK_WIDTH_MAX * value / 8.0;
     lv_obj_set_size(view->block[0], block_width, BLOCK_HEIGHT);
   }
@@ -93,12 +93,12 @@ void guage_view_toggle_day_night_mode(guage_view_t *view) {
   const char *to =
       motor_model_get_day_night_mode() == METER_MODE_NIGHT ? "night" : "day";
 
-  UpdateImageSource(view, from, to);
+  update_image_source(view, from, to);
   tool_set_text_on_mode_and_update(view->label[1],
                                    &view->label_position[1].color,
                                    LABEL_COLOR_WHITE, LABEL_COLOR_BLACK);
   lv_img_set_src(view->block[0], view->block_position[0].image);
-  lv_img_set_src(view->icon_t, view->icon_position.image);
+  lv_img_set_src(view->icon, view->icon_position.image);
   lv_img_set_src(view->line, view->line_position.image);
 }
 
@@ -123,7 +123,7 @@ void guage_view_main_oil(guage_view_t *view) {
   view->label_position[1] =
       create_label_pos(298, 440, 10, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
                        VALUE_TYPE_CHAR, (label_value_t){"F"});
-  guage_view_init(view, kGuageViewModeWidth);
+  guage_view_init(view, GUAGE_VIEW_MODE_WIDTH);
 }
 
 void guage_view_main_water(guage_view_t *view) {
@@ -148,5 +148,5 @@ void guage_view_main_water(guage_view_t *view) {
   view->label_position[1] =
       create_label_pos(531, 441, 10, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
                        VALUE_TYPE_CHAR, (label_value_t){"C"});
-  guage_view_init(view, kGuageViewModeWidth);
+  guage_view_init(view, GUAGE_VIEW_MODE_WIDTH);
 }

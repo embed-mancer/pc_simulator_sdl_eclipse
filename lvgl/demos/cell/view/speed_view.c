@@ -4,13 +4,13 @@
 #include "../tool/constrant.h"
 
 static data_accumulator_t speed_accumulator;
-static const int kMidPosition = 400;
-static const int kWidth = 94;
+static const int mid_position = 400;
+static const int width = 94;
 
 void speed_view_init(speed_view_t *view) {
   for (int i = 0; i < 3; ++i) view->block[i] = NULL;
-
   view->unit = NULL;
+  view->last_index = -1;
   speed_view_create(view);
 }
 
@@ -23,7 +23,7 @@ void speed_view_create(speed_view_t *view) {
   speed_view_update(view, 0);
 }
 
-static void SetBlockPositions(speed_view_t *view, const int positions[3]) {
+static void set_block_positions(speed_view_t *view, const int positions[3]) {
   for (int i = 0; i < 3; ++i) {
     if (positions[i] >= 0) {
       lv_obj_set_x(view->block[i], positions[i]);
@@ -34,30 +34,33 @@ static void SetBlockPositions(speed_view_t *view, const int positions[3]) {
   }
 }
 
-static void UpdateBlocks(speed_view_t *view, int value) {
+static void update_blocks(speed_view_t *view, int value) {
   int positions[3] = {-1, -1, -1};
   if (value < 10) {
-    positions[2] = kMidPosition - kWidth / 2;
+    positions[2] = mid_position - width / 2;
     lv_img_set_src(view->block[2], view->image_paths[value]);
   } else if (value < 100) {
-    positions[1] = kMidPosition - kWidth;
-    positions[2] = kMidPosition;
+    positions[1] = mid_position - width;
+    positions[2] = mid_position;
     lv_img_set_src(view->block[1], view->image_paths[value / 10]);
     lv_img_set_src(view->block[2], view->image_paths[value % 10]);
   } else {
-    positions[0] = kMidPosition - 3 * kWidth / 2 - 5;
-    positions[1] = kMidPosition - kWidth / 2 - 30;
-    positions[2] = kMidPosition + kWidth / 2 - 25;
+    positions[0] = mid_position - 3 * width / 2 - 5;
+    positions[1] = mid_position - width / 2 - 30;
+    positions[2] = mid_position + width / 2 - 25;
     lv_img_set_src(view->block[0], view->image_paths[value / 100]);
     lv_img_set_src(view->block[1], view->image_paths[(value / 10) % 10]);
     lv_img_set_src(view->block[2], view->image_paths[value % 10]);
   }
-  SetBlockPositions(view, positions);
+  set_block_positions(view, positions);
 }
 
 void speed_view_update(speed_view_t *view, int value) {
   value = (value > MAX_SPEED) ? MAX_SPEED : (value < 0) ? 0 : value;
-  UpdateBlocks(view, value);
+  if (value != view->last_index) {
+    view->last_index = value;
+    update_blocks(view, value);
+  }
 }
 
 void speed_view_toggle_day_night_mode(speed_view_t *view) {
@@ -67,6 +70,9 @@ void speed_view_toggle_day_night_mode(speed_view_t *view) {
 
   tool_set_text_on_mode_and_update(view->unit, &view->unit_position.color,
                                    LABEL_COLOR_WHITE, LABEL_COLOR_BLACK);
+  int current_value = speed_view_current();
+  view->last_index = -1;
+  speed_view_update(view, current_value);
 }
 
 void speed_view_run() {

@@ -18,6 +18,6 @@ typedef struct {
 void light_view_init(light_view_t *view);
 void light_view_create(light_view_t *view);
 void light_view_one(lv_obj_t *bg, lv_obj_t **lv, image_pos_t pos);
-void light_view_display(icon_t *icon_t, display_state_t table);
+void light_view_display(icon_t *icon, display_state_t table);
 
 #endif  // LIGHT_VIEW_H_

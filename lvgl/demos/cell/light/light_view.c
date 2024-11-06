@@ -1,10 +1,7 @@
 #include "light_view.h"
 
 static void light_view_initialize_icons(light_view_t *view) {
-  for (int i = 0; i < sizeof(view->icons) / sizeof(view->icons[0]); i++) {
-    view->icons[i].obj = NULL;
-    view->icons[i].is_needed = false;
-  }
+  memset(view->icons, 0, sizeof(view->icons));
 
   int needed_icons[] = {SIGNAL_LIGHT__TURN_LEFT,   SIGNAL_LIGHT_AUTO_START_STOP,
                         SIGNAL_LIGHT_TIRE,         SIGNAL_LIGHT_HIGH_BEAM,
@@ -38,14 +35,14 @@ void light_view_one(lv_obj_t *bg, lv_obj_t **lv, image_pos_t pos) {
   lv_img_set_src(*lv, pos.image);
 }
 
-void light_view_display(icon_t *icon_t, display_state_t table) {
-  if (!icon_t->is_needed) return;
+void light_view_display(icon_t *icon, display_state_t table) {
+  if (!icon->is_needed) return;
   switch (table) {
     case DISPLAY_STATE_HIDE:
-      lv_obj_add_flag(icon_t->obj, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_add_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);
       break;
     case DISPLAY_STATE_SHOW:
-      lv_obj_clear_flag(icon_t->obj, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_clear_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);
       break;
   }
 }

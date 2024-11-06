@@ -56,7 +56,7 @@ void main_screen_task_cb(lv_timer_t *timer) {
   }
 }
 
-static void CreateBackgroundImage(lv_obj_t *screen) {
+static void crate_background_image(lv_obj_t *screen) {
   if (!img_bg) {
     img_bg = lv_img_create(screen);
     lv_img_set_src(img_bg, RES_PRFIX "home/day/bg.png");
@@ -71,7 +71,7 @@ static void set_screen_appearance(lv_obj_t *screen) {
   set_screen_color(screen, bg_color);
 
   if (motor_model_get_day_night_mode() == METER_MODE_DAY) {
-    CreateBackgroundImage(screen);
+    crate_background_image(screen);
     lv_obj_clear_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
   } else if (img_bg) {
     lv_obj_add_flag(img_bg, LV_OBJ_FLAG_HIDDEN);
@@ -163,5 +163,4 @@ void main_screen_toggle_day_night() {
   other_view_toggle_day_night_mode(main_other);
   gear_view_toggle_day_night_mode(main_gear);
   time_view_toggle_day_night_mode(main_time);
-  speed_view_update(main_speed, speed_view_current());
 }

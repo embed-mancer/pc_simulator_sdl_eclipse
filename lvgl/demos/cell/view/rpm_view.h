@@ -13,6 +13,7 @@ typedef struct {
   image_pos_t number_position;
   image_pos_t unit_position;
   image_pos_t block_positions[110];
+  int last_index;
 } rpm_view_t;
 
 void rpm_view_init(rpm_view_t *view);
