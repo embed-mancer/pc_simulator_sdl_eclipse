@@ -22,6 +22,6 @@ typedef struct {
 void time_view_init(time_view_t* view);
 void time_view_create(time_view_t* view);
 void time_view_update(time_view_t* view);
-void time_view_toggle_day_night_mode(time_view_t* view);
+void time_view_toggle_day_night(time_view_t* view);
 
 #endif  // TIME_VIEW_H_

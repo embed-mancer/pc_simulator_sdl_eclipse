@@ -22,17 +22,10 @@ void light_view_init(light_view_t *view) {
 void light_view_create(light_view_t *view) {
   for (int i = 0; i < sizeof(view->icons) / sizeof(view->icons[0]); i++) {
     if (view->icons[i].is_needed) {
-      light_view_one(view->background, &view->icons[i].obj,
+      create_img(view->background, &view->icons[i].obj,
                      view->light->pos[i]);
     }
   }
-}
-
-void light_view_one(lv_obj_t *bg, lv_obj_t **lv, image_pos_t pos) {
-  if (*lv) return;
-  *lv = lv_img_create(bg);
-  lv_obj_set_pos(*lv, pos.x, pos.y);
-  lv_img_set_src(*lv, pos.image);
 }
 
 void light_view_display(icon_t *icon, display_state_t table) {

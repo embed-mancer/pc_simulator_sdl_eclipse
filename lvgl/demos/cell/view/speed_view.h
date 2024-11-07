@@ -21,7 +21,7 @@ typedef struct {
 void speed_view_init(speed_view_t *view);
 void speed_view_create(speed_view_t *view);
 void speed_view_update(speed_view_t *view, int value);
-void speed_view_toggle_day_night_mode(speed_view_t *view);
+void speed_view_toggle_day_night(speed_view_t *view);
 void speed_view_run();
 int speed_view_current();
 void speed_view_main(speed_view_t *view);

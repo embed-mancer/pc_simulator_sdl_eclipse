@@ -15,6 +15,6 @@ typedef struct {
 void gear_view_init(gear_view_t *view);
 void gear_view_create(gear_view_t *view);
 void gear_view_update(gear_view_t *view, int value);
-void gear_view_toggle_day_night_mode(gear_view_t *view);
+void gear_view_toggle_day_night(gear_view_t *view);
 
 #endif  // GEAR_VIEW_H_

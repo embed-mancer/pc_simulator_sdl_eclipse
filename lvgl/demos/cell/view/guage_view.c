@@ -51,15 +51,15 @@ void guage_view_create(guage_view_t *view) {
 
   if (view->mode == GUAGE_VIEW_MODE_BLOCK) {
     for (int i = 0; i < GUAGE_NUM; ++i) {
-      light_view_one(view->background, &view->block[i],
+      create_img(view->background, &view->block[i],
                      view->block_position[i]);
       lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
     }
-    light_view_one(view->background, &view->icon, view->icon_position);
-    light_view_one(view->background, &view->line, view->line_position);
+    create_img(view->background, &view->icon, view->icon_position);
+    create_img(view->background, &view->line, view->line_position);
   } else if (view->mode == GUAGE_VIEW_MODE_WIDTH) {
-    light_view_one(view->background, &view->icon, view->icon_position);
-    light_view_one(view->background, &view->line, view->line_position);
+    create_img(view->background, &view->icon, view->icon_position);
+    create_img(view->background, &view->line, view->line_position);
 
     view->block[0] = lv_img_create(view->background);
     lv_img_set_src(view->block[0], view->block_position[0].image);
@@ -87,7 +87,7 @@ void guage_view_update(guage_view_t *view, int value) {
   }
 }
 
-void guage_view_toggle_day_night_mode(guage_view_t *view) {
+void guage_view_toggle_day_night(guage_view_t *view) {
   const char *from =
       motor_model_get_day_night_mode() == METER_MODE_NIGHT ? "day" : "night";
   const char *to =

@@ -60,7 +60,7 @@ void other_view_create(other_view_t *view) {
   view->battery_unit_position =
       create_label_pos(180, 351, 100, 25, color, LABEL_FONT_MICROSOFT_YAHEI_20,
                        VALUE_TYPE_CHAR, (label_value_t){"V"});
-  light_view_one(view->background, &view->line_split,
+  create_img(view->background, &view->line_split,
                  view->line_split_position);
   create_label(view->background, &view->trip_key, view->trip_key_position);
   create_label(view->background, &view->trip_value, view->trip_value_position);
@@ -93,7 +93,7 @@ void other_view_update(other_view_t *view) {
                         view->battery_value_position);
 }
 
-void other_view_toggle_day_night_mode(other_view_t *view) {
+void other_view_toggle_day_night(other_view_t *view) {
   lv_color_t color = ToolGetThemeColor();
 
   lv_obj_set_style_text_color(view->trip_key, color, 0);

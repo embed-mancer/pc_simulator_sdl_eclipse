@@ -15,7 +15,9 @@ font_map_t font_map[LABEL_FONT_COUNT] = {
     {LABEL_FONT_SOURCEHANSANSCN_22, &SourceHanSansCN_22},
     {LABEL_FONT_SOURCEHANSANSCN_28, &SourceHanSansCN_28},
     {LABEL_FONT_SOURCEHANSANSCN_34, &SourceHanSansCN_34},
-    {LABEL_FONT_MICROSOFT_YAHEI_20, &MicrosoftYaHei_20}};
+    {LABEL_FONT_MICROSOFT_YAHEI_20, &MicrosoftYaHei_20},
+    {LABEL_FONT_MICROSOFT_YAHEI_22, &MicrosoftYaHei_22},
+    {LABEL_FONT_MICROSOFT_YAHEI_30, &MicrosoftYaHei_30}};
 
 void tool_init() { tool_init_color_map(); }
 
@@ -65,23 +67,59 @@ void replace_substring(char* str, const char* old_substr,
   }
 }
 
-lv_obj_t* create_label(lv_obj_t* bg, lv_obj_t** lv, label_pos_t pos) {
-  lv_obj_t* obj = lv_label_create(bg);
+void create_img(lv_obj_t* bg, lv_obj_t** lv, image_pos_t pos) {
+  if (*lv) return;
+  *lv = lv_img_create(bg);
+  lv_obj_set_pos(*lv, pos.x, pos.y);
+  lv_img_set_src(*lv, pos.image);
+}
+
+void create_label(lv_obj_t* bg, lv_obj_t** lv, label_pos_t pos) {
+  if (*lv) return;
+  *lv = lv_label_create(bg);
   if (pos.value_type_t == VALUE_TYPE_CHAR) {
-    lv_label_set_text(obj, pos.value.sz);
+    lv_label_set_text(*lv, pos.value.sz);
   } else if (pos.value_type_t == VALUE_TYPE_FLOAT) {
     char sz[32] = {0};
     sprintf(sz, "%.1f", pos.value.double_value);
-    lv_label_set_text(obj, sz);
+    lv_label_set_text(*lv, sz);
   } else if (pos.value_type_t == VALUE_TYPE_INT) {
-    lv_label_set_text_fmt(obj, "%d", pos.value.int_value);
+    lv_label_set_text_fmt(*lv, "%d", pos.value.int_value);
   }
-  lv_obj_set_pos(obj, pos.x, pos.y);
-  lv_obj_set_size(obj, pos.width, pos.height);
-  lv_obj_set_style_text_font(obj, tool_get_font(pos.font), 0);
-  lv_obj_set_style_text_color(obj, tool_get_color(pos.color), 0);
-  *lv = obj;
-  return obj;
+  lv_obj_set_pos(*lv, pos.x, pos.y);
+  lv_obj_set_size(*lv, pos.width, pos.height);
+  lv_obj_set_style_text_font(*lv, tool_get_font(pos.font), 0);
+  lv_obj_set_style_text_color(*lv, tool_get_color(pos.color), 0);
+}
+
+void create_center_left_label(lv_obj_t* parent, lv_obj_t** label, int x, int y,
+                              int width, int height, label_color_t color,
+                              label_font_t font, const char* text) {
+  label_pos_t label_pos =
+      create_label_pos(x, y, width, height, color, font, VALUE_TYPE_CHAR,
+                       create_label_value(text));
+
+  create_label(parent, label, label_pos);
+
+  int line_height = lv_font_get_line_height(tool_get_font(font));
+
+  lv_obj_set_style_text_align(*label, LV_TEXT_ALIGN_LEFT, 0);
+  lv_obj_set_y(*label, (height - line_height) / 2 + y);
+}
+
+void create_center_right_label(lv_obj_t* parent, lv_obj_t** label, int x, int y,
+                              int width, int height, label_color_t color,
+                              label_font_t font, const char* text) {
+  label_pos_t label_pos =
+      create_label_pos(x, y, width, height, color, font, VALUE_TYPE_CHAR,
+                       create_label_value(text));
+
+  create_label(parent, label, label_pos);
+
+  int line_height = lv_font_get_line_height(tool_get_font(font));
+
+  lv_obj_set_style_text_align(*label, LV_TEXT_ALIGN_RIGHT, 0);
+  lv_obj_set_y(*label, (height - line_height) / 2 + y);
 }
 
 image_pos_t create_image_pos(const char* image_path, int x, int y) {
@@ -89,6 +127,12 @@ image_pos_t create_image_pos(const char* image_path, int x, int y) {
   strncpy(pos.image, image_path, sizeof(pos.image) - 1);
   pos.image[sizeof(pos.image) - 1] = '\0';
   return pos;
+}
+
+label_value_t create_label_value(const char* str) {
+  label_value_t value = {0};
+  snprintf(value.sz, sizeof(value.sz), "%s", str);
+  return value;
 }
 
 label_pos_t create_label_pos(int x, int y, int width, int height,
@@ -123,10 +167,10 @@ label_pos_t create_label_pos(int x, int y, int width, int height,
 
 lv_color_t ToolGetThemeColor() {
   return motor_model_get_day_night_mode() == METER_MODE_DAY ? lv_color_black()
-                                                      : lv_color_white();
+                                                            : lv_color_white();
 }
 
-void tool_toggle_day_night_mode(char* image) {
+void tool_toggle_day_night(char* image) {
   if (motor_model_get_day_night_mode() == METER_MODE_DAY) {
     replace_substring(image, "night", "day");
   } else {
@@ -135,15 +179,17 @@ void tool_toggle_day_night_mode(char* image) {
 }
 
 void tool_set_text_on_mode(lv_obj_t* obj, int night_color, int day_color) {
-  int color = (motor_model_get_day_night_mode() == METER_MODE_NIGHT) ? night_color
-                                                               : day_color;
+  int color = (motor_model_get_day_night_mode() == METER_MODE_NIGHT)
+                  ? night_color
+                  : day_color;
   lv_obj_set_style_text_color(obj, tool_get_color(color), 0);
 }
 
 void tool_set_text_on_mode_and_update(lv_obj_t* obj, label_color_t* color_prop,
                                       int night_color, int day_color) {
-  *color_prop = (motor_model_get_day_night_mode() == METER_MODE_NIGHT) ? night_color
-                                                                 : day_color;
+  *color_prop = (motor_model_get_day_night_mode() == METER_MODE_NIGHT)
+                    ? night_color
+                    : day_color;
   lv_obj_set_style_text_color(obj, tool_get_color(*color_prop), 0);
 }
 
@@ -152,6 +198,17 @@ const char* tool_get_theme_suffix() {
 }
 
 label_color_t tool_get_color_base() {
-  return (motor_model_get_day_night_mode() == METER_MODE_DAY) ? LABEL_COLOR_BLACK
-                                                        : LABEL_COLOR_WHITE;
+  return (motor_model_get_day_night_mode() == METER_MODE_DAY)
+             ? LABEL_COLOR_BLACK
+             : LABEL_COLOR_WHITE;
+}
+
+void initialize_background(lv_obj_t** bg, lv_obj_t* parent, int x, int y,
+                           int width, int height, lv_color_t color) {
+  *bg = lv_label_create(parent);
+  lv_obj_set_pos(*bg, x, y);
+  lv_obj_set_size(*bg, width, height);
+  lv_label_set_text(*bg, "");
+  lv_obj_set_style_bg_opa(*bg, LV_OPA_COVER, 0);
+  lv_obj_set_style_bg_color(*bg, color, 0);
 }

@@ -42,7 +42,7 @@ typedef struct {
 void other_view_init(other_view_t *view);
 void other_view_create(other_view_t *view);
 void other_view_update(other_view_t *view);
-void other_view_toggle_day_night_mode(other_view_t *view);
+void other_view_toggle_day_night(other_view_t *view);
 void other_view_change_pos(lv_obj_t *value, lv_obj_t *unit, label_pos_t pos);
 
 #endif  // OTHER_VIEW_H_

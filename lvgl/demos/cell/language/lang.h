@@ -1,0 +1,40 @@
+#ifndef LANG_H_
+#define LANG_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef enum {
+  TEXT_ID_BASIC_INFO,
+  TEXT_ID_ODO,
+  TEXT_ID_TRIP,
+  TEXT_ID_FAULT_INFO,
+  TEXT_ID_MAINTAIN_MILEAGE,
+  TEXT_ID_VEHICLE_SETTINGS,
+  TEXT_ID_VEHICLE_INFO,
+  TEXT_ID_QUICK_SHIFT,
+  TEXT_ID_UPSHIFT,
+  TEXT_ID_PHONE,
+  TEXT_ID_MUSIC,
+  TEXT_ID_SETTINGS,
+  TEXT_ID_OPEN,
+  TEXT_ID_CLOSE,
+  TEXT_ID_CONTACTS,
+  TEXT_ID_RECENT_CALLS,
+  TEXT_ID_DEVICE_CONNECTION,
+  TEXT_ID_OPTIONAL_INFO_1,
+  TEXT_ID_OPTIONAL_INFO_2,
+  TEXT_ID_AUTO_BRIGHTNESS,
+  TEXT_ID_UNIT_SETTINGS,
+  TEXT_ID_TIME_SETTINGS,
+  TEXT_ID_COUNT,
+} text_id_t;
+
+const char* lang_text(text_id_t);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  // LANG_H_

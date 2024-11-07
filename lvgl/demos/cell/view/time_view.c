@@ -15,7 +15,7 @@ void time_view_init(time_view_t *view) {
   view->minute_digit2 = NULL;
 
   time_view_create(view);
-  time_view_toggle_day_night_mode(view);
+  time_view_toggle_day_night(view);
 }
 
 void time_view_create(time_view_t *view) {
@@ -63,7 +63,7 @@ void time_view_create(time_view_t *view) {
 // TODO
 void time_view_update(time_view_t *view) {}
 
-void time_view_toggle_day_night_mode(time_view_t *view) {
+void time_view_toggle_day_night(time_view_t *view) {
   lv_color_t color = ToolGetThemeColor();
   lv_obj_t *labels[5] = {view->hour_digit1, view->hour_digit2, view->colon,
                          view->minute_digit1, view->minute_digit2};

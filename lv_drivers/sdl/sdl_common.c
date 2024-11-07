@@ -187,6 +187,8 @@ void mousewheel_handler(SDL_Event * event)
  * Called periodically from the SDL thread, store text input or control characters in the buffer.
  * @param event describes the event
  */
+#include "lvgl/demos/cell/key/button_manager.h"
+// #include "../../lvgl/demos/cell/key/button_manager.h"
 void keyboard_handler(SDL_Event * event)
 {
     /* We only care about SDL_KEYDOWN and SDL_TEXTINPUT events */
@@ -196,6 +198,7 @@ void keyboard_handler(SDL_Event * event)
             const uint32_t ctrl_key = keycode_to_ctrl_key(event->key.keysym.sym);
             if (ctrl_key == '\0')
                 return;
+            button_manager_event(ctrl_key); 
             const size_t len = strlen(buf);
             if (len < KEYBOARD_BUFFER_SIZE - 1) {
                 buf[len] = ctrl_key;

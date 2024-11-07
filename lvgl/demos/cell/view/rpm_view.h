@@ -19,7 +19,7 @@ typedef struct {
 void rpm_view_init(rpm_view_t *view);
 void rpm_view_create(rpm_view_t *view);
 void rpm_view_update(rpm_view_t *view, int value);
-void rpm_view_toggle_day_night_mode(rpm_view_t *view);
+void rpm_view_toggle_day_night(rpm_view_t *view);
 void rpm_view_run();
 int rpm_view_current();
 

@@ -37,6 +37,8 @@ typedef enum {
   LABEL_FONT_SOURCEHANSANSCN_28,
   LABEL_FONT_SOURCEHANSANSCN_34,
   LABEL_FONT_MICROSOFT_YAHEI_20,
+  LABEL_FONT_MICROSOFT_YAHEI_22,
+  LABEL_FONT_MICROSOFT_YAHEI_30,
   LABEL_FONT_COUNT
 } label_font_t;
 
@@ -86,6 +88,31 @@ typedef struct {
   int accumulated;
 } data_accumulator_t;
 
+typedef enum {
+  CLICK_SHORT_SET,
+  CLICK_SHORT_BACK,
+  CLICK_SHORT_UP,
+  CLICK_SHORT_DOWN,
+  CLICK_LONG_SET,
+  CLICK_LONG_BACK,
+  CLICK_END,
+} click_t;
+
+typedef enum {
+  PAGE_VEHICLE_SETTINGS,
+  PAGE_PHONE,
+  PAGE_MUSIC,
+  PAGE_NAVIGATION,
+  PAGE_SETTINGS,
+  PAGE_COUNT,
+} page_t;
+
+typedef enum {
+  WINDOW_MAIN,
+  WINDOW_MENU,
+  WINDOW_NAVIGATION,
+} window_t;
+
 LV_FONT_DECLARE(Plagiata_27);
 LV_FONT_DECLARE(Plagiata_37);
 LV_FONT_DECLARE(SourceHanSansCN_18);
@@ -93,6 +120,8 @@ LV_FONT_DECLARE(SourceHanSansCN_22);
 LV_FONT_DECLARE(SourceHanSansCN_28);
 LV_FONT_DECLARE(SourceHanSansCN_34);
 LV_FONT_DECLARE(MicrosoftYaHei_20);
+LV_FONT_DECLARE(MicrosoftYaHei_22);
+LV_FONT_DECLARE(MicrosoftYaHei_30);
 
 #include "light/light.h"
 #include "light/light_view.h"
@@ -108,6 +137,7 @@ LV_FONT_DECLARE(MicrosoftYaHei_20);
 #include "view/rpm_view.h"
 #include "view/speed_view.h"
 #include "view/time_view.h"
+#include "screens/screen_interface.h"
 #include <stdlib.h>
 
 #endif  // CELL_H_

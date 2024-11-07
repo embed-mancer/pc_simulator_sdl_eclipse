@@ -128,10 +128,10 @@ void rpm_view_create(rpm_view_t *view) {
              sizeof(view->block_positions[i].image),
              RES_PRFIX "home/night/rpm/%d.png", i + 1);
   }
-  light_view_one(view->background, &view->line, view->line_position);
-  light_view_one(view->background, &view->num, view->number_position);
-  light_view_one(view->background, &view->unit, view->unit_position);
-  light_view_one(view->background, &view->block, view->block_positions[0]);
+  create_img(view->background, &view->line, view->line_position);
+  create_img(view->background, &view->num, view->number_position);
+  create_img(view->background, &view->unit, view->unit_position);
+  create_img(view->background, &view->block, view->block_positions[0]);
   lv_obj_add_flag(view->block, LV_OBJ_FLAG_HIDDEN);
 }
 
@@ -152,10 +152,10 @@ void rpm_view_update(rpm_view_t *view, int value) {
   }
 }
 
-void rpm_view_toggle_day_night_mode(rpm_view_t *view) {
-  tool_toggle_day_night_mode(view->line_position.image);
-  tool_toggle_day_night_mode(view->number_position.image);
-  tool_toggle_day_night_mode(view->unit_position.image);
+void rpm_view_toggle_day_night(rpm_view_t *view) {
+  tool_toggle_day_night(view->line_position.image);
+  tool_toggle_day_night(view->number_position.image);
+  tool_toggle_day_night(view->unit_position.image);
   lv_img_set_src(view->line, view->line_position.image);
   lv_img_set_src(view->num, view->number_position.image);
   lv_img_set_src(view->unit, view->unit_position.image);

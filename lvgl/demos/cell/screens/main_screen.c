@@ -156,11 +156,11 @@ void main_screen_blink() {
 
 void main_screen_toggle_day_night() {
   set_screen_appearance(main_scr);
-  guage_view_toggle_day_night_mode(main_oil);
-  guage_view_toggle_day_night_mode(main_water);
-  speed_view_toggle_day_night_mode(main_speed);
-  rpm_view_toggle_day_night_mode(main_rpm);
-  other_view_toggle_day_night_mode(main_other);
-  gear_view_toggle_day_night_mode(main_gear);
-  time_view_toggle_day_night_mode(main_time);
+  guage_view_toggle_day_night(main_oil);
+  guage_view_toggle_day_night(main_water);
+  speed_view_toggle_day_night(main_speed);
+  rpm_view_toggle_day_night(main_rpm);
+  other_view_toggle_day_night(main_other);
+  gear_view_toggle_day_night(main_gear);
+  time_view_toggle_day_night(main_time);
 }

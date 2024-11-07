@@ -16,7 +16,7 @@ void speed_view_init(speed_view_t *view) {
 
 void speed_view_create(speed_view_t *view) {
   for (int i = 0; i < 3; ++i) {
-    light_view_one(view->background, &view->block[i], view->block_position[i]);
+    create_img(view->background, &view->block[i], view->block_position[i]);
     lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
   create_label(view->background, &view->unit, view->unit_position);
@@ -63,9 +63,9 @@ void speed_view_update(speed_view_t *view, int value) {
   }
 }
 
-void speed_view_toggle_day_night_mode(speed_view_t *view) {
+void speed_view_toggle_day_night(speed_view_t *view) {
   for (int i = 0; i < 10; ++i) {
-    tool_toggle_day_night_mode(view->image_paths[i]);
+    tool_toggle_day_night(view->image_paths[i]);
   }
 
   tool_set_text_on_mode_and_update(view->unit, &view->unit_position.color,

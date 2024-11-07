@@ -27,7 +27,7 @@ typedef struct {
 void guage_view_init(guage_view_t *view, guage_view_mode_t mode);
 void guage_view_create(guage_view_t *view);
 void guage_view_update(guage_view_t *view, int value);
-void guage_view_toggle_day_night_mode(guage_view_t *view);
+void guage_view_toggle_day_night(guage_view_t *view);
 void guage_view_main_oil(guage_view_t *view);
 void guage_view_main_water(guage_view_t *view);
 

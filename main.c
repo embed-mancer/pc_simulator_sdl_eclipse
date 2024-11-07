@@ -17,6 +17,7 @@
 #include "lvgl/demos/lv_demos.h"
 #include "lv_drivers/sdl/sdl.h"
 #include "lvgl/demos/cell/cell.h"
+#include "lvgl/demos/cell/screens/menu_window.h"
 
 /*********************
  *      DEFINES
@@ -93,7 +94,8 @@ int main(int argc, char **argv)
 //  lv_example_label_1();
 
     // lv_demo_widgets();
-  main_screen_init();
+  // main_screen_init();
+  menu_window_init();
   while(1) {
       /* Periodically call the lv_task handler.
        * It could be done in a timer interrupt or an OS task too.*/
