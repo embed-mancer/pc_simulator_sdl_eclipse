@@ -13,11 +13,11 @@
 #define IMAGE_Y_POSITION 47
 
 static menu_left_t icons[MENU_ITEM_COUNT];
+static lv_obj_t* bg = NULL;
 static page_t current_page = 0;
 extern lv_obj_t* menu_window;
 
 void left_menu_init() {
-  lv_obj_t* bg;
   initialize_background(&bg, menu_window, 0, 0, MENU_ITEM_WIDTH, 480,
                         BACKGROUND_COLOR);
 
@@ -45,8 +45,22 @@ void left_menu_update(page_t new_page) {
   if (new_page < 0 || new_page >= MENU_ITEM_COUNT) return;
 
   set_screen_color(icons[current_page].bg, BACKGROUND_COLOR);
-
   set_screen_color(icons[new_page].bg, ACTIVE_COLOR);
-
   current_page = new_page;
+}
+
+void left_menu_show(bool is_show) {
+  if (is_show) {
+    lv_obj_clear_flag(bg, LV_OBJ_FLAG_HIDDEN);
+    for (int i = 0; i < 5; ++i) {
+      lv_obj_clear_flag(icons[i].bg, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_clear_flag(icons[i].img, LV_OBJ_FLAG_HIDDEN);
+    } 
+  } else {
+    lv_obj_add_flag(bg, LV_OBJ_FLAG_HIDDEN);
+    for (int i = 0; i < 5; ++i) {
+      lv_obj_add_flag(icons[i].bg, LV_OBJ_FLAG_HIDDEN);
+      lv_obj_add_flag(icons[i].img, LV_OBJ_FLAG_HIDDEN);
+    } 
+  }
 }

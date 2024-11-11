@@ -43,7 +43,6 @@ void menu_manager_switch_page(menu_component_t* component) {
     preview_switch(page_id);
     left_menu_update(page_id);
     current_component = component;
-    current_component->open_window();
   }
 }
 

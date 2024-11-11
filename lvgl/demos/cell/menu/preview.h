@@ -9,6 +9,7 @@ extern "C" {
 
 void preivew_init(page_t page);
 void preview_switch(page_t page);
+void preview_close();
 void preview_set_common_elements(page_t page);
 void preview_set_vehicle_details();
 void preview_phone();

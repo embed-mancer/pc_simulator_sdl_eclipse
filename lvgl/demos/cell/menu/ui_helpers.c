@@ -16,7 +16,7 @@ extern lv_obj_t *menu_window;
     .label_x = 250, .label_y = 50, .label_width = 150, .label_height = 70, \
     .secondary_label_x = 616, .image_x = 750,                              \
     .label_color = LABEL_COLOR_WHITE,                                      \
-    .label_font = LABEL_FONT_MICROSOFT_YAHEI_20, .label_text = "",         \
+    .label_font = LABEL_FONT_MICROSOFT_YAHEI_18, .label_text = "",         \
     .secondary_label_text = NULL, .image_path = NULL                       \
   }
 
@@ -52,8 +52,9 @@ void ui_helpers_component(lv_obj_t *parent, lv_obj_t **primary_obj,
                            params.label_color, params.label_font,
                            params.label_text);
   if (params.image_path != NULL) {
-    image_pos_t image_position = create_image_pos(
-        params.image_path, params.image_x, params.label_y + 27);
+    image_pos_t image_position =
+        create_image_pos(params.image_path, params.image_x,
+                         params.label_y + params.label_height / 2 - 8);
     create_img(menu_window, second_obj, image_position);
   }
 

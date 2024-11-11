@@ -11,7 +11,7 @@ typedef enum {
 
 static language_t default_language = LANGUAGE_CHINESE;
 
-const char* languages[TEXT_ID_COUNT][LANGUAGE_COUNT] = {
+ char* languages[TEXT_ID_COUNT][LANGUAGE_COUNT] = {
     [TEXT_ID_BASIC_INFO] = {"基本信息", "Basic info"},
     [TEXT_ID_ODO] = {"ODO信息", "ODO info"},
     [TEXT_ID_TRIP] = {"TRIP信息", "TRIP info"},
@@ -35,6 +35,7 @@ const char* languages[TEXT_ID_COUNT][LANGUAGE_COUNT] = {
     [TEXT_ID_AUTO_BRIGHTNESS] = {"自动亮度", "Auto brightness"}, 
     [TEXT_ID_UNIT_SETTINGS] = {"单位设置", "Unit settings"},
     [TEXT_ID_TIME_SETTINGS] = {"时间设置", "Time settings"},
+    [TEXT_ID_LANGUAGE_SETTINGS] = {"语言设置", "Language settings"},
 };
 
 const char* get_translation(text_id_t text_id, language_t language) {

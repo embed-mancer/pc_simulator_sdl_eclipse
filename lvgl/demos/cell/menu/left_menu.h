@@ -16,6 +16,7 @@ typedef struct {
 void left_menu_init();
 void left_menu_create_icon(menu_left_t *item, const char *img, int y);
 void left_menu_update(page_t new_page);
+void left_menu_show(bool is_show);
 
 #ifdef __cplusplus
 }

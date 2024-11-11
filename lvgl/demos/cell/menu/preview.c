@@ -7,7 +7,6 @@ static lv_obj_t *title = NULL;
 static lv_obj_t *line = NULL;
 
 #define ELEMENTS_COUNT 12
-#define RIGHT_ARROW_IMG_PATH (RES_PRFIX "menu/right_arrow.png")
 
 typedef void (*page_handler_t)(void);
 static lv_obj_t *elements[ELEMENTS_COUNT] = {NULL};
@@ -49,6 +48,12 @@ void preview_switch(page_t page) {
   } else {
     handle_default_page();
   }
+}
+
+
+void preview_close() {
+  clear_title_and_line();
+  preview_clear_elements();
 }
 
 void preview_set_common_elements(page_t page) {
