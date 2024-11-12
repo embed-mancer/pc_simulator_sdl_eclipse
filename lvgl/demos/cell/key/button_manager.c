@@ -65,7 +65,8 @@ void button_manager_event(uint32_t id) {
       current_click = CLICK_SHORT_SET;
       break;
     case 8:
-      current_click = CLICK_LONG_BACK;
+      current_click = CLICK_SHORT_BACK;
+      break;
     default:
       break;
   }

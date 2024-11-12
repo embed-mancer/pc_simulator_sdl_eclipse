@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 menu_component_t* settings();
+void settings_clear_elements();
 void settings_device();
 void settings_option1();
 void settings_option2();

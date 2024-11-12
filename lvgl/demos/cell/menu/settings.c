@@ -8,6 +8,7 @@
 static const int LABEL_OFFSET_Y = 60;
 static const int LABEL_BASE_Y = 20;
 static const int LABEL_WIDTH = 250;
+static const int ELEMENTS_COUNT = 14;
 
 typedef enum {
   SETTINGS_DEVICE_CONNECTION,
@@ -16,10 +17,22 @@ typedef enum {
   SETTINGS_AUTO_BRIGHTNESS,
   SETTINGS_UNIT,
   SETTINGS_TIME,
+  SETTINGS_LANGUAGE,
   SETTINGS_CONTENT,
   SETTINGS_UPGRADE,
   SETTINGS_ABOUT,
   SETTINGS_MAIN,
+  // option 1
+  SETTINGS_OPTION_1_ODO,
+  SETTINGS_OPTION_1_TRIP1,
+  SETTINGS_OPTION_1_TRIP2,
+  // option2
+  SETTINGS_OPTION_2_RANGE,
+  SETTINGS_OPTION_2_VOLTAGE,
+  SETTINGS_OPTION_2_INSTANT_FUEL,
+  SETTINGS_OPTION_2_TRIP_TIME,
+  SETTINGS_OPTION_2_AVERAGE_FUEL,
+  SETTINGS_OPTION_2_AVERAGE_SPEED,
   SETTINGS_COUNT,
 } settings_id_t;
 
@@ -28,29 +41,29 @@ static lv_obj_t* elements[14] = {NULL};
 static bool is_active = false;
 static navigation_state_t* nav_state = NULL;
 
-menu_item_t settings_menu_items[] = {
-    {"设备连接", SETTINGS_DEVICE_CONNECTION, OPTION_PAGE},
-    {"可选信息1", SETTINGS_OPTION_INFO_1, OPTION_PAGE},
-    {"可选信息2", SETTINGS_OPTION_INFO_2, OPTION_PAGE},
-    {"自动亮度", -1, OPTION_DROPDOWN},
-    {"单位设置", -1, OPTION_DROPDOWN},
-    {"时间设置", -1, OPTION_DROPDOWN},
-    {"文本内容", SETTINGS_CONTENT, OPTION_PAGE},
-    {"系统升级", SETTINGS_UPGRADE, OPTION_PAGE},
-    {"关于本机", SETTINGS_ABOUT, OPTION_PAGE}};
-
-// Global definition for settings screen
-static screen_t settings_screen = {
-    SETTINGS_MAIN, "Settings", settings_menu_items,
-    sizeof(settings_menu_items) / sizeof(settings_menu_items[0])};
-
-// Initialize navigation state and settings screen
 static void init_item() {
+  menu_item_t* items = malloc(9 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"device connection", SETTINGS_DEVICE_CONNECTION,
+                           OPTION_PAGE};
+  items[1] =
+      (menu_item_t){"option info 1", SETTINGS_OPTION_INFO_1, OPTION_PAGE};
+  items[2] =
+      (menu_item_t){"option info 2", SETTINGS_OPTION_INFO_2, OPTION_PAGE};
+  items[3] = (menu_item_t){"auto brightness", -1, OPTION_DROPDOWN};
+  items[4] = (menu_item_t){"unit settings", -1, OPTION_DROPDOWN};
+  items[5] = (menu_item_t){"time settings", -1, OPTION_DROPDOWN};
+  items[6] = (menu_item_t){"content", SETTINGS_CONTENT, OPTION_PAGE};
+  items[7] = (menu_item_t){"upgrade", SETTINGS_UPGRADE, OPTION_PAGE};
+  items[8] = (menu_item_t){"about", SETTINGS_ABOUT, OPTION_PAGE};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_MAIN, "Settings", items, 9);
   nav_state = malloc(sizeof(navigation_state_t));
-  nav_state->current_screen = &settings_screen;
+  nav_state->current_screen = screen;
   nav_state->selected_index = 0;
   nav_state->prev = NULL;
-  print_navigation_state(nav_state);
 }
 
 static void open_window();
@@ -58,7 +71,15 @@ static void open_window();
 static void refresh() {}
 
 static void handle_click_up(const click_t click) {
+  if (!is_active) return;
   if (nav_state->current_screen->id == SETTINGS_MAIN) {
+    nav_state->selected_index =
+        (nav_state->selected_index == 0)
+            ? (nav_state->current_screen->menu_item_count - 1)
+            : (nav_state->selected_index - 1);
+  }
+  if (nav_state->current_screen->id == SETTINGS_OPTION_INFO_1 ||
+      nav_state->current_screen->id == SETTINGS_OPTION_INFO_2 ) {
     nav_state->selected_index =
         (nav_state->selected_index == 0)
             ? (nav_state->current_screen->menu_item_count - 1)
@@ -67,29 +88,71 @@ static void handle_click_up(const click_t click) {
 }
 
 static void handle_click_down(const click_t click) {
+  if (!is_active) return;
   if (nav_state->current_screen->id == SETTINGS_MAIN) {
     nav_state->selected_index = (nav_state->selected_index + 1) %
                                 nav_state->current_screen->menu_item_count;
+  }
+  if (nav_state->current_screen->id == SETTINGS_OPTION_INFO_1 ||
+      nav_state->current_screen->id == SETTINGS_OPTION_INFO_2 ) {
+    nav_state->selected_index = (nav_state->selected_index + 1) %
+                                nav_state->current_screen->menu_item_count;
+  }
+}
+
+static void handle_click_set(const click_t click) {
+  if (!is_active) {
+    is_active = true;
+    open_window();
+    return;
+  }
+  if (nav_state->current_screen->id == SETTINGS_MAIN) {
+    switch (nav_state->selected_index) {
+      case SETTINGS_DEVICE_CONNECTION:
+        settings_device();
+        break;
+      case SETTINGS_OPTION_INFO_1:
+        settings_option1();
+        break;
+      case SETTINGS_OPTION_INFO_2:
+        settings_option2();
+        break;
+      case SETTINGS_AUTO_BRIGHTNESS:
+        break;
+      case SETTINGS_UNIT:
+        break;
+      case SETTINGS_TIME:
+        break;
+      case SETTINGS_CONTENT:
+        settings_content();
+        break;
+      case SETTINGS_UPGRADE:
+        settings_upgrade();
+        break;
+      case SETTINGS_ABOUT:
+        settings_about();
+        break;
+    }
+  }
+}
+
+static void handle_click_back(const click_t click) {
+  switch (nav_state->current_screen->id) {
+    case SETTINGS_OPTION_INFO_1:
+    case SETTINGS_OPTION_INFO_2:
+    case SETTINGS_LANGUAGE:
+      nav_state = menu_navigate_go_back(nav_state);
+      break;
   }
 }
 
 static bool handle_click_event(const click_t click) {
   switch (click) {
     case CLICK_SHORT_SET:
-      if (!is_active) {
-        is_active = true;
-        open_window();
-      } else {
-        if (nav_state->current_screen->id == SETTINGS_MAIN) {
-          switch (nav_state->selected_index) {
-            case SETTINGS_DEVICE_CONNECTION:
-              break;
-          }
-        }
-      }
+      handle_click_set(click);
       break;
     case CLICK_SHORT_BACK:
-      is_active = false;
+      handle_click_back(click);
       break;
     case CLICK_SHORT_UP:
       handle_click_up(click);
@@ -160,12 +223,59 @@ menu_component_t* settings() {
   return component;
 }
 
-void settings_device() {
+void settings_device() {}
 
+void settings_option1() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(3 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"ODO", -1, OPTION_RADIO};
+  items[1] = (menu_item_t){"TRIP1", -1, OPTION_RADIO};
+  items[2] = (menu_item_t){"TRIP2", -1, OPTION_RADIO};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_OPTION_INFO_1, "Option 1", items, 3);
+
+  navigation_state_t* new_nav_state = malloc(sizeof(navigation_state_t));
+  new_nav_state->current_screen = screen;
+  new_nav_state->selected_index = 0;
+  new_nav_state->prev = nav_state;
+  nav_state = new_nav_state;
+
+  nav_state = menu_navigate_to(nav_state, items);
 }
 
-void settings_option1() {}
-void settings_option2() {}
+void settings_option2() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(3 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"range", -1, OPTION_RADIO};
+  items[1] = (menu_item_t){"voltage", -1, OPTION_RADIO};
+  items[2] = (menu_item_t){"instant fuel", -1, OPTION_RADIO};
+  items[3] = (menu_item_t){"trip time", -1, OPTION_RADIO};
+  items[4] = (menu_item_t){"avg fuel", -1, OPTION_RADIO};
+  items[5] = (menu_item_t){"avg speed", -1, OPTION_RADIO};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_OPTION_INFO_2, "Option 2", items, 6);
+
+  navigation_state_t* new_nav_state = malloc(sizeof(navigation_state_t));
+  new_nav_state->current_screen = screen;
+  new_nav_state->selected_index = 0;
+  new_nav_state->prev = nav_state;
+  nav_state = new_nav_state;
+  nav_state = menu_navigate_to(nav_state, items);
+}
 void settings_content() {}
 void settings_upgrade() {}
 void settings_about() {}
+void settings_clear_elements() {
+  for (int i = 0; i < ELEMENTS_COUNT; ++i) {
+    if (elements[i]) {
+      lv_obj_del(elements[i]);
+      elements[i] = NULL;
+    }
+  }
+}
