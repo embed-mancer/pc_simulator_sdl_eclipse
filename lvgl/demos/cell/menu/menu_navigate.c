@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-char* strdup(const char* str) {
-    char* copy = malloc(strlen(str) + 1);
-    if (copy) strcpy(copy, str);
-    return copy;
+
+char *strdup(const char *str) {
+  char *copy = malloc(strlen(str) + 1);
+  if (copy) strcpy(copy, str);
+  return copy;
 }
 
 screen_t *menu_navigate_create_screen(int id, const char *title_text,
@@ -27,31 +28,23 @@ screen_t *menu_navigate_create_screen(int id, const char *title_text,
 
 void menu_navigate_free_screen(screen_t *screen) {
   if (screen) {
-    if (screen->title)
-      free((void *)screen->title);
-    if (screen->menu_items)
-      free(screen->menu_items);
+    free((char*)screen->title);
+    free(screen->menu_items);
     free(screen);
   }
 }
 
 navigation_state_t *menu_navigate_to(navigation_state_t *current_state,
-                                     menu_item_t *selected_item) {
-  if (selected_item->type == OPTION_PAGE &&
-      selected_item->target_screen_id >= 0) {
-    navigation_state_t *new_state = malloc(sizeof(navigation_state_t));
-    if (!new_state) return NULL;
+                                     screen_t *new_screen) {
+  if (!new_screen) return current_state;
 
-    new_state->selected_index = 0;
-    new_state->prev = current_state;
-    return new_state;
-  } else if (selected_item->type == OPTION_DROPDOWN) {
-    current_state->selected_index =
-        (current_state->selected_index + 1) %
-        current_state->current_screen->menu_item_count;
-    printf("Dropdown option selected: %s\n", selected_item->name);
-  }
-  return current_state;
+  navigation_state_t *new_state = malloc(sizeof(navigation_state_t));
+  if (!new_state) return current_state;
+
+  new_state->current_screen = new_screen;
+  new_state->selected_index = 0;
+  new_state->prev = current_state;
+  return new_state;
 }
 
 navigation_state_t *menu_navigate_go_back(navigation_state_t *current_state) {

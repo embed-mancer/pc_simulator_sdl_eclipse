@@ -36,7 +36,7 @@ screen_t* menu_navigate_create_screen(int id, const char* title_text,
                                       menu_item_t* items, int item_count);
 void menu_navigate_free_screen(screen_t* screen);
 navigation_state_t* menu_navigate_to(navigation_state_t* current_state,
-                                     menu_item_t* selected_item);
+                                     screen_t *new_screen);
 navigation_state_t* menu_navigate_go_back(navigation_state_t* current);
 void print_navigation_state(navigation_state_t* state);
 

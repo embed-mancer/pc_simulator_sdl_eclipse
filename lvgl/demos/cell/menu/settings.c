@@ -241,11 +241,7 @@ void settings_option1() {
 
   screen_t* screen =
       menu_navigate_create_screen(SETTINGS_OPTION_INFO_1, "Option 1", items, 3);
-  nav_state = menu_navigate_to(nav_state, items);
-  nav_state = menu_navigate_to(
-      nav_state,
-      &nav_state->current_screen->menu_items[SETTINGS_OPTION_INFO_1]);
-  nav_state->current_screen = screen;
+  nav_state = menu_navigate_to(nav_state, screen);
 }
 
 void settings_option2() {
@@ -263,10 +259,7 @@ void settings_option2() {
   screen_t* screen =
       menu_navigate_create_screen(SETTINGS_OPTION_INFO_2, "Option 2", items, 6);
 
-  nav_state = menu_navigate_to(
-      nav_state,
-      &nav_state->current_screen->menu_items[SETTINGS_OPTION_INFO_1]);
-  nav_state->current_screen = screen;
+  nav_state = menu_navigate_to(nav_state, screen);
 }
 void settings_content() {}
 void settings_upgrade() {}
