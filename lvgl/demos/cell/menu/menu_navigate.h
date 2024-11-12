@@ -34,7 +34,7 @@ typedef struct navigation_state_t {
 
 screen_t* menu_navigate_create_screen(int id, const char* title_text,
                                       menu_item_t* items, int item_count);
-void menu_navigage_free_screen(screen_t* screen);
+void menu_navigate_free_screen(screen_t* screen);
 navigation_state_t* menu_navigate_to(navigation_state_t* current_state,
                                      menu_item_t* selected_item);
 navigation_state_t* menu_navigate_go_back(navigation_state_t* current);

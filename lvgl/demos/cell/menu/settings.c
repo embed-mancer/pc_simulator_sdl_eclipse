@@ -42,24 +42,29 @@ static bool is_active = false;
 static navigation_state_t* nav_state = NULL;
 
 static void init_item() {
-  menu_item_t* items = malloc(9 * sizeof(menu_item_t));
+  menu_item_t* items = malloc(10 * sizeof(menu_item_t));
   if (!items) return;
 
-  items[0] = (menu_item_t){"device connection", SETTINGS_DEVICE_CONNECTION,
-                           OPTION_PAGE};
-  items[1] =
+  items[SETTINGS_DEVICE_CONNECTION] = (menu_item_t){
+      "device connection", SETTINGS_DEVICE_CONNECTION, OPTION_PAGE};
+  items[SETTINGS_OPTION_INFO_1] =
       (menu_item_t){"option info 1", SETTINGS_OPTION_INFO_1, OPTION_PAGE};
-  items[2] =
+  items[SETTINGS_OPTION_INFO_2] =
       (menu_item_t){"option info 2", SETTINGS_OPTION_INFO_2, OPTION_PAGE};
-  items[3] = (menu_item_t){"auto brightness", -1, OPTION_DROPDOWN};
-  items[4] = (menu_item_t){"unit settings", -1, OPTION_DROPDOWN};
-  items[5] = (menu_item_t){"time settings", -1, OPTION_DROPDOWN};
-  items[6] = (menu_item_t){"content", SETTINGS_CONTENT, OPTION_PAGE};
-  items[7] = (menu_item_t){"upgrade", SETTINGS_UPGRADE, OPTION_PAGE};
-  items[8] = (menu_item_t){"about", SETTINGS_ABOUT, OPTION_PAGE};
+  items[SETTINGS_AUTO_BRIGHTNESS] =
+      (menu_item_t){"auto brightness", -1, OPTION_DROPDOWN};
+  items[SETTINGS_UNIT] = (menu_item_t){"unit settings", -1, OPTION_DROPDOWN};
+  items[SETTINGS_TIME] = (menu_item_t){"time settings", -1, OPTION_DROPDOWN};
+  items[SETTINGS_LANGUAGE] =
+      (menu_item_t){"language settings", -1, OPTION_PAGE};
+  items[SETTINGS_CONTENT] =
+      (menu_item_t){"content", SETTINGS_CONTENT, OPTION_PAGE};
+  items[SETTINGS_UPGRADE] =
+      (menu_item_t){"upgrade", SETTINGS_UPGRADE, OPTION_PAGE};
+  items[SETTINGS_ABOUT] = (menu_item_t){"about", SETTINGS_ABOUT, OPTION_PAGE};
 
   screen_t* screen =
-      menu_navigate_create_screen(SETTINGS_MAIN, "Settings", items, 9);
+      menu_navigate_create_screen(SETTINGS_MAIN, "Settings", items, 10);
   nav_state = malloc(sizeof(navigation_state_t));
   nav_state->current_screen = screen;
   nav_state->selected_index = 0;
@@ -79,7 +84,7 @@ static void handle_click_up(const click_t click) {
             : (nav_state->selected_index - 1);
   }
   if (nav_state->current_screen->id == SETTINGS_OPTION_INFO_1 ||
-      nav_state->current_screen->id == SETTINGS_OPTION_INFO_2 ) {
+      nav_state->current_screen->id == SETTINGS_OPTION_INFO_2) {
     nav_state->selected_index =
         (nav_state->selected_index == 0)
             ? (nav_state->current_screen->menu_item_count - 1)
@@ -94,7 +99,7 @@ static void handle_click_down(const click_t click) {
                                 nav_state->current_screen->menu_item_count;
   }
   if (nav_state->current_screen->id == SETTINGS_OPTION_INFO_1 ||
-      nav_state->current_screen->id == SETTINGS_OPTION_INFO_2 ) {
+      nav_state->current_screen->id == SETTINGS_OPTION_INFO_2) {
     nav_state->selected_index = (nav_state->selected_index + 1) %
                                 nav_state->current_screen->menu_item_count;
   }
@@ -236,19 +241,16 @@ void settings_option1() {
 
   screen_t* screen =
       menu_navigate_create_screen(SETTINGS_OPTION_INFO_1, "Option 1", items, 3);
-
-  navigation_state_t* new_nav_state = malloc(sizeof(navigation_state_t));
-  new_nav_state->current_screen = screen;
-  new_nav_state->selected_index = 0;
-  new_nav_state->prev = nav_state;
-  nav_state = new_nav_state;
-
   nav_state = menu_navigate_to(nav_state, items);
+  nav_state = menu_navigate_to(
+      nav_state,
+      &nav_state->current_screen->menu_items[SETTINGS_OPTION_INFO_1]);
+  nav_state->current_screen = screen;
 }
 
 void settings_option2() {
   settings_clear_elements();
-  menu_item_t* items = malloc(3 * sizeof(menu_item_t));
+  menu_item_t* items = malloc(6 * sizeof(menu_item_t));
   if (!items) return;
 
   items[0] = (menu_item_t){"range", -1, OPTION_RADIO};
@@ -261,12 +263,10 @@ void settings_option2() {
   screen_t* screen =
       menu_navigate_create_screen(SETTINGS_OPTION_INFO_2, "Option 2", items, 6);
 
-  navigation_state_t* new_nav_state = malloc(sizeof(navigation_state_t));
-  new_nav_state->current_screen = screen;
-  new_nav_state->selected_index = 0;
-  new_nav_state->prev = nav_state;
-  nav_state = new_nav_state;
-  nav_state = menu_navigate_to(nav_state, items);
+  nav_state = menu_navigate_to(
+      nav_state,
+      &nav_state->current_screen->menu_items[SETTINGS_OPTION_INFO_1]);
+  nav_state->current_screen = screen;
 }
 void settings_content() {}
 void settings_upgrade() {}
