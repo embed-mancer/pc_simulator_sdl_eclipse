@@ -3,7 +3,6 @@
 
 #include "../cell.h"
 #include "../language/lang.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
