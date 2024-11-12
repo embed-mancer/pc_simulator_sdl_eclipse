@@ -29,7 +29,8 @@ screen_t *menu_navigate_create_screen(int id, const char *title_text,
 void menu_navigate_free_screen(screen_t *screen) {
   if (screen) {
     free((char*)screen->title);
-    free(screen->menu_items);
+    if (screen->menu_items)
+      free(screen->menu_items);
     free(screen);
   }
 }

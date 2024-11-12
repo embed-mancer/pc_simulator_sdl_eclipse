@@ -9,6 +9,7 @@ typedef enum {
   OPTION_PAGE,
   OPTION_DROPDOWN,
   OPTION_RADIO,
+  OPTION_NULL,
 } option_type_t;
 
 typedef struct {

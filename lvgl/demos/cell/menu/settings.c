@@ -22,6 +22,10 @@ typedef enum {
   SETTINGS_UPGRADE,
   SETTINGS_ABOUT,
   SETTINGS_MAIN,
+  // device
+  SETTINGS_MOBLIE_DEVICE,
+  SETTINGS_HELMET1,
+  SETTINGS_HELMET2,
   // option 1
   SETTINGS_OPTION_1_ODO,
   SETTINGS_OPTION_1_TRIP1,
@@ -42,7 +46,7 @@ static bool is_active = false;
 static navigation_state_t* nav_state = NULL;
 
 static void init_item() {
-  menu_item_t* items = malloc(10 * sizeof(menu_item_t));
+  menu_item_t* items = malloc(9 * sizeof(menu_item_t));
   if (!items) return;
 
   items[SETTINGS_DEVICE_CONNECTION] = (menu_item_t){
@@ -57,14 +61,12 @@ static void init_item() {
   items[SETTINGS_TIME] = (menu_item_t){"time settings", -1, OPTION_DROPDOWN};
   items[SETTINGS_LANGUAGE] =
       (menu_item_t){"language settings", -1, OPTION_PAGE};
-  items[SETTINGS_CONTENT] =
-      (menu_item_t){"content", SETTINGS_CONTENT, OPTION_PAGE};
   items[SETTINGS_UPGRADE] =
       (menu_item_t){"upgrade", SETTINGS_UPGRADE, OPTION_PAGE};
   items[SETTINGS_ABOUT] = (menu_item_t){"about", SETTINGS_ABOUT, OPTION_PAGE};
 
   screen_t* screen =
-      menu_navigate_create_screen(SETTINGS_MAIN, "Settings", items, 10);
+      menu_navigate_create_screen(SETTINGS_MAIN, "Settings", items, 9);
   nav_state = malloc(sizeof(navigation_state_t));
   nav_state->current_screen = screen;
   nav_state->selected_index = 0;
@@ -114,7 +116,7 @@ static void handle_click_set(const click_t click) {
   if (nav_state->current_screen->id == SETTINGS_MAIN) {
     switch (nav_state->selected_index) {
       case SETTINGS_DEVICE_CONNECTION:
-        settings_device();
+        settings_device_connection();
         break;
       case SETTINGS_OPTION_INFO_1:
         settings_option1();
@@ -123,13 +125,16 @@ static void handle_click_set(const click_t click) {
         settings_option2();
         break;
       case SETTINGS_AUTO_BRIGHTNESS:
+        settings_auto_brightness();
         break;
       case SETTINGS_UNIT:
+        settings_unit();
         break;
       case SETTINGS_TIME:
+        settings_time();
         break;
-      case SETTINGS_CONTENT:
-        settings_content();
+      case SETTINGS_LANGUAGE:
+        settings_language();
         break;
       case SETTINGS_UPGRADE:
         settings_upgrade();
@@ -137,15 +142,30 @@ static void handle_click_set(const click_t click) {
       case SETTINGS_ABOUT:
         settings_about();
         break;
+      case SETTINGS_MOBLIE_DEVICE:
+        settings_mobile_device();
+        break;
+      case SETTINGS_HELMET1:
+        settings_helmet1();
+        break;
+      case SETTINGS_HELMET2:
+        settings_helmet2();
+        break;
     }
   }
 }
 
 static void handle_click_back(const click_t click) {
   switch (nav_state->current_screen->id) {
+    case SETTINGS_DEVICE_CONNECTION:
     case SETTINGS_OPTION_INFO_1:
     case SETTINGS_OPTION_INFO_2:
+    case SETTINGS_AUTO_BRIGHTNESS:
+    case SETTINGS_UNIT:
+    case SETTINGS_TIME:
     case SETTINGS_LANGUAGE:
+    case SETTINGS_UPGRADE:
+    case SETTINGS_ABOUT:
       nav_state = menu_navigate_go_back(nav_state);
       break;
   }
@@ -228,7 +248,62 @@ menu_component_t* settings() {
   return component;
 }
 
-void settings_device() {}
+void settings_device_connection() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(3 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] =
+      (menu_item_t){"mobile device", SETTINGS_MOBLIE_DEVICE, OPTION_PAGE};
+  items[1] = (menu_item_t){"helmet 1", SETTINGS_HELMET1, OPTION_PAGE};
+  items[2] = (menu_item_t){"helmet 2", SETTINGS_HELMET2, OPTION_PAGE};
+
+  screen_t* screen = menu_navigate_create_screen(SETTINGS_DEVICE_CONNECTION,
+                                                 "device connection", items, 3);
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_mobile_device() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(3 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"device 1 ", -1, OPTION_NULL};
+  items[1] = (menu_item_t){"device 2", -1, OPTION_NULL};
+  items[2] = (menu_item_t){"device 3 ", -1, OPTION_NULL};
+
+  screen_t* screen = menu_navigate_create_screen(SETTINGS_MOBLIE_DEVICE,
+                                                 "mobile device", items, 3);
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_helmet1() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(3 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"device 1 ", -1, OPTION_NULL};
+  items[1] = (menu_item_t){"device 2", -1, OPTION_NULL};
+  items[2] = (menu_item_t){"device 3 ", -1, OPTION_NULL};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_HELMET1, "helmet 1", items, 3);
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_helmet2() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(3 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"device 1 ", -1, OPTION_NULL};
+  items[1] = (menu_item_t){"device 2", -1, OPTION_NULL};
+  items[2] = (menu_item_t){"device 3 ", -1, OPTION_NULL};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_HELMET2, "helmet 2", items, 3);
+  nav_state = menu_navigate_to(nav_state, screen);
+}
 
 void settings_option1() {
   settings_clear_elements();
@@ -261,9 +336,66 @@ void settings_option2() {
 
   nav_state = menu_navigate_to(nav_state, screen);
 }
-void settings_content() {}
-void settings_upgrade() {}
-void settings_about() {}
+
+void settings_auto_brightness() {
+  screen_t* screen = menu_navigate_create_screen(SETTINGS_AUTO_BRIGHTNESS,
+                                                 "auto brightness", NULL, 0);
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_unit() {
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_UNIT, "unit settings", NULL, 0);
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_time() {
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_TIME, "time settings", NULL, 0);
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_language() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(2 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"Chinese", -1, OPTION_RADIO};
+  items[1] = (menu_item_t){"English", -1, OPTION_RADIO};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_LANGUAGE, "Language", items, 2);
+
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_upgrade() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(2 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"wifi 1", -1, OPTION_RADIO};
+  items[1] = (menu_item_t){"wifi 2", -1, OPTION_RADIO};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_UPGRADE, "network", items, 2);
+
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
+void settings_about() {
+  settings_clear_elements();
+  menu_item_t* items = malloc(1 * sizeof(menu_item_t));
+  if (!items) return;
+
+  items[0] = (menu_item_t){"software", -1, OPTION_RADIO};
+
+  screen_t* screen =
+      menu_navigate_create_screen(SETTINGS_ABOUT, "about", items, 0);
+
+  nav_state = menu_navigate_to(nav_state, screen);
+}
+
 void settings_clear_elements() {
   for (int i = 0; i < ELEMENTS_COUNT; ++i) {
     if (elements[i]) {
