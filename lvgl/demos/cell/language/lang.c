@@ -7,9 +7,9 @@ typedef enum {
   LANGUAGE_CHINESE,
   LANGUAGE_ENGLISH,
   LANGUAGE_COUNT,
-} language_t;
+} language_e;
 
-static language_t default_language = LANGUAGE_CHINESE;
+static language_e default_language = LANGUAGE_CHINESE;
 
  char* languages[TEXT_ID_COUNT][LANGUAGE_COUNT] = {
     [TEXT_ID_BASIC_INFO] = {"基本信息", "Basic info"},
@@ -38,7 +38,7 @@ static language_t default_language = LANGUAGE_CHINESE;
     [TEXT_ID_LANGUAGE_SETTINGS] = {"语言设置", "Language settings"},
 };
 
-const char* get_translation(text_id_t text_id, language_t language) {
+const char* get_translation(text_id_t text_id, language_e language) {
   if (text_id < 0 || text_id >= TEXT_ID_COUNT) {
     printf("Error: Invalid TextID: %d\n", text_id);
     return NULL;

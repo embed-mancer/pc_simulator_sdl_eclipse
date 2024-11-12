@@ -18,7 +18,7 @@
 #define MAX_IMAGE_CHARS 64
 #define RIGHT_ARROW_IMG_PATH (RES_PRFIX "menu/right_arrow.png")
 
-typedef enum { METER_MODE_DAY, METER_MODE_NIGHT, METER_MODE_AUTO } meter_mode_t;
+typedef enum { METER_MODE_DAY, METER_MODE_NIGHT, METER_MODE_AUTO } meter_mode_e;
 
 typedef enum {
   LABEL_COLOR_WHITE,
@@ -28,7 +28,7 @@ typedef enum {
   LABEL_COLOR_BLUE,
   LABEL_COLOR_LIME_GREEN,
   LABEL_COLOR_COUNT
-} label_color_t;
+} label_color_e;
 
 typedef enum {
   LABEL_FONT_PLAGIATA_27,
@@ -42,13 +42,13 @@ typedef enum {
   LABEL_FONT_MICROSOFT_YAHEI_22,
   LABEL_FONT_MICROSOFT_YAHEI_30,
   LABEL_FONT_COUNT
-} label_font_t;
+} label_font_e;
 
 typedef enum {
   VALUE_TYPE_CHAR,
   VALUE_TYPE_FLOAT,
   VALUE_TYPE_INT,
-} value_type_t;
+} value_type_e;
 
 typedef struct {
   int x;
@@ -73,9 +73,9 @@ typedef struct {
   lv_coord_t y;
   lv_coord_t width;
   lv_coord_t height;
-  label_color_t color;
-  label_font_t font;
-  value_type_t value_type_t;
+  label_color_e color;
+  label_font_e font;
+  value_type_e value_type_e;
   label_value_t value;
 } label_pos_t;
 
@@ -98,7 +98,7 @@ typedef enum {
   CLICK_LONG_SET,
   CLICK_LONG_BACK,
   CLICK_END,
-} click_t;
+} click_e;
 
 typedef enum {
   PAGE_VEHICLE_SETTINGS,
@@ -113,7 +113,7 @@ typedef enum {
   WINDOW_MAIN,
   WINDOW_MENU,
   WINDOW_NAVIGATION,
-} window_t;
+} window_e;
 
 LV_FONT_DECLARE(Plagiata_27);
 LV_FONT_DECLARE(Plagiata_37);

@@ -108,7 +108,7 @@ Below is a simplified diagram of the different modules of the dashboard, illustr
 +---------v-----------+              |
 | Day-Night Mode Phase| <------------+
 | (Call each module Toggle |
-| meter_mode_t)       |
+| meter_mode_e)       |
 +---------------------+
 ```
 

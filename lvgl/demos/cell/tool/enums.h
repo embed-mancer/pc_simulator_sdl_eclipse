@@ -15,6 +15,6 @@ typedef enum {
   SIGNAL_LIGHT_BT_PAIR,
   SIGNAL_LIGHT_VOLTAGE,
   SIGNAL_LIGHT_COUNT,
-} signal_light_t;
+} signal_light_e;
 
 #endif  // ENUMS_H_

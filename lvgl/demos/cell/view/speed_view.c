@@ -104,7 +104,7 @@ void speed_view_main(speed_view_t *view) {
     view->block_position[i] = create_image_pos(view->image_paths[0], 320, 258);
   }
 
-  label_color_t color = tool_get_color_base();
+  label_color_e color = tool_get_color_base();
   view->unit_position =
       create_label_pos(507, 334, 55, 30, color, LABEL_FONT_SOURCEHANSANSCN_22,
                        VALUE_TYPE_CHAR, (label_value_t){"km/h"});

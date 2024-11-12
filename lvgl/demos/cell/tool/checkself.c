@@ -26,11 +26,11 @@ typedef enum {
   CHECK_STATE_WAITING,
   CHECK_STATE_CHECKING,
   CHECK_STATE_FINISHED
-} check_state_t;
+} check_state_e;
 
 typedef struct {
   lv_timer_t *timer;
-  check_state_t state;
+  check_state_e state;
   uint32_t start_tick;
   float speed_factor;
   float rpm_factor;

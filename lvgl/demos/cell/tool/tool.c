@@ -4,7 +4,7 @@
 lv_color_t color_map[LABEL_COLOR_COUNT];
 
 typedef struct {
-  label_font_t font;
+  label_font_e font;
   const lv_font_t* font_ptr;
 } font_map_t;
 
@@ -31,21 +31,21 @@ void tool_init_color_map() {
   color_map[LABEL_COLOR_LIME_GREEN] = lv_color_make(0x31, 0xC9, 0x18);
 }
 
-lv_color_t tool_get_color(label_color_t color) {
+lv_color_t tool_get_color(label_color_e color) {
   if (color < 0 || color >= LABEL_COLOR_COUNT) {
     return lv_color_make(0, 0, 0);
   }
   return color_map[color];
 }
 
-const lv_font_t* tool_get_font(label_font_t font) {
+const lv_font_t* tool_get_font(label_font_e font) {
   if (font < 0 || font >= LABEL_FONT_COUNT) {
     return &SourceHanSansCN_18;
   }
   return font_map[font].font_ptr;
 }
 
-lv_coord_t tool_get_width(label_font_t font) {
+lv_coord_t tool_get_width(label_font_e font) {
   switch (font) {
     case LABEL_FONT_PLAGIATA_27:
       return 10;
@@ -78,13 +78,13 @@ void create_img(lv_obj_t* bg, lv_obj_t** lv, image_pos_t pos) {
 void create_label(lv_obj_t* bg, lv_obj_t** lv, label_pos_t pos) {
   if (*lv) return;
   *lv = lv_label_create(bg);
-  if (pos.value_type_t == VALUE_TYPE_CHAR) {
+  if (pos.value_type_e == VALUE_TYPE_CHAR) {
     lv_label_set_text(*lv, pos.value.sz);
-  } else if (pos.value_type_t == VALUE_TYPE_FLOAT) {
+  } else if (pos.value_type_e == VALUE_TYPE_FLOAT) {
     char sz[32] = {0};
     sprintf(sz, "%.1f", pos.value.double_value);
     lv_label_set_text(*lv, sz);
-  } else if (pos.value_type_t == VALUE_TYPE_INT) {
+  } else if (pos.value_type_e == VALUE_TYPE_INT) {
     lv_label_set_text_fmt(*lv, "%d", pos.value.int_value);
   }
   lv_obj_set_pos(*lv, pos.x, pos.y);
@@ -94,8 +94,8 @@ void create_label(lv_obj_t* bg, lv_obj_t** lv, label_pos_t pos) {
 }
 
 void create_center_left_label(lv_obj_t* parent, lv_obj_t** label, int x, int y,
-                              int width, int height, label_color_t color,
-                              label_font_t font, const char* text) {
+                              int width, int height, label_color_e color,
+                              label_font_e font, const char* text) {
   label_pos_t label_pos =
       create_label_pos(x, y, width, height, color, font, VALUE_TYPE_CHAR,
                        create_label_value(text));
@@ -109,8 +109,8 @@ void create_center_left_label(lv_obj_t* parent, lv_obj_t** label, int x, int y,
 }
 
 void create_center_right_label(lv_obj_t* parent, lv_obj_t** label, int x, int y,
-                              int width, int height, label_color_t color,
-                              label_font_t font, const char* text) {
+                              int width, int height, label_color_e color,
+                              label_font_e font, const char* text) {
   label_pos_t label_pos =
       create_label_pos(x, y, width, height, color, font, VALUE_TYPE_CHAR,
                        create_label_value(text));
@@ -137,15 +137,15 @@ label_value_t create_label_value(const char* str) {
 }
 
 label_pos_t create_label_pos(int x, int y, int width, int height,
-                             label_color_t color, label_font_t font,
-                             value_type_t type, label_value_t text) {
+                             label_color_e color, label_font_e font,
+                             value_type_e type, label_value_t text) {
   label_pos_t pos = {.x = x,
                      .y = y,
                      .width = width,
                      .height = height,
                      .color = color,
                      .font = font,
-                     .value_type_t = type};
+                     .value_type_e = type};
 
   switch (type) {
     case VALUE_TYPE_CHAR:
@@ -186,7 +186,7 @@ void tool_set_text_on_mode(lv_obj_t* obj, int night_color, int day_color) {
   lv_obj_set_style_text_color(obj, tool_get_color(color), 0);
 }
 
-void tool_set_text_on_mode_and_update(lv_obj_t* obj, label_color_t* color_prop,
+void tool_set_text_on_mode_and_update(lv_obj_t* obj, label_color_e* color_prop,
                                       int night_color, int day_color) {
   *color_prop = (motor_model_get_day_night_mode() == METER_MODE_NIGHT)
                     ? night_color
@@ -198,7 +198,7 @@ const char* tool_get_theme_suffix() {
   return (motor_model_get_day_night_mode() == METER_MODE_DAY) ? "day" : "night";
 }
 
-label_color_t tool_get_color_base() {
+label_color_e tool_get_color_base() {
   return (motor_model_get_day_night_mode() == METER_MODE_DAY)
              ? LABEL_COLOR_BLACK
              : LABEL_COLOR_WHITE;

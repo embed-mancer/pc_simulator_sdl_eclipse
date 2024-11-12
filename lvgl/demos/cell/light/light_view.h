@@ -7,7 +7,7 @@
 typedef enum {
   DISPLAY_STATE_HIDE,
   DISPLAY_STATE_SHOW,
-} display_state_t;
+} display_state_e;
 
 typedef struct {
   icon_t icons[20];
@@ -17,6 +17,6 @@ typedef struct {
 
 void light_view_init(light_view_t *view);
 void light_view_create(light_view_t *view);
-void light_view_display(icon_t *icon, display_state_t table);
+void light_view_display(icon_t *icon, display_state_e table);
 
 #endif  // LIGHT_VIEW_H_

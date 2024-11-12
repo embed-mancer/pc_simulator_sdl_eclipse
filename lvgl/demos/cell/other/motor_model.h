@@ -11,7 +11,7 @@ void motor_model_set_odo(int value);
 void motor_model_set_trip(double value);
 void motor_model_set_rpm(int value);
 void motor_model_set_speed(int value);
-void motor_model_set_day_night_mode(meter_mode_t new_mode);
+void motor_model_set_day_night_mode(meter_mode_e new_mode);
 
 int motor_model_get_oil();
 int motor_model_get_water();
@@ -22,6 +22,6 @@ int motor_model_get_odo();
 double motor_model_get_trip();
 int motor_model_get_rpm();
 int motor_model_get_speed();
-meter_mode_t motor_model_get_day_night_mode();
+meter_mode_e motor_model_get_day_night_mode();
 
 #endif  // MOTOR_MODEL_H_

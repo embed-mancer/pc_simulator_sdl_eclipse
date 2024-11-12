@@ -14,8 +14,8 @@ typedef struct {
   int label_height;
   int secondary_label_x;
   int image_x;
-  label_color_t label_color;
-  label_font_t label_font;
+  label_color_e label_color;
+  label_font_e label_font;
   const char *label_text;
   const char *secondary_label_text;
   const char *image_path;

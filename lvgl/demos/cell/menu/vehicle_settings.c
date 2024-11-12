@@ -7,7 +7,7 @@ extern lv_obj_t* menu_window;
 
 static void refresh() {}
 
-static bool handle_click_event(const click_t click) {
+static bool handle_click_event(const click_e click) {
   switch (click) {
     case CLICK_SHORT_SET:
       is_active = true;

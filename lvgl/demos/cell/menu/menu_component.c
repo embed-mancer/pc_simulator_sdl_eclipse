@@ -14,7 +14,7 @@ menu_component_t* allocate_component() {
 }
 
 void init_component(menu_component_t* component, void (*refresh)(),
-                    bool (*handle_click_event)(const click_t),
+                    bool (*handle_click_event)(const click_e),
                     void (*toggle_day_night)(), void (*destroy)(),
                     void (*open_window)(), void (*close_window)()) {
   if (!component) return;

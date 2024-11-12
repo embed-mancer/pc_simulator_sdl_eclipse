@@ -52,14 +52,14 @@ void menu_manager_refresh() {
 
 static void update_tick() {}
 
-void menu_manager_click(const click_t click) {
+void menu_manager_click(const click_e click) {
   update_tick();
   if (!current_component->handle_click_event(click))
     menu_manager_default_click(click);
 }
 
 
-void menu_manager_default_click(const click_t click) {
+void menu_manager_default_click(const click_e click) {
   uint8_t new_page_id = page_id;
   switch (click) {
     case CLICK_SHORT_SET:

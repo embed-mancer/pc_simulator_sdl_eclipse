@@ -31,7 +31,7 @@ void time_view_create(time_view_t *view) {
       TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH       // min2_x
   };
 
-  label_color_t color = tool_get_color_base();
+  label_color_e color = tool_get_color_base();
   lv_obj_t **labels[5] = {&view->hour_digit1, &view->hour_digit2, &view->colon,
                           &view->minute_digit1, &view->minute_digit2};
 

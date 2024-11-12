@@ -31,7 +31,7 @@ static void show_blocks(guage_view_t *view, int value) {
   }
 }
 
-void guage_view_init(guage_view_t *view, guage_view_mode_t mode) {
+void guage_view_init(guage_view_t *view, guage_view_mode_e mode) {
   view->icon = NULL;
   view->line = NULL;
   view->label[0] = NULL;
@@ -119,7 +119,7 @@ void guage_view_main_oil(guage_view_t *view) {
   view->label_position[0] = create_label_pos(
       75, 440, 10, 20, LABEL_COLOR_RED, LABEL_FONT_SOURCEHANSANSCN_18,
       VALUE_TYPE_CHAR, (label_value_t){"E"});
-  label_color_t color = tool_get_color_base();
+  label_color_e color = tool_get_color_base();
   view->label_position[1] =
       create_label_pos(298, 440, 10, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
                        VALUE_TYPE_CHAR, (label_value_t){"F"});
@@ -144,7 +144,7 @@ void guage_view_main_water(guage_view_t *view) {
   view->label_position[0] = create_label_pos(
       764, 441, 10, 20, LABEL_COLOR_RED, LABEL_FONT_SOURCEHANSANSCN_18,
       VALUE_TYPE_CHAR, (label_value_t){"H"});
-  label_color_t color = tool_get_color_base();
+  label_color_e color = tool_get_color_base();
   view->label_position[1] =
       create_label_pos(531, 441, 10, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
                        VALUE_TYPE_CHAR, (label_value_t){"C"});

@@ -20,7 +20,7 @@ DEFINE_LIGHT_CONTROL_FUNC(bt_pair, SIGNAL_LIGHT_BT_PAIR)
 
 void ligth_control_init() {}
 
-void ligth_control_icon(light_view_t *view, signal_light_t icon_type) {
+void ligth_control_icon(light_view_t *view, signal_light_e icon_type) {
   int state = ligth_model_get_state(icon_type) ? DISPLAY_STATE_SHOW
                                                : DISPLAY_STATE_HIDE;
   light_view_display(&view->icons[icon_type], state);

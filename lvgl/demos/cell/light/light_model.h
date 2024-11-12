@@ -4,8 +4,8 @@
 #include "../tool/enums.h"
 
 void light_model_init();
-int ligth_model_get_state(signal_light_t state);
-void ligth_model_set_state(signal_light_t state, int value);
+int ligth_model_get_state(signal_light_e state);
+void ligth_model_set_state(signal_light_e state, int value);
 double ligth_model_get_voltage();
 void ligth_model_set_voltage(double voltage);
 

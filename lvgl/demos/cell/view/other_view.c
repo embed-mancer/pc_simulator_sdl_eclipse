@@ -21,7 +21,7 @@ void other_view_init(other_view_t *view) {
 }
 
 void other_view_create(other_view_t *view) {
-  label_color_t color = tool_get_color_base();
+  label_color_e color = tool_get_color_base();
   view->line_split_position =
       create_image_pos(RES_PRFIX "home/night/line_split.png", 33, 263);
   view->trip_key_position =

@@ -4,14 +4,14 @@
 static int g_light_states[SIGNAL_LIGHT_COUNT] = {0};
 static double g_voltage = 0.0;
 
-int ligth_model_get_state(signal_light_t state) {
+int ligth_model_get_state(signal_light_e state) {
   if (state >= 0 && state < SIGNAL_LIGHT_COUNT) {
     return g_light_states[state];
   }
   return -1;
 }
 
-void ligth_model_set_state(signal_light_t state, int value) {
+void ligth_model_set_state(signal_light_e state, int value) {
   if (state >= 0 && state < SIGNAL_LIGHT_COUNT) {
     g_light_states[state] = value;
   }

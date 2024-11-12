@@ -108,7 +108,7 @@ void main_screen_signal_light() {
 
 void main_screen_gear() {
   INIT_VIEW(main_gear, gear_view_t);
-  label_color_t color = tool_get_color_base();
+  label_color_e color = tool_get_color_base();
   main_gear->key_position =
       create_label_pos(725, 397, 50, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
                        VALUE_TYPE_CHAR, (label_value_t){"GEAR"});

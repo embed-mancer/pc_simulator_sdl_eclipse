@@ -29,7 +29,7 @@ void gear_view_update(gear_view_t *view, int value) {
 void gear_view_toggle_day_night(gear_view_t *view) {
   tool_set_text_on_mode_and_update(view->key, &view->key_position.color,
                                    LABEL_COLOR_WHITE, LABEL_COLOR_BLACK);
-  label_color_t value_color = (motor_model_get_day_night_mode() == METER_MODE_DAY)
+  label_color_e value_color = (motor_model_get_day_night_mode() == METER_MODE_DAY)
                                   ? LABEL_COLOR_BLACK
                                   : LABEL_COLOR_LIME_GREEN;
   view->value_position.color = value_color;

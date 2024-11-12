@@ -4,17 +4,17 @@
 typedef enum {
   BUTTON_STATE_CALL,
   BUTTONG_STATE_NON_CALL,
-} button_state_t;
+} button_state_e;
 
-static click_t current_click = CLICK_END;
-static button_state_t current_state = BUTTONG_STATE_NON_CALL;
+static click_e current_click = CLICK_END;
+static button_state_e current_state = BUTTONG_STATE_NON_CALL;
 
-void button_manager_set_click(click_t click) { current_click = click; }
+void button_manager_set_click(click_e click) { current_click = click; }
 
-click_t button_manager_get_click() { return current_click; }
+click_e button_manager_get_click() { return current_click; }
 
 static void handle_non_call_state() {
-  window_t window = get_window();
+  window_e window = get_window();
   switch (window) {
     case WINDOW_MAIN:
       break;

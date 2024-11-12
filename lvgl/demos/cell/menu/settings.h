@@ -8,7 +8,6 @@ extern "C" {
 #endif
 
 menu_component_t* settings();
-void settings_clear_elements();
 void settings_device_connection();
 void settings_mobile_device();
 void settings_helmet1();

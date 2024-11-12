@@ -11,8 +11,8 @@ extern "C" {
 void menu_manager();
 void menu_manager_switch_page(menu_component_t*);
 void menu_manager_refresh();
-void menu_manager_click(const click_t);
-void menu_manager_default_click(const click_t);
+void menu_manager_click(const click_e);
+void menu_manager_default_click(const click_e);
 void menu_manager_toggle_day_night();
 menu_component_t* menu_manager_create_component(page_t);
 
