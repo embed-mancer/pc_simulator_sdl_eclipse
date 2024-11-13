@@ -1,7 +1,12 @@
 #include "phone.h"
 #include "../cell.h"
+#include "ui_helpers.h"
+#include "preview.h"
+#include "side_bar.h"
+#include "menu_navigate.h"
 
 static bool is_active = false;
+static navigation_state_t* nav_state = NULL;
 
 static void refresh() {}
 
@@ -20,16 +25,21 @@ static bool handle_click_event(const click_e click) {
     default:
       return false;
   }
-  if (!is_active)
-    return false; 
-  return true;
+  return is_active;
 }
 
 static void toggle_day_night() {}
 
-static void destroy() {}
+static void destroy() {
+  menu_navigate_free(nav_state);
+}
 
-static void open_window() {}
+static void open_window() {
+  screen_t* screen = menu_navigate_create_screen(
+      0, "phone preview", NULL, 0, 20);
+  preview_phone(screen->elements);
+  nav_state = menu_navigate_create(screen);
+}
 
 static void close_window() {}
 

@@ -7,15 +7,11 @@
 extern "C" {
 #endif
 
-void preivew_init(page_t page);
-void preview_switch(page_t page);
-void preview_close();
-void preview_set_common_elements(page_t page);
-void preview_set_vehicle_details();
-void preview_phone();
-void preview_music();
-void preview_navigation();
-void preview_settings();
+void preview_set_vehicle_details(lv_obj_t** elements);
+void preview_phone(lv_obj_t **elements);
+void preview_music(lv_obj_t **elements);
+void preview_navigation(lv_obj_t **elements);
+void preview_settings(lv_obj_t **elements);
 
 #ifdef __cplusplus
 }

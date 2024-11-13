@@ -7,7 +7,7 @@
 #include "music.h"
 #include "navigation.h"
 #include "settings.h"
-#include "left_menu.h"
+#include "side_bar.h"
 #include "preview.h"
 #include "../key/button_manager.h"
 
@@ -25,8 +25,7 @@ component_factory_t component_factories[] = {
 };
 
 void menu_manager() {
-  left_menu_init();
-  preview_switch(PAGE_VEHICLE_SETTINGS);
+  side_bar_init();
   page_id = PAGE_VEHICLE_SETTINGS;
   menu_component_t* component = menu_manager_create_component(page_id);
   if (component) menu_manager_switch_page(component);
@@ -40,9 +39,9 @@ void menu_manager_switch_page(menu_component_t* component) {
   }
 
   if (component) {
-    preview_switch(page_id);
-    left_menu_update(page_id);
+    side_bar_update(page_id);
     current_component = component;
+    current_component->open_window();
   }
 }
 
@@ -58,14 +57,14 @@ void menu_manager_click(const click_e click) {
     menu_manager_default_click(click);
 }
 
-
 void menu_manager_default_click(const click_e click) {
   uint8_t new_page_id = page_id;
   switch (click) {
     case CLICK_SHORT_SET:
       break;
     case CLICK_SHORT_BACK:
-      break;
+      menu_manager_back();
+      return;
     case CLICK_SHORT_UP:
       new_page_id = (page_id == 0) ? (PAGE_COUNT - 1) : (page_id - 1);
       break;
@@ -85,6 +84,10 @@ void menu_manager_default_click(const click_e click) {
 
 void menu_manager_toggle_day_night() {}
 
+void menu_manager_back() {
+  side_bar_update(page_id);
+  side_bar_show(true);
+}
 menu_component_t* menu_manager_create_component(page_t page) {
   if (page >= PAGE_COUNT) {
     return NULL;

@@ -9,6 +9,14 @@ char *strdup(const char *str) {
   return copy;
 }
 
+navigation_state_t* menu_navigate_create(screen_t *screen) {
+  navigation_state_t *nav_state = malloc(sizeof(navigation_state_t));
+  nav_state->current_screen = screen;
+  nav_state->selected_index = 0;
+  nav_state->prev = NULL;
+  return nav_state;
+}
+
 screen_t *menu_navigate_create_screen(int id, const char *title_text,
                                       menu_item_t *items, int item_count,
                                       int element_count) {
@@ -24,10 +32,17 @@ screen_t *menu_navigate_create_screen(int id, const char *title_text,
   screen->menu_items = items;
   screen->menu_item_count = item_count;
   screen->element_count = element_count;
-  screen->elements = malloc(element_count * sizeof(lv_obj_t *));
-  for (int i = 0; i < element_count; ++i) {
-    screen->elements[i] = NULL;
+
+  // screen->elements = malloc(element_count * sizeof(lv_obj_t *));
+  screen->elements = calloc(element_count, sizeof(lv_obj_t *));
+  if (!screen->elements) {
+    free((char*)screen->title);
+    free(screen);
+    return NULL;
   }
+
+  // memset(screen->elements, 0, element_count * sizeof(lv_obj_t *));
+
   return screen;
 }
 
@@ -42,7 +57,15 @@ void menu_navigate_free_screen(screen_t *screen) {
       free(screen->elements);
     }
     free(screen);
+    screen = NULL;
   }
+}
+
+void menu_navigate_free(navigation_state_t *state) {
+  if (!state) return;
+  menu_navigate_free_screen(state->current_screen);
+  free(state);
+  state = NULL;
 }
 
 navigation_state_t *menu_navigate_to(navigation_state_t *current_state,
@@ -67,8 +90,7 @@ navigation_state_t *menu_navigate_to(navigation_state_t *current_state,
 navigation_state_t *menu_navigate_go_back(navigation_state_t *current_state) {
   if (current_state && current_state->prev) {
     navigation_state_t *prev_state = current_state->prev;
-    menu_navigate_free_screen(current_state->current_screen);
-    free(current_state);
+    menu_navigate_free(current_state);
     menu_navigate_show_screen(prev_state->current_screen);
     return prev_state;
   }

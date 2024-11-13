@@ -25,7 +25,7 @@ typedef struct {
   const char* title;
   menu_item_t* menu_items;
   int menu_item_count;
-  lv_obj_t **elements;
+  lv_obj_t** elements;
   int element_count;
 } screen_t;
 
@@ -37,15 +37,18 @@ typedef struct navigation_state_t {
   struct navigation_state_t* prev;
 } navigation_state_t;
 
+navigation_state_t* menu_navigate_create(screen_t *screen);
 screen_t* menu_navigate_create_screen(int id, const char* title_text,
-                                      menu_item_t* items, int item_count, int element_count);
+                                      menu_item_t* items, int item_count,
+                                      int element_count);
 void menu_navigate_free_screen(screen_t* screen);
+void menu_navigate_free(navigation_state_t *state);
 navigation_state_t* menu_navigate_to(navigation_state_t* current_state,
-                                     screen_t *new_screen);
+                                     screen_t* new_screen);
 navigation_state_t* menu_navigate_go_back(navigation_state_t* current);
 void print_navigation_state(navigation_state_t* state);
-void menu_navigate_hide_screen(screen_t *screen);
-void menu_navigate_show_screen(screen_t *screen);
+void menu_navigate_hide_screen(screen_t* screen);
+void menu_navigate_show_screen(screen_t* screen);
 
 #ifdef __cplusplus
 }

@@ -14,6 +14,7 @@ void menu_manager_refresh();
 void menu_manager_click(const click_e);
 void menu_manager_default_click(const click_e);
 void menu_manager_toggle_day_night();
+void menu_manager_back();
 menu_component_t* menu_manager_create_component(page_t);
 
 #ifdef __cplusplus
