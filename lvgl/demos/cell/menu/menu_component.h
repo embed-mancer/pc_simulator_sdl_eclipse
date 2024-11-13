@@ -23,6 +23,11 @@ typedef struct {
   void (*close_window)();
 } menu_component_t;
 
+typedef enum {
+  DIRECTION_UP,
+  DIRECTION_DOWN,
+} direction_e;
+
 menu_component_t *allocate_component();
 void init_component(menu_component_t *component, void (*refresh)(),
                     bool (*handle_click_event)(const click_e),

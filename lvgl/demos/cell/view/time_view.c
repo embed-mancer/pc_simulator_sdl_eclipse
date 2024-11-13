@@ -7,12 +7,9 @@
 
 extern blink_manager_t *main_blink;
 
-void time_view_init(time_view_t *view) {
-  view->hour_digit1 = NULL;
-  view->hour_digit2 = NULL;
-  view->colon = NULL;
-  view->minute_digit1 = NULL;
-  view->minute_digit2 = NULL;
+void time_view_init(time_view_t *view, lv_obj_t *background) {
+  memset(view, 0, sizeof(*view));
+  view->background = background;
 
   time_view_create(view);
   time_view_toggle_day_night(view);

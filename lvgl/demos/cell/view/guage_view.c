@@ -6,7 +6,7 @@
 #define BLOCK_HEIGHT 8
 
 static void update_image_source(guage_view_t *view, const char *from,
-                              const char *to) {
+                                const char *to) {
   replace_substring(view->icon_position.image, from, to);
   replace_substring(view->line_position.image, from, to);
   for (int i = 0; i < GUAGE_NUM; ++i) {
@@ -31,17 +31,12 @@ static void show_blocks(guage_view_t *view, int value) {
   }
 }
 
-void guage_view_init(guage_view_t *view, guage_view_mode_e mode) {
-  view->icon = NULL;
-  view->line = NULL;
-  view->label[0] = NULL;
-  view->label[1] = NULL;
+void guage_view_init(guage_view_t *view, guage_view_mode_e mode,
+                     lv_obj_t *background) {
+  memset(view, 0, sizeof(*view));
   view->mode = mode;
   view->max_value = GUAGE_NUM;
-  for (int i = 0; i < GUAGE_NUM; ++i) {
-    view->block[i] = NULL;
-  }
-  guage_view_create(view);
+  view->background = background;
 }
 
 void guage_view_create(guage_view_t *view) {
@@ -51,8 +46,7 @@ void guage_view_create(guage_view_t *view) {
 
   if (view->mode == GUAGE_VIEW_MODE_BLOCK) {
     for (int i = 0; i < GUAGE_NUM; ++i) {
-      create_img(view->background, &view->block[i],
-                     view->block_position[i]);
+      create_img(view->background, &view->block[i], view->block_position[i]);
       lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
     }
     create_img(view->background, &view->icon, view->icon_position);
@@ -102,7 +96,9 @@ void guage_view_toggle_day_night(guage_view_t *view) {
   lv_img_set_src(view->line, view->line_position.image);
 }
 
-void guage_view_main_oil(guage_view_t *view) {
+void guage_view_main_oil(guage_view_t *view, lv_obj_t *background) {
+  guage_view_init(view, GUAGE_VIEW_MODE_WIDTH, background);
+
   const char *theme_suffix = tool_get_theme_suffix();
   snprintf(view->icon_position.image, sizeof(view->icon_position.image),
            RES_PRFIX "home/%s/oil_normal.png", theme_suffix);
@@ -123,10 +119,12 @@ void guage_view_main_oil(guage_view_t *view) {
   view->label_position[1] =
       create_label_pos(298, 440, 10, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
                        VALUE_TYPE_CHAR, (label_value_t){"F"});
-  guage_view_init(view, GUAGE_VIEW_MODE_WIDTH);
+
+  guage_view_create(view);
 }
 
-void guage_view_main_water(guage_view_t *view) {
+void guage_view_main_water(guage_view_t *view, lv_obj_t *background) {
+  guage_view_init(view, GUAGE_VIEW_MODE_WIDTH, background);
   const char *theme_suffix = tool_get_theme_suffix();
 
   snprintf(view->icon_position.image, sizeof(view->icon_position.image),
@@ -148,5 +146,5 @@ void guage_view_main_water(guage_view_t *view) {
   view->label_position[1] =
       create_label_pos(531, 441, 10, 20, color, LABEL_FONT_SOURCEHANSANSCN_18,
                        VALUE_TYPE_CHAR, (label_value_t){"C"});
-  guage_view_init(view, GUAGE_VIEW_MODE_WIDTH);
+  guage_view_create(view);
 }

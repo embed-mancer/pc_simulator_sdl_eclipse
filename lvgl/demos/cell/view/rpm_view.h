@@ -16,7 +16,7 @@ typedef struct {
   int last_index;
 } rpm_view_t;
 
-void rpm_view_init(rpm_view_t *view);
+void rpm_view_init(rpm_view_t *view, lv_obj_t *background);
 void rpm_view_create(rpm_view_t *view);
 void rpm_view_update(rpm_view_t *view, int value);
 void rpm_view_toggle_day_night(rpm_view_t *view);

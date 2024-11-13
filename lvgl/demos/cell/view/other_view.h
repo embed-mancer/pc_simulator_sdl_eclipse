@@ -39,7 +39,7 @@ typedef struct {
   label_pos_t battery_unit_position;
 } other_view_t;
 
-void other_view_init(other_view_t *view);
+void other_view_init(other_view_t *view, lv_obj_t *background);
 void other_view_create(other_view_t *view);
 void other_view_update(other_view_t *view);
 void other_view_toggle_day_night(other_view_t *view);

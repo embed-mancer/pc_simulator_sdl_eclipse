@@ -24,11 +24,12 @@ typedef struct {
   int max_value;
 } guage_view_t;
 
-void guage_view_init(guage_view_t *view, guage_view_mode_e mode);
+void guage_view_init(guage_view_t *view, guage_view_mode_e mode,
+                     lv_obj_t *background);
 void guage_view_create(guage_view_t *view);
 void guage_view_update(guage_view_t *view, int value);
 void guage_view_toggle_day_night(guage_view_t *view);
-void guage_view_main_oil(guage_view_t *view);
-void guage_view_main_water(guage_view_t *view);
+void guage_view_main_oil(guage_view_t *view, lv_obj_t *background);
+void guage_view_main_water(guage_view_t *view, lv_obj_t *background);
 
 #endif  // GUAGE_VIEW_H_

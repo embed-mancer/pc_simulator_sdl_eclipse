@@ -7,11 +7,10 @@ static data_accumulator_t speed_accumulator;
 static const int mid_position = 400;
 static const int width = 94;
 
-void speed_view_init(speed_view_t *view) {
-  for (int i = 0; i < 3; ++i) view->block[i] = NULL;
-  view->unit = NULL;
+void speed_view_init(speed_view_t *view, lv_obj_t *background) {
+  memset(view, 0, sizeof(*view));
+  view->background = background;
   view->last_index = -1;
-  speed_view_create(view);
 }
 
 void speed_view_create(speed_view_t *view) {
@@ -92,7 +91,8 @@ void speed_view_run() {
 
 int speed_view_current() { return speed_accumulator.current; }
 
-void speed_view_main(speed_view_t *view) {
+void speed_view_main(speed_view_t *view, lv_obj_t *background) {
+  speed_view_init(view, background);
   const char *theme_suffix = tool_get_theme_suffix();
 
   for (int i = 0; i < 10; ++i) {
@@ -108,5 +108,5 @@ void speed_view_main(speed_view_t *view) {
   view->unit_position =
       create_label_pos(507, 334, 55, 30, color, LABEL_FONT_SOURCEHANSANSCN_22,
                        VALUE_TYPE_CHAR, (label_value_t){"km/h"});
-  speed_view_init(view);
+  speed_view_create(view);
 }

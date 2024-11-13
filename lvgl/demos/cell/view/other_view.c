@@ -2,20 +2,9 @@
 
 #include "../other/motor_model.h"
 
-void other_view_init(other_view_t *view) {
-  view->trip_key = NULL;
-  view->trip_value = NULL;
-  view->trip_unit = NULL;
-  view->avg_key = NULL;
-  view->avg_value = NULL;
-  view->avg_unit = NULL;
-  view->ride_time_key = NULL;
-  view->ride_time_value = NULL;
-  view->ride_time_unit = NULL;
-  view->battery_key = NULL;
-  view->battery_value = NULL;
-  view->battery_unit = NULL;
-  view->line_split = NULL;
+void other_view_init(other_view_t *view, lv_obj_t *background) {
+  memset(view, 0, sizeof(*view));
+  view->background = background;
   other_view_create(view);
   other_view_update(view);
 }
@@ -60,8 +49,7 @@ void other_view_create(other_view_t *view) {
   view->battery_unit_position =
       create_label_pos(180, 351, 100, 25, color, LABEL_FONT_MICROSOFT_YAHEI_20,
                        VALUE_TYPE_CHAR, (label_value_t){"V"});
-  create_img(view->background, &view->line_split,
-                 view->line_split_position);
+  create_img(view->background, &view->line_split, view->line_split_position);
   create_label(view->background, &view->trip_key, view->trip_key_position);
   create_label(view->background, &view->trip_value, view->trip_value_position);
   create_label(view->background, &view->trip_unit, view->trip_unit_position);

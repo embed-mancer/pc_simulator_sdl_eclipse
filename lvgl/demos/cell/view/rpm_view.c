@@ -5,11 +5,9 @@
 
 static data_accumulator_t acc;
 
-void rpm_view_init(rpm_view_t *view) {
-  view->line = NULL;
-  view->num = NULL;
-  view->unit = NULL;
-  view->block = NULL;
+void rpm_view_init(rpm_view_t *view, lv_obj_t *background) {
+  memset(view, 0, sizeof(*view));
+  view->background = background;
   view->last_index = -1;
   rpm_view_create(view);
 }

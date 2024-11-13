@@ -53,6 +53,7 @@ static void setup_label(lv_obj_t* window, lv_obj_t** element1,
 }
 
 static void settings_enter() {
+  side_bar_show(false);
   menu_item_t* items = malloc(9 * sizeof(menu_item_t));
   if (!items) return;
 

@@ -6,6 +6,13 @@ typedef enum {
   BUTTONG_STATE_NON_CALL,
 } button_state_e;
 
+typedef enum {
+  BUTTON_ID_SHORT_UP = 17,
+  BUTTON_ID_SHORT_DOWN = 18,
+  BUTTON_ID_SHORT_SET = 10,
+  BUTTON_ID_SHORT_BACK = 8
+} button_id_e;
+
 static click_e current_click = CLICK_END;
 static button_state_e current_state = BUTTONG_STATE_NON_CALL;
 
@@ -51,23 +58,24 @@ void button_manager_refresh() {
 }
 
 void button_manager_event(uint32_t id) {
-  if (button_manager_get_click() != CLICK_END) return;
+  if (current_click != CLICK_END) return;
 
-  printf("id = %d\n", id);
   switch (id) {
-    case 17:
+    case BUTTON_ID_SHORT_UP:
       current_click = CLICK_SHORT_UP;
       break;
-    case 18:
+    case BUTTON_ID_SHORT_DOWN:
       current_click = CLICK_SHORT_DOWN;
       break;
-    case 10:
+    case BUTTON_ID_SHORT_SET:
       current_click = CLICK_SHORT_SET;
       break;
-    case 8:
+    case BUTTON_ID_SHORT_BACK:
       current_click = CLICK_SHORT_BACK;
       break;
     default:
       break;
   }
+
+  printf("Event ID = %d processed.\n", id);
 }

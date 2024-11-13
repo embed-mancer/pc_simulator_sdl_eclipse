@@ -1,4 +1,4 @@
-#include "main_screen.h"
+#include "main_window.h"
 
 #include "../cell.h"
 #include "../light/light_control.h"
@@ -34,7 +34,7 @@ void *allocate_memory(size_t size, const char *type_name) {
   return ptr;
 }
 
-void main_screen_task_cb(lv_timer_t *timer) {
+void main_window_task_cb(lv_timer_t *timer) {
   if (checkself_is_checking()) return;
   blink_manager_refresh(main_blink);
   // for test
@@ -51,7 +51,7 @@ void main_screen_task_cb(lv_timer_t *timer) {
         motor_model_set_day_night_mode(METER_MODE_NIGHT);
       else
         motor_model_set_day_night_mode(METER_MODE_DAY);
-      main_screen_toggle_day_night();
+      main_window_toggle_day_night();
     }
   }
 }
@@ -78,35 +78,35 @@ static void set_screen_appearance(lv_obj_t *screen) {
   }
 }
 
-void main_screen_init() {
+void main_window_init() {
   main_scr = lv_obj_create(NULL);
   lv_scr_load(main_scr);
   set_screen_appearance(main_scr);
   tool_init();
 
-  main_screen_blink();
-  main_screen_signal_light();
-  main_screen_oil();
-  main_screen_water();
-  main_screen_gear();
-  main_screen_rpm();
-  main_screen_other();
-  main_screen_time();
-  main_screen_speed();
+  main_window_blink();
+  main_window_signal_light();
+  main_window_oil();
+  main_window_water();
+  main_window_gear();
+  main_window_rpm();
+  main_window_other();
+  main_window_time();
+  main_window_speed();
 
   checkself_init();
 
-  lv_timer_t *timer = lv_timer_create(main_screen_task_cb, 33, NULL);
+  lv_timer_t *timer = lv_timer_create(main_window_task_cb, 33, NULL);
   lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
 }
 
-void main_screen_signal_light() {
+void main_window_signal_light() {
   INIT_VIEW(main_light, light_view_t);
   main_light->light = &light_main;
   light_view_init(main_light);
 }
 
-void main_screen_gear() {
+void main_window_gear() {
   INIT_VIEW(main_gear, gear_view_t);
   label_color_e color = tool_get_color_base();
   main_gear->key_position =
@@ -118,43 +118,43 @@ void main_screen_gear() {
   gear_view_init(main_gear);
 }
 
-void main_screen_oil() {
+void main_window_oil() {
   INIT_VIEW(main_oil, guage_view_t);
-  guage_view_main_oil(main_oil);
+  guage_view_main_oil(main_oil, main_scr);
 }
 
-void main_screen_water() {
+void main_window_water() {
   INIT_VIEW(main_water, guage_view_t);
-  guage_view_main_water(main_water);
+  guage_view_main_water(main_water, main_scr);
 }
 
-void main_screen_rpm() {
+void main_window_rpm() {
   INIT_VIEW(main_rpm, rpm_view_t);
-  rpm_view_init(main_rpm);
+  rpm_view_init(main_rpm, main_scr);
 }
 
-void main_screen_speed() {
+void main_window_speed() {
   INIT_VIEW(main_speed, speed_view_t);
-  speed_view_main(main_speed);
+  speed_view_main(main_speed, main_scr);
 }
 
-void main_screen_other() {
+void main_window_other() {
   INIT_VIEW(main_other, other_view_t);
-  other_view_init(main_other);
+  other_view_init(main_other, main_scr);
 }
 
-void main_screen_time() {
+void main_window_time() {
   INIT_VIEW(main_time, time_view_t);
-  time_view_init(main_time);
+  time_view_init(main_time, main_scr);
 }
 
-void main_screen_blink() {
+void main_window_blink() {
   main_blink = (blink_manager_t *)allocate_memory(sizeof(blink_manager_t),
                                                   "blink_manager_t");
   blink_manager_init(main_blink);
 }
 
-void main_screen_toggle_day_night() {
+void main_window_toggle_day_night() {
   set_screen_appearance(main_scr);
   guage_view_toggle_day_night(main_oil);
   guage_view_toggle_day_night(main_water);

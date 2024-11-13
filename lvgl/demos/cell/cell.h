@@ -7,12 +7,6 @@
 #define RES_PRFIX "A:"
 #endif
 
-#define FILENAME \
-  (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-#define LOG_INFO printf("[%s:%d] \n", __func__, __LINE__);
-
-#define cell_ui_snprintf(fmt, arg...) snprintf(fmt, 255, ##arg)
-
 #include "lvgl/lvgl.h"
 
 #define MAX_IMAGE_CHARS 64
@@ -129,7 +123,7 @@ LV_FONT_DECLARE(MicrosoftYaHei_30);
 #include "light/light.h"
 #include "light/light_view.h"
 #include "lvgl/lvgl.h"
-#include "screens/main_screen.h"
+#include "screens/main_window.h"
 #include "tool/checkself.h"
 #include "tool/enums.h"
 #include "tool/tool.h"
@@ -141,6 +135,7 @@ LV_FONT_DECLARE(MicrosoftYaHei_30);
 #include "view/speed_view.h"
 #include "view/time_view.h"
 #include "screens/screen_interface.h"
+#include "tool/log.h"
 #include <stdlib.h>
 
 #endif  // CELL_H_
