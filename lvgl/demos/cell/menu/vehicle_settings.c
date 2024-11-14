@@ -5,6 +5,7 @@
 #include "side_bar.h"
 #include "menu_navigate.h"
 #include "../language/lang.h"
+#include "../config/config.h"
 
 typedef enum {
   VEHICLE_INFO,

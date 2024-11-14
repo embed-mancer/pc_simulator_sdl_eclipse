@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stddef.h>
 
+#include "../tool/log.h"
+
 typedef enum {
   LANGUAGE_CHINESE,
   LANGUAGE_ENGLISH,
@@ -45,16 +47,16 @@ char* languages[TEXT_ID_COUNT][LANGUAGE_COUNT] = {
 
 const char* get_translation(text_id_t text_id, language_e language) {
   if (text_id < 0 || text_id >= TEXT_ID_COUNT) {
-    printf("Error: Invalid TextID: %d\n", text_id);
+    LOG_ERROR("Error: Invalid TextID: %d\n", text_id);
     return NULL;
   }
   if (language < 0 || language >= LANGUAGE_COUNT) {
-    printf("Error: Invalid Language: %d\n", language);
+    LOG_ERROR("Error: Invalid Language: %d\n", language);
     return NULL;
   }
   if (languages[text_id][language] == NULL) {
-    printf("Error: Translation not available for TextID %d in Language %d\n",
-           text_id, language);
+    LOG_ERROR("Error: Translation not available for TextID %d in Language %d\n",
+              text_id, language);
     return NULL;
   }
 
