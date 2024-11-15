@@ -5,7 +5,7 @@
   .pos[index] = {.x = pos_x, .y = pos_y, .image = image_src}
 
 light light_main = {
-    INIT_ICON(SIGNAL_LIGHT__TURN_LEFT, 25, 17,
+    INIT_ICON(SIGNAL_LIGHT_TURN_LEFT, 25, 17,
               RES_PRFIX "home/light/turn_left.png"),
     INIT_ICON(SIGNAL_LIGHT_AUTO_START_STOP, 96, 13,
               RES_PRFIX "home/light/auto_start_stop.png"),
@@ -22,7 +22,7 @@ light light_main = {
               RES_PRFIX "home/light/bt_pair.png"),
     INIT_ICON(SIGNAL_LIGHT_BT_ICON, 673, 12,
               RES_PRFIX "home/light/bt_icon.png"),
-    INIT_ICON(SIGNAL_LIGHT__TURN_RIGHT, 739, 16,
+    INIT_ICON(SIGNAL_LIGHT_TURN_RIGHT, 739, 16,
               RES_PRFIX "home/light/turn_right.png"),
     INIT_ICON(SIGNAL_LIGHT_VOLTAGE, 28, 85, RES_PRFIX "home/light/voltage.png"),
 };

@@ -13,3 +13,4 @@ build/
 bin/main
 tags
 format.sh
+config.json

@@ -16,27 +16,93 @@ typedef enum {
 } datatype_e;
 
 typedef enum {
-  CONFIG_SPEED,
-  CONFIG_TEMPERATURE,
-  CONFIG_ODOMETER,
-  CONFIG_FAULT_CODE,
-  CONFIG_END
-} config_data_e;
+  // Vehicle UI settings (CONFIG_UI_)
+  CONFIG_UI_THEME = 0x01,
+  CONFIG_UI_DISTANCE_UNIT,
+  CONFIG_UI_LED_LEVEL,
+  CONFIG_UI_LANGUAGE,
+
+  // Day and night settings (CONFIG_DAYNIGHT_)
+  CONFIG_DAYNIGHT_SETTING_DAY_NIGHT,
+  CONFIG_DAYNIGHT_DISPLAY_DAY_NIGHT,
+
+  // Heating system settings (CONFIG_HEAT_)
+  CONFIG_HEAT_SEAT_SWITCH,
+  CONFIG_HEAT_HANDLE_STATUS,
+
+  // Display settings (CONFIG_DISPLAY_)
+  CONFIG_DISPLAY_SUB_MILEAGE,
+  CONFIG_DISPLAY_AVE_SPEED,
+  CONFIG_DISPLAY_AVE_FUEL_CONSUMPTION,
+  CONFIG_DISPLAY_TRIP_TIME,
+  CONFIG_DISPLAY_INSTANT_FUEL_CONSUMPTION,
+  CONFIG_DISPLAY_BATTERY_VOLTAGE,
+  CONFIG_DISPLAY_FRONT_REAR_TIRE_PRESSURE,
+  CONFIG_DISPLAY_FRONT_REAR_TIRE_TEMP,
+  CONFIG_DISPLAY_MAX_ANGLE,
+  CONFIG_DISPLAY_MAX_SPEED,
+
+  // Time settings (CONFIG_TIME_)
+  CONFIG_TIME_DISPLAY_FORMAT,
+  CONFIG_TIME_SET_MODE,
+
+  // Bluetooth and trip settings (CONFIG_BT_ & CONFIG_TRIP_)
+  CONFIG_TRIP_LAST_TIME_A,
+  CONFIG_TRIP_LAST_TIME_B,
+  CONFIG_BT_CONNECTABILITY,
+  CONFIG_HEADLIGHT_AUTO_STATUS,
+  CONFIG_HEADLIGHT_MANUAL_STATUS,
+
+  // Maintenance settings (CONFIG_MAINTENANCE_)
+  CONFIG_MAINTENANCE_IS_SET,
+  CONFIG_MAINTENANCE_COUNT,
+  CONFIG_MAINTENANCE_SINGLE_MILEAGE,
+  CONFIG_MAINTENANCE_SINGLE_TIME,
+  CONFIG_MAINTENANCE_LAST_MILEAGE,
+  CONFIG_MAINTENANCE_LAST_TIME,
+
+  // Tire Pressure Monitoring System (TPMS) settings (CONFIG_TPMS_)
+  CONFIG_TPMS_PRESSURE_UNIT,
+  CONFIG_TPMS_DETECT_SWITCH,
+  CONFIG_TPMS_FRONT_MAX_PRESSURE,
+  CONFIG_TPMS_FRONT_MIN_PRESSURE,
+  CONFIG_TPMS_FRONT_MAX_TEMP,
+  CONFIG_TPMS_REAR_MAX_PRESSURE,
+  CONFIG_TPMS_REAR_MIN_PRESSURE,
+  CONFIG_TPMS_REAR_MAX_TEMP,
+  CONFIG_TPMS_TEMP_UNIT,
+
+  // Maximum speed settings (CONFIG_SPEED_)
+  CONFIG_SPEED_MAX_A,
+  CONFIG_SPEED_MAX_B,
+
+  // Fault code and Bluetooth TPMS information (CONFIG_FAULT_ & CONFIG_BT_TPMS_)
+  CONFIG_FAULT_HISTORY_CODE,
+  CONFIG_BT_TPMS_FRONT_PRESSURE,
+  CONFIG_BT_TPMS_REAR_PRESSURE,
+  CONFIG_BT_TPMS_FRONT_MAC_ADDR,
+  CONFIG_BT_TPMS_REAR_MAC_ADDR,
+
+  // Module check settings (CONFIG_MODULE_)
+  CONFIG_MODULE_IS_CHECK,
+
+  CONFIG_END,
+} vehicle_param_e;
 
 typedef union {
   uint32_t uint32_val;
   uint16_t uint16_val;
-  float float_val;
-  uint8_t uint8_val;
+  float    float_val;
+  uint8_t  uint8_val;
 } vehicle_value_u;
 
 typedef struct {
-  datatype_e type;
+  datatype_e      type;
   vehicle_value_u value;
 } vehicle_data_item_s;
 
-void config_set_data(config_data_e index, void *in_value);
-void config_get_data(config_data_e index, void *out_value);
+void config_set_data(vehicle_param_e index, void *in_value);
+void config_get_data(vehicle_param_e index, void *out_value);
 
 #ifdef __cplusplus
 }

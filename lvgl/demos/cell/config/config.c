@@ -1,11 +1,9 @@
 #include "config.h"
 
 vehicle_data_item_s vehicle_data[CONFIG_END] = {
-    [CONFIG_SPEED] = {UINT16_T, {.uint16_val = 0}},
-    [CONFIG_TEMPERATURE] = {FLOAT_T, {.float_val = 0}},
 };
 
-void config_set_data(config_data_e index, void *value) {
+void config_set_data(vehicle_param_e index, void *value) {
   if (index < 0 || index >= CONFIG_END) return;
 
   switch (vehicle_data[index].type) {
@@ -26,7 +24,7 @@ void config_set_data(config_data_e index, void *value) {
   }
 }
 
-void config_get_data(config_data_e index, void *out_value) {
+void config_get_data(vehicle_param_e index, void *out_value) {
   if (index < 0 || index >= CONFIG_END) return;
 
   datatype_e type = vehicle_data[index].type;

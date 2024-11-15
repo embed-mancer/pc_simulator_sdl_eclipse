@@ -5,7 +5,7 @@ BreakBeforeBraces: Attach # 允许在同一行上附加大括号
 SortIncludes: false
 BinPackParameters: true  # 参数打包在同一行
 BinPackArguments: true  # 参数打包在同一行
-AllowShortIfStatementsOnASingleLine: true  # 确保短的 if 语句在同一行
+AllowShortIfStatementsOnASingleLine: false  # 确保短的 if 语句在同一行
 # BreakBeforeBraces: Allman # 控制大括号的位置，使用 Allman 风格来使代码更整齐，适合你例子中的风格
 
 AlignOperands: true   # 对齐二元运算符
