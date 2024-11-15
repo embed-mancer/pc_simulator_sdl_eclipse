@@ -13,8 +13,8 @@
 #define IMAGE_Y_POSITION 47
 
 static menu_left_t icons[MENU_ITEM_COUNT];
-static lv_obj_t* bg = NULL;
-static page_t current_page = 0;
+static lv_obj_t* bg        = NULL;
+static page_e current_page = 0;
 extern lv_obj_t* menu_window;
 
 static void side_bar_create_icon(menu_left_t* item, const char* img, int y);
@@ -43,8 +43,9 @@ static void side_bar_create_icon(menu_left_t* item, const char* img, int y) {
   create_img(item->bg, &item->img, pos);
 }
 
-void side_bar_update(page_t new_page) {
-  if (new_page < 0 || new_page >= MENU_ITEM_COUNT) return;
+void side_bar_update(page_e new_page) {
+  if (new_page < 0 || new_page >= MENU_ITEM_COUNT)
+    return;
 
   set_screen_color(icons[current_page].bg, BACKGROUND_COLOR);
   set_screen_color(icons[new_page].bg, ACTIVE_COLOR);
@@ -68,9 +69,12 @@ void side_bar_show(bool is_show) {
 }
 
 void side_bar_clear() {
-  if (bg) lv_obj_del(bg);
+  if (bg)
+    lv_obj_del(bg);
   for (int i = 0; i < 5; ++i) {
-    if (icons[i].bg) lv_obj_del(icons[i].bg);
-    if (icons[i].img) lv_obj_del(icons[i].img);
+    if (icons[i].bg)
+      lv_obj_del(icons[i].bg);
+    if (icons[i].img)
+      lv_obj_del(icons[i].img);
   }
 }

@@ -14,7 +14,7 @@ typedef struct {
 
   label_pos_t unit_position;
   image_pos_t block_position[3];
-  char image_paths[10][MAX_IMAGE_CHARS ];
+  char image_paths[10][MAX_IMAGE_CHARS];
   int last_index;
 } speed_view_t;
 

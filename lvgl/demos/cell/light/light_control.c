@@ -3,7 +3,7 @@
 
 #define DEFINE_LIGHT_CONTROL_FUNC(name, icon_t)   \
   void light_control_##name(light_view_t *view) { \
-    ligth_control_icon(view, icon_t);             \
+    light_control_icon(view, icon_t);             \
   }
 
 DEFINE_LIGHT_CONTROL_FUNC(turn_left, SIGNAL_LIGHT_TURN_LEFT)
@@ -18,15 +18,16 @@ DEFINE_LIGHT_CONTROL_FUNC(wifi, SIGNAL_LIGHT_WIFI)
 DEFINE_LIGHT_CONTROL_FUNC(bt_icon, SIGNAL_LIGHT_BT_ICON)
 DEFINE_LIGHT_CONTROL_FUNC(bt_pair, SIGNAL_LIGHT_BT_PAIR)
 
-void ligth_control_init() {}
+void light_control_init() {
+}
 
-void ligth_control_icon(light_view_t *view, signal_light_e icon_type) {
-  int state = ligth_model_get_state(icon_type) ? DISPLAY_STATE_SHOW
+void light_control_icon(light_view_t *view, signal_light_e icon_type) {
+  int state = light_model_get_state(icon_type) ? DISPLAY_STATE_SHOW
                                                : DISPLAY_STATE_HIDE;
   light_view_display(&view->icons[icon_type], state);
 }
 
-void ligth_control_all(light_view_t *view) {
+void light_control_all(light_view_t *view) {
   light_control_turn_left(view);
   light_control_turn_right(view);
   light_control_auto_start_stop(view);
@@ -38,17 +39,17 @@ void ligth_control_all(light_view_t *view) {
   light_control_wifi(view);
   light_control_bt_icon(view);
   light_control_bt_pair(view);
-  ligth_control_voltage(view);
+  light_control_voltage(view);
 }
 
-void ligth_control_check(light_view_t *view) {
+void light_control_check(light_view_t *view) {
   for (int i = 0; i <= SIGNAL_LIGHT_VOLTAGE; ++i)
     light_view_display(&view->icons[i], DISPLAY_STATE_SHOW);
   light_view_display(&view->icons[SIGNAL_LIGHT_VOLTAGE], DISPLAY_STATE_SHOW);
 }
 
-void ligth_control_voltage(light_view_t *view) {
-  double voltage = ligth_model_get_voltage();
+void light_control_voltage(light_view_t *view) {
+  double voltage = light_model_get_voltage();
   if (voltage < 11.3)
     light_view_display(&view->icons[SIGNAL_LIGHT_VOLTAGE], DISPLAY_STATE_HIDE);
   else

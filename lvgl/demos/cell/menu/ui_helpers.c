@@ -23,11 +23,11 @@ extern lv_obj_t *menu_window;
 label_params_t ui_helpers_params(int label_x, int label_y,
                                  const char *label_text, const char *image_path,
                                  const char *secondary_label_text) {
-  label_params_t params = INIT_DEFAULT_LABEL_PARAMS();
-  params.label_x = label_x;
-  params.label_y = label_y;
-  params.label_text = label_text;
-  params.image_path = image_path;
+  label_params_t params       = INIT_DEFAULT_LABEL_PARAMS();
+  params.label_x              = label_x;
+  params.label_y              = label_y;
+  params.label_text           = label_text;
+  params.image_path           = image_path;
   params.secondary_label_text = secondary_label_text;
   return params;
 }
@@ -36,11 +36,11 @@ label_params_t ui_helpers_settings_params(int label_x, int label_y,
                                           const char *label_text,
                                           const char *image_path,
                                           const char *secondary_label_text) {
-  label_params_t params = INIT_SETTINGS_LABEL_PARAMS();
-  params.label_x = label_x;
-  params.label_y = label_y;
-  params.label_text = label_text;
-  params.image_path = image_path;
+  label_params_t params       = INIT_SETTINGS_LABEL_PARAMS();
+  params.label_x              = label_x;
+  params.label_y              = label_y;
+  params.label_text           = label_text;
+  params.image_path           = image_path;
   params.secondary_label_text = secondary_label_text;
   return params;
 }

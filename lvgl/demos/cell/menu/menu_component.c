@@ -17,19 +17,21 @@ void init_component(menu_component_t* component, void (*refresh)(),
                     bool (*handle_click_event)(const click_e),
                     void (*toggle_day_night)(), void (*destroy)(),
                     void (*open_window)(), void (*close_window)()) {
-  if (!component) return;
+  if (!component)
+    return;
 
-  *component = (menu_component_t){.refresh = refresh,
+  *component = (menu_component_t){.refresh            = refresh,
                                   .handle_click_event = handle_click_event,
-                                  .toggle_day_night = toggle_day_night,
-                                  .destroy = destroy,
-                                  .open_window = open_window,
-                                  .close_window = close_window};
+                                  .toggle_day_night   = toggle_day_night,
+                                  .destroy            = destroy,
+                                  .open_window        = open_window,
+                                  .close_window       = close_window};
 }
 
 void create_item(item_t** item_ptr, int y, text_id_t title_id, const char* num,
                  bool is_arrow) {
-  if (!item_ptr) return;
+  if (!item_ptr)
+    return;
 
   *item_ptr = (item_t*)malloc(sizeof(item_t));
   if (!*item_ptr) {
@@ -40,7 +42,7 @@ void create_item(item_t** item_ptr, int y, text_id_t title_id, const char* num,
 
   *item = (item_t){.bg = NULL, .title = NULL, .num = NULL, .arrow = NULL};
 
-  const int item_height = 70;
+  const int item_height      = 70;
   const int arrow_img_height = 16;
   initialize_background(&item->bg, menu_window, 300, y, 500, item_height,
                         lv_color_black());
@@ -74,7 +76,8 @@ void create_item(item_t** item_ptr, int y, text_id_t title_id, const char* num,
 }
 
 void set_item_color(item_t** item_ptr, bool is_selected) {
-  if (!item_ptr || !(*item_ptr)) return;
+  if (!item_ptr || !(*item_ptr))
+    return;
 
   item_t* item = *item_ptr;
   lv_color_t color =

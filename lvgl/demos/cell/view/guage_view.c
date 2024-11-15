@@ -1,5 +1,4 @@
 #include "guage_view.h"
-
 #include "../other/motor_model.h"
 
 #define BLOCK_WIDTH_MAX 195
@@ -34,8 +33,8 @@ static void show_blocks(guage_view_t *view, int value) {
 void guage_view_init(guage_view_t *view, guage_view_mode_e mode,
                      lv_obj_t *background) {
   memset(view, 0, sizeof(*view));
-  view->mode = mode;
-  view->max_value = GUAGE_NUM;
+  view->mode       = mode;
+  view->max_value  = GUAGE_NUM;
   view->background = background;
 }
 

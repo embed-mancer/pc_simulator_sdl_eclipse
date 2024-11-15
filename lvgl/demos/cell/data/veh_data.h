@@ -31,12 +31,16 @@ typedef enum {
   VEH_TEMP_WATER_LEVEL,  // Coolant temperature level, 0-9 levels
 
   // Light and Indicator Status
-  VEH_LIGHT_HIGH_BEAM,       // High beam, 0: off, 1: on
-  VEH_INDICATOR_TURN_LEFT,   // Left turn signal, 0: off, 1: on
-  VEH_INDICATOR_TURN_RIGHT,  // Right turn signal, 0: off, 1: on
-  VEH_LIGHT_LOCATION,        // Location LED status, 0: off, 1: on
-  VEH_LIGHT_OIL_PRESSURE,    // Oil pressure lamp, 0: off, 1: on
-  VEH_LIGHT_ENGINE_FAULT,    // Engine fault light, 0: off, 1: on
+  VEH_LIGHT_HIGH_BEAM,        // High beam, 0: off, 1: on
+  VEH_INDICATOR_TURN_LEFT,    // Left turn signal, 0: off, 1: on
+  VEH_INDICATOR_TURN_RIGHT,   // Right turn signal, 0: off, 1: on
+  VEH_LIGHT_LOCATION,         // Location LED status, 0: off, 1: on
+  VEH_LIGHT_OIL_PRESSURE,     // Oil pressure lamp, 0: off, 1: on
+  VEH_LIGHT_ENGINE_FAULT,     // Engine fault light, 0: off, 1: on
+  VEH_LIGHT_TIRE,             // Tire alarm 0: off, 1: on
+  VEH_LIGHT_AUTO_START_STOP,  // 0: off, 1: on
+  VEH_LIGHT_ABS,              // 0: off, 1: on
+  VEH_LIGHT_WIFI,             // 0: off, 1: on
 
   // Gear and Oil Data
   VEH_GEAR_POSITION,  // Gear position, 0x01-0x06: 1-6 gears, 0: neutral
@@ -49,6 +53,8 @@ typedef enum {
 
   // Maintenance Reminder
   VEH_MAINT_REMINDER,  // Maintenance reminder, 0: hidden, 1: required
+
+  // WIFI
 
   // Bluetooth and Phone Status
   VEH_BT_DEV_STATE,      // Bluetooth device state, >=1: powered on and working
@@ -89,7 +95,7 @@ typedef enum {
 } veh_data_e;
 
 int32_t veh_get_data(uint32_t id);
-void    veh_set_data(uint32_t id, int32_t value);
+void veh_set_data(uint32_t id, int32_t value);
 
 #ifdef __cplusplus
 }

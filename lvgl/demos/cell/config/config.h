@@ -1,3 +1,21 @@
+/**
+ * @file config.h
+ *
+ * @brief This header file defines configuration parameters and functions for
+ * managing system settings.
+ *
+ * @ingroup ConfigurationModule
+ *
+ * @date 2024-11-18
+ *
+ * @details This file contains enumerations for various configuration
+ * parameters, including UI, day/night settings, heating, display, Bluetooth,
+ * maintenance, and TPMS settings. It also declares functions for setting,
+ * retrieving, saving, and loading these configurations.
+ *
+ * @author Nemausa
+ *
+ */
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
@@ -8,16 +26,8 @@ extern "C" {
 #endif
 
 typedef enum {
-  BIT_T,
-  UINT8_T,
-  UINT16_T,
-  UINT32_T,
-  FLOAT_T,
-} datatype_e;
-
-typedef enum {
   // Vehicle UI settings (CONFIG_UI_)
-  CONFIG_UI_THEME = 0x01,
+  CONFIG_UI_THEME,
   CONFIG_UI_DISTANCE_UNIT,
   CONFIG_UI_LED_LEVEL,
   CONFIG_UI_LANGUAGE,
@@ -86,23 +96,18 @@ typedef enum {
   // Module check settings (CONFIG_MODULE_)
   CONFIG_MODULE_IS_CHECK,
 
+  // Only show
+
   CONFIG_END,
-} vehicle_param_e;
+} config_param_e;
 
-typedef union {
-  uint32_t uint32_val;
-  uint16_t uint16_val;
-  float    float_val;
-  uint8_t  uint8_val;
-} vehicle_value_u;
+void config_initialize(void);
+void config_set_data(config_param_e index, uint32_t in_value);
+uint32_t config_get_data(config_param_e index);
 
-typedef struct {
-  datatype_e      type;
-  vehicle_value_u value;
-} vehicle_data_item_s;
-
-void config_set_data(vehicle_param_e index, void *in_value);
-void config_get_data(vehicle_param_e index, void *out_value);
+void config_read();
+void config_save();
+void config_validate_and_correct(void);
 
 #ifdef __cplusplus
 }

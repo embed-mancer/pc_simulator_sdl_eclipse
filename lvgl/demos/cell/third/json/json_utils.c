@@ -30,6 +30,8 @@ void json_utils_modify_int(cJSON *json, const char *key, int new_value) {
   cJSON *item = cJSON_GetObjectItem(json, key);
   if (item && cJSON_IsNumber(item)) {
     cJSON_SetIntValue(item, new_value);
+  } else if (!item) {
+    cJSON_AddNumberToObject(json, key, new_value);
   }
 }
 

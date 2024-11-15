@@ -23,14 +23,15 @@ typedef enum {
 } vehicle_e;
 
 static item_t* items[5];
-static bool is_active = false;
+static bool is_active                = false;
 static navigation_state_t* nav_state = NULL;
 extern lv_obj_t* menu_window;
 
 static void settings() {
   side_bar_show(false);
   menu_item_t* items = malloc(5 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"vehicle info", VEHICLE_INFO, OPTION_PAGE};
   items[1] = (menu_item_t){"TC", -1, OPTION_NULL};
@@ -82,7 +83,8 @@ static void settings() {
 
 static void info() {
   menu_item_t* items = malloc(5 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"basic info", -1, OPTION_NULL};
   items[1] = (menu_item_t){"odo info", -1, OPTION_NULL};
@@ -118,7 +120,7 @@ static void basic_info() {
       VEHICLE_BASIC_INFO, "vehicle basic info", NULL, 0, 20);
 
   lv_obj_t** elements = screen->elements;
-  nav_state = menu_navigate_to(nav_state, screen);
+  nav_state           = menu_navigate_to(nav_state, screen);
 }
 
 static void odo_info() {
@@ -126,12 +128,13 @@ static void odo_info() {
       VEHICLE_ODO_INFO, "vehicle odo info", NULL, 0, 20);
 
   lv_obj_t** elements = screen->elements;
-  nav_state = menu_navigate_to(nav_state, screen);
+  nav_state           = menu_navigate_to(nav_state, screen);
 }
 
 static void trip_info() {
   menu_item_t* items = malloc(2 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"trip 1", -1, OPTION_NULL};
   items[1] = (menu_item_t){"trip 2", -1, OPTION_NULL};
@@ -140,13 +143,14 @@ static void trip_info() {
       VEHICLE_TRIP_INFO, "vehicle trip info", items, 2, 20);
 
   lv_obj_t** elements = screen->elements;
-  nav_state = menu_navigate_to(nav_state, screen);
+  nav_state           = menu_navigate_to(nav_state, screen);
 }
 
 static void fault_info() {
   // TODO according to the actual number of faults
   menu_item_t* items = malloc(2 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"fault 1", -1, OPTION_NULL};
   items[1] = (menu_item_t){"fault 2", -1, OPTION_NULL};
@@ -155,10 +159,11 @@ static void fault_info() {
       VEHICLE_FAULT_INFO, "vehicle fault info", items, 2, 20);
 
   lv_obj_t** elements = screen->elements;
-  nav_state = menu_navigate_to(nav_state, screen);
+  nav_state           = menu_navigate_to(nav_state, screen);
 }
 
-static void refresh() {}
+static void refresh() {
+}
 
 static void handle_set() {
   if (!is_active) {
@@ -167,61 +172,61 @@ static void handle_set() {
     return;
   }
   screen_t* screen = nav_state->current_screen;
-  int index = nav_state->selected_index;
+  int index        = nav_state->selected_index;
 
   if (screen->id == VEHICLE_MAIN) {
     switch (index) {
-      case VEHICLE_INFO:
-        info();
-        break;
-      case VEHICLE_TC:
-        break;
-      case VEHICLE_ESS:
-        break;
-      case VEHICLE_QUICK_SHIFT:
-        break;
-      case VEHICLE_UP_SHIFT:
-        break;
+    case VEHICLE_INFO:
+      info();
+      break;
+    case VEHICLE_TC:
+      break;
+    case VEHICLE_ESS:
+      break;
+    case VEHICLE_QUICK_SHIFT:
+      break;
+    case VEHICLE_UP_SHIFT:
+      break;
     }
   } else if (screen->id == VEHICLE_INFO) {
     switch (index) {
-      case VEHICLE_BASIC_INFO - VEHICLE_BASIC_INFO:
-        basic_info();
-        break;
-      case VEHICLE_ODO_INFO - VEHICLE_BASIC_INFO:
-        odo_info();
-        break;
-      case VEHICLE_TRIP_INFO - VEHICLE_BASIC_INFO:
-        trip_info();
-        break;
-      case VEHICLE_FAULT_INFO - VEHICLE_BASIC_INFO:
-        fault_info();
-        break;
-      case VEHICLE_MAINTAIN - VEHICLE_BASIC_INFO:
-        break;
+    case VEHICLE_BASIC_INFO - VEHICLE_BASIC_INFO:
+      basic_info();
+      break;
+    case VEHICLE_ODO_INFO - VEHICLE_BASIC_INFO:
+      odo_info();
+      break;
+    case VEHICLE_TRIP_INFO - VEHICLE_BASIC_INFO:
+      trip_info();
+      break;
+    case VEHICLE_FAULT_INFO - VEHICLE_BASIC_INFO:
+      fault_info();
+      break;
+    case VEHICLE_MAINTAIN - VEHICLE_BASIC_INFO:
+      break;
     }
   }
 }
 
 static void handle_back() {
   switch (nav_state->current_screen->id) {
-    case VEHICLE_INFO:
-    case VEHICLE_BASIC_INFO:
-    case VEHICLE_ODO_INFO:
-    case VEHICLE_TRIP_INFO:
-    case VEHICLE_FAULT_INFO:
-      nav_state = menu_navigate_go_back(nav_state);
-      break;
-    case VEHICLE_MAIN:
-      is_active = false;
-      nav_state = menu_navigate_go_back(nav_state);
-      break;
+  case VEHICLE_INFO:
+  case VEHICLE_BASIC_INFO:
+  case VEHICLE_ODO_INFO:
+  case VEHICLE_TRIP_INFO:
+  case VEHICLE_FAULT_INFO:
+    nav_state = menu_navigate_go_back(nav_state);
+    break;
+  case VEHICLE_MAIN:
+    is_active = false;
+    nav_state = menu_navigate_go_back(nav_state);
+    break;
   }
 }
 
 static void update_index(int direction) {
   screen_t* screen = nav_state->current_screen;
-  int* index = &nav_state->selected_index;
+  int* index       = &nav_state->selected_index;
 
   if (direction == DIRECTION_DOWN) {  // Handle down
     *index = (*index + 1) % screen->menu_item_count;
@@ -232,89 +237,94 @@ static void update_index(int direction) {
 }
 
 static void handle_up() {
-  if (!is_active) return;
+  if (!is_active)
+    return;
 
   screen_t* screen = nav_state->current_screen;
-  int* index = &nav_state->selected_index;
+  int* index       = &nav_state->selected_index;
 
   switch (screen->id) {
-    case VEHICLE_MAIN:
-      update_index(DIRECTION_UP);
-      // TODO
-      break;
-    case VEHICLE_INFO:
-      update_index(DIRECTION_UP);
-      // TODO
-      break;
-    case VEHICLE_ODO_INFO:
-      update_index(DIRECTION_UP);
-      // TODO
-      break;
-    case VEHICLE_TRIP_INFO:
-      update_index(DIRECTION_UP);
-      // TODO
-      break;
-    case VEHICLE_FAULT_INFO:
-      update_index(DIRECTION_UP);
-      // TODO
-      break;
+  case VEHICLE_MAIN:
+    update_index(DIRECTION_UP);
+    // TODO
+    break;
+  case VEHICLE_INFO:
+    update_index(DIRECTION_UP);
+    // TODO
+    break;
+  case VEHICLE_ODO_INFO:
+    update_index(DIRECTION_UP);
+    // TODO
+    break;
+  case VEHICLE_TRIP_INFO:
+    update_index(DIRECTION_UP);
+    // TODO
+    break;
+  case VEHICLE_FAULT_INFO:
+    update_index(DIRECTION_UP);
+    // TODO
+    break;
   }
 }
 
 static void handle_down() {
-  if (!is_active) return;
+  if (!is_active)
+    return;
 
   screen_t* screen = nav_state->current_screen;
-  int* index = &nav_state->selected_index;
+  int* index       = &nav_state->selected_index;
 
   switch (screen->id) {
-    case VEHICLE_MAIN:
-      update_index(DIRECTION_DOWN);
-      // TODO
-      break;
-    case VEHICLE_INFO:
-      update_index(DIRECTION_DOWN);
-      // TODO
-      break;
-    case VEHICLE_ODO_INFO:
-      update_index(DIRECTION_DOWN);
-      // TODO
-      break;
-    case VEHICLE_TRIP_INFO:
-      update_index(DIRECTION_DOWN);
-      // TODO
-      break;
-    case VEHICLE_FAULT_INFO:
-      update_index(DIRECTION_DOWN);
-      // TODO
-      break;
+  case VEHICLE_MAIN:
+    update_index(DIRECTION_DOWN);
+    // TODO
+    break;
+  case VEHICLE_INFO:
+    update_index(DIRECTION_DOWN);
+    // TODO
+    break;
+  case VEHICLE_ODO_INFO:
+    update_index(DIRECTION_DOWN);
+    // TODO
+    break;
+  case VEHICLE_TRIP_INFO:
+    update_index(DIRECTION_DOWN);
+    // TODO
+    break;
+  case VEHICLE_FAULT_INFO:
+    update_index(DIRECTION_DOWN);
+    // TODO
+    break;
   }
 }
 
 static bool handle_click_event(const click_e click) {
   switch (click) {
-    case CLICK_SHORT_SET:
-      handle_set();
-      break;
-    case CLICK_SHORT_BACK:
-      handle_back();
-      break;
-    case CLICK_SHORT_UP:
-      handle_up();
-      break;
-    case CLICK_SHORT_DOWN:
-      handle_down();
-      break;
-    default:
-      return false;
+  case CLICK_SHORT_SET:
+    handle_set();
+    break;
+  case CLICK_SHORT_BACK:
+    handle_back();
+    break;
+  case CLICK_SHORT_UP:
+    handle_up();
+    break;
+  case CLICK_SHORT_DOWN:
+    handle_down();
+    break;
+  default:
+    return false;
   }
   print_navigation_state(nav_state);
   return is_active;
 }
 
-static void toggle_day_night() {}
+static void toggle_day_night() {
+}
 
-static void destroy() { menu_navigate_free(nav_state); }
+static void destroy() {
+  menu_navigate_free(nav_state);
+}
 
 static void reset_items() {
   for (int i = 0; i < 5; ++i) items[i] = NULL;
@@ -335,7 +345,8 @@ static void open_window() {
   set_item_color(&items[0], true);
 }
 
-static void close_window() {}
+static void close_window() {
+}
 
 menu_component_t* vehicle_settings() {
   menu_component_t* component = allocate_component();

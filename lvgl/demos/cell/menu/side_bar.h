@@ -14,7 +14,7 @@ typedef struct {
 } menu_left_t;
 
 void side_bar_init();
-void side_bar_update(page_t new_page);
+void side_bar_update(page_e new_page);
 void side_bar_show(bool is_show);
 void side_bar_clear();
 

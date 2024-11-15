@@ -20,14 +20,16 @@ font_map_t font_map[LABEL_FONT_COUNT] = {
     {LABEL_FONT_MICROSOFT_YAHEI_22, &MicrosoftYaHei_22},
     {LABEL_FONT_MICROSOFT_YAHEI_30, &MicrosoftYaHei_30}};
 
-void tool_init() { tool_init_color_map(); }
+void tool_init() {
+  tool_init_color_map();
+}
 
 void tool_init_color_map() {
-  color_map[LABEL_COLOR_WHITE] = lv_color_make(255, 255, 255);
-  color_map[LABEL_COLOR_BLACK] = lv_color_make(0, 0, 0);
-  color_map[LABEL_COLOR_RED] = lv_color_make(255, 0, 0);
-  color_map[LABEL_COLOR_GREEN] = lv_color_make(0, 255, 0);
-  color_map[LABEL_COLOR_BLUE] = lv_color_make(0, 0, 255);
+  color_map[LABEL_COLOR_WHITE]      = lv_color_make(255, 255, 255);
+  color_map[LABEL_COLOR_BLACK]      = lv_color_make(0, 0, 0);
+  color_map[LABEL_COLOR_RED]        = lv_color_make(255, 0, 0);
+  color_map[LABEL_COLOR_GREEN]      = lv_color_make(0, 255, 0);
+  color_map[LABEL_COLOR_BLUE]       = lv_color_make(0, 0, 255);
   color_map[LABEL_COLOR_LIME_GREEN] = lv_color_make(0x31, 0xC9, 0x18);
 }
 
@@ -47,10 +49,10 @@ const lv_font_t* tool_get_font(label_font_e font) {
 
 lv_coord_t tool_get_width(label_font_e font) {
   switch (font) {
-    case LABEL_FONT_PLAGIATA_27:
-      return 10;
-    default:
-      return 0;
+  case LABEL_FONT_PLAGIATA_27:
+    return 10;
+  default:
+    return 0;
   }
 }
 
@@ -69,14 +71,16 @@ void replace_substring(char* str, const char* old_substr,
 }
 
 void create_img(lv_obj_t* bg, lv_obj_t** lv, image_pos_t pos) {
-  if (*lv) return;
+  if (*lv)
+    return;
   *lv = lv_img_create(bg);
   lv_obj_set_pos(*lv, pos.x, pos.y);
   lv_img_set_src(*lv, pos.image);
 }
 
 void create_label(lv_obj_t* bg, lv_obj_t** lv, label_pos_t pos) {
-  if (*lv) return;
+  if (*lv)
+    return;
   *lv = lv_label_create(bg);
   if (pos.value_type_e == VALUE_TYPE_CHAR) {
     lv_label_set_text(*lv, pos.value.sz);
@@ -109,8 +113,8 @@ void create_center_left_label(lv_obj_t* parent, lv_obj_t** label, int x, int y,
 }
 
 void create_center_right_label(lv_obj_t* parent, lv_obj_t** label, int x, int y,
-                              int width, int height, label_color_e color,
-                              label_font_e font, const char* text) {
+                               int width, int height, label_color_e color,
+                               label_font_e font, const char* text) {
   label_pos_t label_pos =
       create_label_pos(x, y, width, height, color, font, VALUE_TYPE_CHAR,
                        create_label_value(text));
@@ -139,34 +143,34 @@ label_value_t create_label_value(const char* str) {
 label_pos_t create_label_pos(int x, int y, int width, int height,
                              label_color_e color, label_font_e font,
                              value_type_e type, label_value_t text) {
-  label_pos_t pos = {.x = x,
-                     .y = y,
-                     .width = width,
-                     .height = height,
-                     .color = color,
-                     .font = font,
+  label_pos_t pos = {.x            = x,
+                     .y            = y,
+                     .width        = width,
+                     .height       = height,
+                     .color        = color,
+                     .font         = font,
                      .value_type_e = type};
 
   switch (type) {
-    case VALUE_TYPE_CHAR:
-      strncpy(pos.value.sz, text.sz, sizeof(pos.value.sz) - 1);
-      pos.value.sz[sizeof(pos.value.sz) - 1] = '\0';
-      break;
-    case VALUE_TYPE_FLOAT:
-      pos.value.double_value = text.double_value;
-      break;
-    case VALUE_TYPE_INT:
-      pos.value.int_value = text.int_value;
-      break;
-    default:
-      pos.value.int_value = 0;
-      break;
+  case VALUE_TYPE_CHAR:
+    strncpy(pos.value.sz, text.sz, sizeof(pos.value.sz) - 1);
+    pos.value.sz[sizeof(pos.value.sz) - 1] = '\0';
+    break;
+  case VALUE_TYPE_FLOAT:
+    pos.value.double_value = text.double_value;
+    break;
+  case VALUE_TYPE_INT:
+    pos.value.int_value = text.int_value;
+    break;
+  default:
+    pos.value.int_value = 0;
+    break;
   }
 
   return pos;
 }
 
-lv_color_t ToolGetThemeColor() {
+lv_color_t tool_get_theme_color() {
   return motor_model_get_day_night_mode() == METER_MODE_DAY ? lv_color_black()
                                                             : lv_color_white();
 }

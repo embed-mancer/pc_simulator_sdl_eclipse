@@ -34,8 +34,6 @@ const char *json_utils_get_string(cJSON *json, const char *key);
 int json_utils_get_int(cJSON *json, const char *key);
 int json_utils_get_bool(cJSON *json, const char *key);
 
-char *json_utils_read_file(const char *filename);
-int json_utils_write_file(const char *filename, const char *data);
 cJSON *json_utils_read_json(const char *filename);
 int json_utils_save_json(const char *filename, cJSON *root);
 
@@ -43,4 +41,4 @@ int json_utils_save_json(const char *filename, cJSON *root);
 }
 #endif
 
-#endif // JSON_UTILS_H_
+#endif  // JSON_UTILS_H_

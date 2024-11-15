@@ -27,4 +27,5 @@ light light_main = {
     INIT_ICON(SIGNAL_LIGHT_VOLTAGE, 28, 85, RES_PRFIX "home/light/voltage.png"),
 };
 
-void light_init() {}
+void light_init() {
+}

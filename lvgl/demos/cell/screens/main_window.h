@@ -12,4 +12,5 @@ void main_window_other();
 void main_window_time();
 void main_window_blink();
 void main_window_toggle_day_night();
+
 #endif  // MAIN_WINDOW_H_

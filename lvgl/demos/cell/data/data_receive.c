@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-void data_task_init() {}
+void data_task_init() {
+}
 
 void data_task_add(uint8_t *_msg) {
   uint8_t *msg = malloc(MAX_MSG_LEN);

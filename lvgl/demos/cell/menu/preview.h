@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-void preview_set_vehicle_details(lv_obj_t** elements);
+void preview_set_vehicle_details(lv_obj_t **elements);
 void preview_phone(lv_obj_t **elements);
 void preview_music(lv_obj_t **elements);
 void preview_navigation(lv_obj_t **elements);

@@ -28,7 +28,8 @@ void light_view_create(light_view_t *view) {
 }
 
 void light_view_display(icon_t *icon, display_state_e table) {
-  if (!icon->is_needed) return;
+  if (!icon->is_needed)
+    return;
   switch (table) {
   case DISPLAY_STATE_HIDE:
     lv_obj_add_flag(icon->obj, LV_OBJ_FLAG_HIDDEN);

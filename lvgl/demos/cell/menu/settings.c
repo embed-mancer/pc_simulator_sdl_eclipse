@@ -6,8 +6,8 @@
 #include "menu_navigate.h"
 
 static const int LABEL_OFFSET_Y = 60;
-static const int LABEL_BASE_Y = 20;
-static const int LABEL_WIDTH = 250;
+static const int LABEL_BASE_Y   = 20;
+static const int LABEL_WIDTH    = 250;
 static const int ELEMENTS_COUNT = 14;
 
 typedef enum {
@@ -41,7 +41,7 @@ typedef enum {
 } settings_id_e;
 
 extern lv_obj_t* menu_window;
-static bool is_active = false;
+static bool is_active                = false;
 static navigation_state_t* nav_state = NULL;
 
 static void setup_label(lv_obj_t* window, lv_obj_t** element1,
@@ -55,7 +55,8 @@ static void setup_label(lv_obj_t* window, lv_obj_t** element1,
 static void settings_enter() {
   side_bar_show(false);
   menu_item_t* items = malloc(9 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[SETTINGS_DEVICE_CONNECTION] = (menu_item_t){
       "device connection", SETTINGS_DEVICE_CONNECTION, OPTION_PAGE};
@@ -103,7 +104,8 @@ static void settings_enter() {
 
 static void settings_device_connection() {
   menu_item_t* items = malloc(3 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] =
       (menu_item_t){"mobile device", SETTINGS_MOBLIE_DEVICE, OPTION_PAGE};
@@ -117,7 +119,8 @@ static void settings_device_connection() {
 
 static void settings_mobile_device() {
   menu_item_t* items = malloc(3 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"device 1 ", -1, OPTION_NULL};
   items[1] = (menu_item_t){"device 2", -1, OPTION_NULL};
@@ -125,12 +128,13 @@ static void settings_mobile_device() {
 
   screen_t* screen = menu_navigate_create_screen(SETTINGS_MOBLIE_DEVICE,
                                                  "mobile device", items, 3, 10);
-  nav_state = menu_navigate_to(nav_state, screen);
+  nav_state        = menu_navigate_to(nav_state, screen);
 }
 
 static void settings_helmet1() {
   menu_item_t* items = malloc(3 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"device 1 ", -1, OPTION_NULL};
   items[1] = (menu_item_t){"device 2", -1, OPTION_NULL};
@@ -143,7 +147,8 @@ static void settings_helmet1() {
 
 static void settings_helmet2() {
   menu_item_t* items = malloc(3 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"device 1 ", -1, OPTION_NULL};
   items[1] = (menu_item_t){"device 2", -1, OPTION_NULL};
@@ -156,7 +161,8 @@ static void settings_helmet2() {
 
 static void settings_option1() {
   menu_item_t* items = malloc(3 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"ODO", -1, OPTION_RADIO};
   items[1] = (menu_item_t){"TRIP1", -1, OPTION_RADIO};
@@ -164,12 +170,13 @@ static void settings_option1() {
 
   screen_t* screen = menu_navigate_create_screen(SETTINGS_OPTION_INFO_1,
                                                  "Option 1", items, 3, 10);
-  nav_state = menu_navigate_to(nav_state, screen);
+  nav_state        = menu_navigate_to(nav_state, screen);
 }
 
 static void settings_option2() {
   menu_item_t* items = malloc(6 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"range", -1, OPTION_RADIO};
   items[1] = (menu_item_t){"voltage", -1, OPTION_RADIO};
@@ -204,7 +211,8 @@ static void settings_time() {
 
 static void settings_language() {
   menu_item_t* items = malloc(2 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"Chinese", -1, OPTION_RADIO};
   items[1] = (menu_item_t){"English", -1, OPTION_RADIO};
@@ -217,7 +225,8 @@ static void settings_language() {
 
 static void settings_upgrade() {
   menu_item_t* items = malloc(2 * sizeof(menu_item_t));
-  if (!items) return;
+  if (!items)
+    return;
 
   items[0] = (menu_item_t){"wifi 1", -1, OPTION_RADIO};
   items[1] = (menu_item_t){"wifi 2", -1, OPTION_RADIO};
@@ -233,10 +242,12 @@ static void settings_about() {
   nav_state = menu_navigate_to(nav_state, screen);
 }
 
-static void refresh() {}
+static void refresh() {
+}
 
 static void handle_click_up(const click_e click) {
-  if (!is_active) return;
+  if (!is_active)
+    return;
   if (nav_state->current_screen->id == SETTINGS_MAIN) {
     nav_state->selected_index =
         (nav_state->selected_index == 0)
@@ -253,7 +264,8 @@ static void handle_click_up(const click_e click) {
 }
 
 static void handle_click_down(const click_e click) {
-  if (!is_active) return;
+  if (!is_active)
+    return;
   if (nav_state->current_screen->id == SETTINGS_MAIN) {
     nav_state->selected_index = (nav_state->selected_index + 1) %
                                 nav_state->current_screen->menu_item_count;
@@ -273,90 +285,93 @@ static void handle_click_set(const click_e click) {
   }
   if (nav_state->current_screen->id == SETTINGS_MAIN) {
     switch (nav_state->selected_index) {
-      case SETTINGS_DEVICE_CONNECTION:
-        settings_device_connection();
-        break;
-      case SETTINGS_OPTION_INFO_1:
-        settings_option1();
-        break;
-      case SETTINGS_OPTION_INFO_2:
-        settings_option2();
-        break;
-      case SETTINGS_AUTO_BRIGHTNESS:
-        settings_auto_brightness();
-        break;
-      case SETTINGS_UNIT:
-        settings_unit();
-        break;
-      case SETTINGS_TIME:
-        settings_time();
-        break;
-      case SETTINGS_LANGUAGE:
-        settings_language();
-        break;
-      case SETTINGS_UPGRADE:
-        settings_upgrade();
-        break;
-      case SETTINGS_ABOUT:
-        settings_about();
-        break;
-      case SETTINGS_MOBLIE_DEVICE:
-        settings_mobile_device();
-        break;
-      case SETTINGS_HELMET1:
-        settings_helmet1();
-        break;
-      case SETTINGS_HELMET2:
-        settings_helmet2();
-        break;
+    case SETTINGS_DEVICE_CONNECTION:
+      settings_device_connection();
+      break;
+    case SETTINGS_OPTION_INFO_1:
+      settings_option1();
+      break;
+    case SETTINGS_OPTION_INFO_2:
+      settings_option2();
+      break;
+    case SETTINGS_AUTO_BRIGHTNESS:
+      settings_auto_brightness();
+      break;
+    case SETTINGS_UNIT:
+      settings_unit();
+      break;
+    case SETTINGS_TIME:
+      settings_time();
+      break;
+    case SETTINGS_LANGUAGE:
+      settings_language();
+      break;
+    case SETTINGS_UPGRADE:
+      settings_upgrade();
+      break;
+    case SETTINGS_ABOUT:
+      settings_about();
+      break;
+    case SETTINGS_MOBLIE_DEVICE:
+      settings_mobile_device();
+      break;
+    case SETTINGS_HELMET1:
+      settings_helmet1();
+      break;
+    case SETTINGS_HELMET2:
+      settings_helmet2();
+      break;
     }
   }
 }
 
 static void handle_click_back(const click_e click) {
   switch (nav_state->current_screen->id) {
-    case SETTINGS_DEVICE_CONNECTION:
-    case SETTINGS_OPTION_INFO_1:
-    case SETTINGS_OPTION_INFO_2:
-    case SETTINGS_AUTO_BRIGHTNESS:
-    case SETTINGS_UNIT:
-    case SETTINGS_TIME:
-    case SETTINGS_LANGUAGE:
-    case SETTINGS_UPGRADE:
-    case SETTINGS_ABOUT:
-      nav_state = menu_navigate_go_back(nav_state);
-      break;
-    case SETTINGS_MAIN:
-      nav_state = menu_navigate_go_back(nav_state);
-      is_active = false;
-      break;
+  case SETTINGS_DEVICE_CONNECTION:
+  case SETTINGS_OPTION_INFO_1:
+  case SETTINGS_OPTION_INFO_2:
+  case SETTINGS_AUTO_BRIGHTNESS:
+  case SETTINGS_UNIT:
+  case SETTINGS_TIME:
+  case SETTINGS_LANGUAGE:
+  case SETTINGS_UPGRADE:
+  case SETTINGS_ABOUT:
+    nav_state = menu_navigate_go_back(nav_state);
+    break;
+  case SETTINGS_MAIN:
+    nav_state = menu_navigate_go_back(nav_state);
+    is_active = false;
+    break;
   }
 }
 
 static bool handle_click_event(const click_e click) {
   switch (click) {
-    case CLICK_SHORT_SET:
-      handle_click_set(click);
-      break;
-    case CLICK_SHORT_BACK:
-      handle_click_back(click);
-      break;
-    case CLICK_SHORT_UP:
-      handle_click_up(click);
-      break;
-    case CLICK_SHORT_DOWN:
-      handle_click_down(click);
-      break;
-    default:
-      return false;
+  case CLICK_SHORT_SET:
+    handle_click_set(click);
+    break;
+  case CLICK_SHORT_BACK:
+    handle_click_back(click);
+    break;
+  case CLICK_SHORT_UP:
+    handle_click_up(click);
+    break;
+  case CLICK_SHORT_DOWN:
+    handle_click_down(click);
+    break;
+  default:
+    return false;
   }
   print_navigation_state(nav_state);
   return is_active;
 }
 
-static void toggle_day_night() {}
+static void toggle_day_night() {
+}
 
-static void destroy() { menu_navigate_free(nav_state); }
+static void destroy() {
+  menu_navigate_free(nav_state);
+}
 
 static void open_window() {
   screen_t* screen = menu_navigate_create_screen(
@@ -365,7 +380,8 @@ static void open_window() {
   nav_state = menu_navigate_create(screen);
 }
 
-static void close_window() {}
+static void close_window() {
+}
 
 menu_component_t* settings() {
   menu_component_t* component = allocate_component();

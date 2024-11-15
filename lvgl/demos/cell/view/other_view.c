@@ -82,7 +82,7 @@ void other_view_update(other_view_t *view) {
 }
 
 void other_view_toggle_day_night(other_view_t *view) {
-  lv_color_t color = ToolGetThemeColor();
+  lv_color_t color = tool_get_theme_color();
 
   lv_obj_set_style_text_color(view->trip_key, color, 0);
   lv_obj_set_style_text_color(view->trip_value, color, 0);

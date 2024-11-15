@@ -4,26 +4,26 @@
 
 extern lv_obj_t *menu_window;
 
-static void preview_set_common_elements(lv_obj_t **elements, page_t page) {
+static void preview_set_common_elements(lv_obj_t **elements, page_e page) {
   const char *text;
   switch (page) {
-    case PAGE_VEHICLE_SETTINGS:
-      text = lang_text(TEXT_ID_VEHICLE_SETTINGS);
-      break;
-    case PAGE_PHONE:
-      text = lang_text(TEXT_ID_PHONE);
-      break;
-    case PAGE_MUSIC:
-      text = lang_text(TEXT_ID_MUSIC);
-      break;
-    case PAGE_NAVIGATION:
-      text = "MotoPlay";
-      break;
-    case PAGE_SETTINGS:
-      text = lang_text(TEXT_ID_SETTINGS);
-      break;
-    default:
-      return;
+  case PAGE_VEHICLE_SETTINGS:
+    text = lang_text(TEXT_ID_VEHICLE_SETTINGS);
+    break;
+  case PAGE_PHONE:
+    text = lang_text(TEXT_ID_PHONE);
+    break;
+  case PAGE_MUSIC:
+    text = lang_text(TEXT_ID_MUSIC);
+    break;
+  case PAGE_NAVIGATION:
+    text = "MotoPlay";
+    break;
+  case PAGE_SETTINGS:
+    text = lang_text(TEXT_ID_SETTINGS);
+    break;
+  default:
+    return;
   }
   create_center_left_label(menu_window, &elements[11], 130, 0, 300, 70,
                            LABEL_COLOR_WHITE, LABEL_FONT_MICROSOFT_YAHEI_30,

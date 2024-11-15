@@ -8,8 +8,8 @@
 #include "../other/motor_controller.h"
 #include "../view/blink_manager.h"
 
-#define INIT_VIEW(view_ptr, type)                          \
-  view_ptr = (type *)allocate_memory(sizeof(type), #type); \
+#define INIT_VIEW(view_ptr, type)                                      \
+  view_ptr             = (type *)allocate_memory(sizeof(type), #type); \
   view_ptr->background = main_scr;
 
 lv_obj_t *main_scr = NULL;
@@ -35,13 +35,14 @@ void *allocate_memory(size_t size, const char *type_name) {
 }
 
 void main_window_task_cb(lv_timer_t *timer) {
-  if (checkself_is_checking()) return;
+  if (checkself_is_checking())
+    return;
   blink_manager_refresh(main_blink);
   // for test
   {
     static unsigned long last_switch_time = 0;
-    static bool is_day_mode = true;
-    unsigned long current_time = lv_tick_get();
+    static bool is_day_mode               = true;
+    unsigned long current_time            = lv_tick_get();
 
     if (current_time - last_switch_time >= 5000) {
       last_switch_time = current_time;

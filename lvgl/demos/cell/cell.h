@@ -8,41 +8,10 @@
 #endif
 
 #include "lvgl/lvgl.h"
+#include "tool/enums.h"
 
 #define MAX_IMAGE_CHARS 64
 #define RIGHT_ARROW_IMG_PATH (RES_PRFIX "menu/right_arrow.png")
-
-typedef enum { METER_MODE_DAY, METER_MODE_NIGHT, METER_MODE_AUTO } meter_mode_e;
-
-typedef enum {
-  LABEL_COLOR_WHITE,
-  LABEL_COLOR_BLACK,
-  LABEL_COLOR_RED,
-  LABEL_COLOR_GREEN,
-  LABEL_COLOR_BLUE,
-  LABEL_COLOR_LIME_GREEN,
-  LABEL_COLOR_COUNT
-} label_color_e;
-
-typedef enum {
-  LABEL_FONT_PLAGIATA_27,
-  LABEL_FONT_PLAGIATA_37,
-  LABEL_FONT_SOURCEHANSANSCN_18,
-  LABEL_FONT_SOURCEHANSANSCN_22,
-  LABEL_FONT_SOURCEHANSANSCN_28,
-  LABEL_FONT_SOURCEHANSANSCN_34,
-  LABEL_FONT_MICROSOFT_YAHEI_18,
-  LABEL_FONT_MICROSOFT_YAHEI_20,
-  LABEL_FONT_MICROSOFT_YAHEI_22,
-  LABEL_FONT_MICROSOFT_YAHEI_30,
-  LABEL_FONT_COUNT
-} label_font_e;
-
-typedef enum {
-  VALUE_TYPE_CHAR,
-  VALUE_TYPE_FLOAT,
-  VALUE_TYPE_INT,
-} value_type_e;
 
 typedef struct {
   int x;
@@ -83,31 +52,6 @@ typedef struct {
   int data;
   int accumulated;
 } data_accumulator_t;
-
-typedef enum {
-  CLICK_SHORT_SET,
-  CLICK_SHORT_BACK,
-  CLICK_SHORT_UP,
-  CLICK_SHORT_DOWN,
-  CLICK_LONG_SET,
-  CLICK_LONG_BACK,
-  CLICK_END,
-} click_e;
-
-typedef enum {
-  PAGE_VEHICLE_SETTINGS,
-  PAGE_PHONE,
-  PAGE_MUSIC,
-  PAGE_NAVIGATION,
-  PAGE_SETTINGS,
-  PAGE_COUNT,
-} page_t;
-
-typedef enum {
-  WINDOW_MAIN,
-  WINDOW_MENU,
-  WINDOW_NAVIGATION,
-} window_e;
 
 LV_FONT_DECLARE(Plagiata_27);
 LV_FONT_DECLARE(Plagiata_37);

@@ -16,4 +16,6 @@ void notify_water(guage_view_t *view) {
   guage_view_update(view, value);
 }
 
-void notify_other(other_view_t *view) { other_view_update(view); }
+void notify_other(other_view_t *view) {
+  other_view_update(view);
+}

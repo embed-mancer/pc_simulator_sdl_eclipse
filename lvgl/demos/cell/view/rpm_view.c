@@ -21,9 +21,9 @@ void rpm_view_create(rpm_view_t *view) {
            RES_PRFIX "home/%s/rpm/num.png", theme_suffix);
   snprintf(view->unit_position.image, sizeof(view->unit_position.image),
            RES_PRFIX "home/%s/rpm/unit.png", theme_suffix);
-  view->line_position = create_image_pos(view->line_position.image, 0, 94);
+  view->line_position   = create_image_pos(view->line_position.image, 0, 94);
   view->number_position = create_image_pos(view->number_position.image, 5, 166);
-  view->unit_position = create_image_pos(view->unit_position.image, 713, 112);
+  view->unit_position   = create_image_pos(view->unit_position.image, 713, 112);
   view->block_positions[0] =
       create_image_pos(RES_PRFIX "home/night/rpm/1.png", 0, 176);
   view->block_positions[1] =
@@ -134,7 +134,7 @@ void rpm_view_create(rpm_view_t *view) {
 }
 
 void rpm_view_update(rpm_view_t *view, int value) {
-  value = (value > MAX_RPM) ? MAX_RPM : value;
+  value     = (value > MAX_RPM) ? MAX_RPM : value;
   int index = (value > 0) ? (value - 1) / 100 : -1;
 
   if (index != view->last_index) {
@@ -158,7 +158,7 @@ void rpm_view_toggle_day_night(rpm_view_t *view) {
   lv_img_set_src(view->num, view->number_position.image);
   lv_img_set_src(view->unit, view->unit_position.image);
   int current_value = rpm_view_current();
-  view->last_index = -1;
+  view->last_index  = -1;
   rpm_view_update(view, current_value);
 }
 
@@ -166,11 +166,15 @@ void rpm_view_run() {
   int data = motor_model_get_rpm();
   if (acc.current < data) {
     acc.current += acc.accumulated;
-    if (acc.current > data) acc.current = data;
+    if (acc.current > data)
+      acc.current = data;
   } else if (acc.current > data) {
     acc.current -= acc.accumulated;
-    if (acc.current < data) acc.current = data;
+    if (acc.current < data)
+      acc.current = data;
   }
 }
 
-int rpm_view_current() { return acc.current; }
+int rpm_view_current() {
+  return acc.current;
+}

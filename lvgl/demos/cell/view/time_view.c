@@ -28,7 +28,7 @@ void time_view_create(time_view_t *view) {
       TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH       // min2_x
   };
 
-  label_color_e color = tool_get_color_base();
+  label_color_e color  = tool_get_color_base();
   lv_obj_t **labels[5] = {&view->hour_digit1, &view->hour_digit2, &view->colon,
                           &view->minute_digit1, &view->minute_digit2};
 
@@ -58,10 +58,11 @@ void time_view_create(time_view_t *view) {
 }
 
 // TODO
-void time_view_update(time_view_t *view) {}
+void time_view_update(time_view_t *view) {
+}
 
 void time_view_toggle_day_night(time_view_t *view) {
-  lv_color_t color = ToolGetThemeColor();
+  lv_color_t color    = tool_get_theme_color();
   lv_obj_t *labels[5] = {view->hour_digit1, view->hour_digit2, view->colon,
                          view->minute_digit1, view->minute_digit2};
   for (int i = 0; i < 5; ++i) {

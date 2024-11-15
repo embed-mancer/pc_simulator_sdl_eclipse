@@ -5,7 +5,7 @@
 
 static data_accumulator_t speed_accumulator;
 static const int mid_position = 400;
-static const int width = 94;
+static const int width        = 94;
 
 void speed_view_init(speed_view_t *view, lv_obj_t *background) {
   memset(view, 0, sizeof(*view));
@@ -70,12 +70,12 @@ void speed_view_toggle_day_night(speed_view_t *view) {
   tool_set_text_on_mode_and_update(view->unit, &view->unit_position.color,
                                    LABEL_COLOR_WHITE, LABEL_COLOR_BLACK);
   int current_value = speed_view_current();
-  view->last_index = -1;
+  view->last_index  = -1;
   speed_view_update(view, current_value);
 }
 
 void speed_view_run() {
-  int data = motor_model_get_speed();
+  int data      = motor_model_get_speed();
   int increment = speed_accumulator.accumulated;
 
   if (speed_accumulator.current < data) {
@@ -89,7 +89,9 @@ void speed_view_run() {
   }
 }
 
-int speed_view_current() { return speed_accumulator.current; }
+int speed_view_current() {
+  return speed_accumulator.current;
+}
 
 void speed_view_main(speed_view_t *view, lv_obj_t *background) {
   speed_view_init(view, background);

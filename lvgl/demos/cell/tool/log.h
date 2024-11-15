@@ -1,3 +1,15 @@
+/**
+ * @file log.h
+ *
+ * @brief Logging utility for different log levels.
+ *
+ * This header file defines macros for logging messages at various levels
+ * (ERROR, WARN, INFO, DEBUG). The logging output includes the log level,
+ * function name, and line number for better traceability. Users can set the
+ * desired log level by defining LOG_LEVEL before including this header file.
+ *
+ * @date 2024-11-10
+ */
 #ifndef LOG_H_
 #define LOG_H_
 
