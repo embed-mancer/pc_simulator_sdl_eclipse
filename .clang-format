@@ -2,7 +2,19 @@ BasedOnStyle: Google
 IndentWidth: 2
 UseTab: Never
 BreakBeforeBraces: Attach # 允许在同一行上附加大括号
+SortIncludes: false
 BinPackParameters: true  # 参数打包在同一行
 BinPackArguments: true  # 参数打包在同一行
 AllowShortIfStatementsOnASingleLine: true  # 确保短的 if 语句在同一行
-SortIncludes: false
+# BreakBeforeBraces: Allman # 控制大括号的位置，使用 Allman 风格来使代码更整齐，适合你例子中的风格
+
+AlignOperands: true   # 对齐二元运算符
+AlignConsecutiveAssignments: true   # 对齐相邻的赋值语句，方便阅读
+AlignConsecutiveDeclarations: true  # 对齐相邻的声明语句
+
+AllowShortFunctionsOnASingleLine: None  # 控制短函数是否在单行上定义，可以保持函数风格一致
+# ContinuationIndentWidth: 2  # 控制续行缩进的宽度，例如对于较长的 return 语句、条件表达式等
+IndentCaseLabels: false  # 在 switch 语句中，case 标签是否要缩进
+SpacesInParentheses: false  # 控制圆括号内的空格
+SpacesInAngles: false       # 控制尖括号内的空格
+SpaceBeforeParens: ControlStatements  # 在控制语句 (if, for, while) 中圆括号前增加空格
