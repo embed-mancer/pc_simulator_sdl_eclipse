@@ -22,7 +22,8 @@ void light_view_init(light_view_t *view) {
 void light_view_create(light_view_t *view) {
   for (int i = 0; i < sizeof(view->icons) / sizeof(view->icons[0]); i++) {
     if (view->icons[i].is_needed) {
-      create_img(view->background, &view->icons[i].obj, view->light->pos[i]);
+      ui_helpers_create_image(view->background, &view->icons[i].obj,
+                              view->light->pos[i]);
     }
   }
 }

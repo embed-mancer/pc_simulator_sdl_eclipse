@@ -44,5 +44,6 @@ void other_view_create(other_view_t *view);
 void other_view_update(other_view_t *view);
 void other_view_toggle_day_night(other_view_t *view);
 void other_view_change_pos(lv_obj_t *value, lv_obj_t *unit, label_pos_t pos);
+void other_view_switch_language(other_view_t *view);
 
 #endif  // OTHER_VIEW_H_

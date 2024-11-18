@@ -1,7 +1,16 @@
 #include "menu_component.h"
+#include "menu_navigate.h"
 
 lv_obj_t* page_bg = NULL;
-extern lv_obj_t* menu_window;
+extern lv_obj_t* menu_window_get();
+extern navigation_state_t* nav_state;
+
+void free_component(menu_component_t* component) {
+  if (component) {
+    free(component);
+    component = NULL;
+  }
+}
 
 menu_component_t* allocate_component() {
   menu_component_t* component =
@@ -44,34 +53,34 @@ void create_item(item_t** item_ptr, int y, text_id_t title_id, const char* num,
 
   const int item_height      = 70;
   const int arrow_img_height = 16;
-  initialize_background(&item->bg, menu_window, 300, y, 500, item_height,
+  initialize_background(&item->bg, menu_window_get(), 300, y, 500, item_height,
                         lv_color_black());
 
   const char* title = lang_text(title_id);
   int line_height =
       lv_font_get_line_height(tool_get_font(LABEL_FONT_MICROSOFT_YAHEI_22));
-  label_pos_t title_pos =
-      create_label_pos(10, item_height / 2 - line_height / 2, 150, 30,
-                       LABEL_COLOR_WHITE, LABEL_FONT_MICROSOFT_YAHEI_22,
-                       VALUE_TYPE_CHAR, create_label_value(title));
-  create_label(item->bg, &item->title, title_pos);
+  label_pos_t title_pos = ui_helpers_init_label_position(
+      10, item_height / 2 - line_height / 2, 150, 30, LABEL_COLOR_WHITE,
+      LABEL_FONT_MICROSOFT_YAHEI_22, VALUE_TYPE_CHAR,
+      ui_helpers_init_label_value(title));
+  ui_helpers_create_label(item->bg, &item->title, title_pos);
   lv_obj_set_style_text_align(item->title, LV_TEXT_ALIGN_LEFT, 0);
 
   if (num) {
-    int x_pos = is_arrow ? 300 : 320;
-    label_pos_t num_pos =
-        create_label_pos(x_pos, item_height / 2 - line_height / 2, 100, 30,
-                         LABEL_COLOR_WHITE, LABEL_FONT_MICROSOFT_YAHEI_22,
-                         VALUE_TYPE_CHAR, create_label_value(num));
-    create_label(item->bg, &item->num, num_pos);
+    int x_pos           = is_arrow ? 300 : 320;
+    label_pos_t num_pos = ui_helpers_init_label_position(
+        x_pos, item_height / 2 - line_height / 2, 100, 30, LABEL_COLOR_WHITE,
+        LABEL_FONT_MICROSOFT_YAHEI_22, VALUE_TYPE_CHAR,
+        ui_helpers_init_label_value(num));
+    ui_helpers_create_label(item->bg, &item->num, num_pos);
     lv_obj_set_style_text_align(item->num, LV_TEXT_ALIGN_RIGHT, 0);
   }
 
   if (is_arrow) {
-    image_pos_t arrow_pos =
-        create_image_pos(RES_PRFIX "menu/arrow_down_gray.png", 410,
-                         (item_height - arrow_img_height) / 2);
-    create_img(item->bg, &item->arrow, arrow_pos);
+    image_pos_t arrow_pos = ui_helpers_init_image_position(
+        RES_PRFIX "menu/arrow_down_gray.png", 410,
+        (item_height - arrow_img_height) / 2);
+    ui_helpers_create_image(item->bg, &item->arrow, arrow_pos);
   }
 }
 
@@ -84,4 +93,16 @@ void set_item_color(item_t** item_ptr, bool is_selected) {
       is_selected ? lv_color_make(0x45, 0xc7, 0xe9) : lv_color_black();
   lv_obj_set_style_bg_color(item->bg, color, 0);
   lv_obj_invalidate(item->bg);
+}
+
+void update_index(int direction) {
+  screen_t* screen = nav_state->current_screen;
+  int* index       = &nav_state->selected_index;
+
+  if (direction == DIRECTION_DOWN) {
+    *index = (*index + 1) % screen->menu_item_count;
+  } else if (direction == DIRECTION_UP) {
+    *index = (*index == 0) ? screen->menu_item_count - 1
+                           : (*index - 1) % screen->menu_item_count;
+  }
 }

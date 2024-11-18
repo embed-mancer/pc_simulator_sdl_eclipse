@@ -33,24 +33,24 @@ void time_view_create(time_view_t *view) {
                           &view->minute_digit1, &view->minute_digit2};
 
   label_pos_t label_positions[5] = {
-      create_label_pos(positions[0], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
-                       (label_value_t)1),
-      create_label_pos(positions[1], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
-                       (label_value_t)7),
-      create_label_pos(positions[2], TIME_Y_POSITION, COLON_WIDTH, 25, color,
-                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_CHAR,
-                       (label_value_t){":"}),
-      create_label_pos(positions[3], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
-                       (label_value_t)1),
-      create_label_pos(positions[4], TIME_Y_POSITION, FIX_WIDTH, 25, color,
-                       LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT,
-                       (label_value_t)7)};
+      ui_helpers_init_label_position(positions[0], TIME_Y_POSITION, FIX_WIDTH,
+                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
+                                     VALUE_TYPE_INT, (label_value_t)1),
+      ui_helpers_init_label_position(positions[1], TIME_Y_POSITION, FIX_WIDTH,
+                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
+                                     VALUE_TYPE_INT, (label_value_t)7),
+      ui_helpers_init_label_position(positions[2], TIME_Y_POSITION, COLON_WIDTH,
+                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
+                                     VALUE_TYPE_CHAR, (label_value_t){":"}),
+      ui_helpers_init_label_position(positions[3], TIME_Y_POSITION, FIX_WIDTH,
+                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
+                                     VALUE_TYPE_INT, (label_value_t)1),
+      ui_helpers_init_label_position(positions[4], TIME_Y_POSITION, FIX_WIDTH,
+                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
+                                     VALUE_TYPE_INT, (label_value_t)7)};
 
   for (int i = 0; i < 5; ++i) {
-    create_label(view->background, labels[i], label_positions[i]);
+    ui_helpers_create_label(view->background, labels[i], label_positions[i]);
     lv_obj_set_style_text_align(*labels[i], LV_TEXT_ALIGN_CENTER, 0);
   }
 

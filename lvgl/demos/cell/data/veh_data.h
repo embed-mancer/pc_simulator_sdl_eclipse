@@ -94,6 +94,7 @@ typedef enum {
   VEH_DATA_END,
 } veh_data_e;
 
+void veh_init();
 int32_t veh_get_data(uint32_t id);
 void veh_set_data(uint32_t id, int32_t value);
 

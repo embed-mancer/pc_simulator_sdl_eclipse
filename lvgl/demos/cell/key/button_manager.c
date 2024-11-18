@@ -1,5 +1,8 @@
 #include "button_manager.h"
 #include "../menu/menu_manager.h"
+#include "../screens/menu_window.h"
+#include "../screens/mobile_window.h"
+#include "../screens/window_manager.h"
 
 typedef enum {
   BUTTON_STATE_CALL,
@@ -25,14 +28,16 @@ click_e button_manager_get_click() {
 }
 
 static void handle_non_call_state() {
-  window_e window = get_window();
+  window_e window = window_manager_get();
   switch (window) {
   case WINDOW_MAIN:
+    main_window_click(current_click);
     break;
   case WINDOW_MENU:
     menu_manager_click(current_click);
     break;
-  case WINDOW_NAVIGATION:
+  case WINDOW_MOBILE:
+    mobile_window_click(current_click);
     break;
   default:
     break;
@@ -40,11 +45,6 @@ static void handle_non_call_state() {
 }
 
 static void handle_call_state() {
-  if (current_click == CLICK_SHORT_BACK) {
-    int current_state = 0;
-  } else if (current_click == CLICK_SHORT_SET) {
-    int current_state = 0;
-  }
 }
 
 void button_manager_handle() {

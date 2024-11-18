@@ -94,8 +94,7 @@ int main(int argc, char **argv)
 //  lv_example_label_1();
 
     // lv_demo_widgets();
-  // main_window_init();
-  menu_window_init();
+  main_window_init();
   while(1) {
       /* Periodically call the lv_task handler.
        * It could be done in a timer interrupt or an OS task too.*/

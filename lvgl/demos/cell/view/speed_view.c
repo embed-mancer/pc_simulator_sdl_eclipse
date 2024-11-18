@@ -15,10 +15,11 @@ void speed_view_init(speed_view_t *view, lv_obj_t *background) {
 
 void speed_view_create(speed_view_t *view) {
   for (int i = 0; i < 3; ++i) {
-    create_img(view->background, &view->block[i], view->block_position[i]);
+    ui_helpers_create_image(view->background, &view->block[i],
+                            view->block_position[i]);
     lv_obj_add_flag(view->block[i], LV_OBJ_FLAG_HIDDEN);
   }
-  create_label(view->background, &view->unit, view->unit_position);
+  ui_helpers_create_label(view->background, &view->unit, view->unit_position);
   speed_view_update(view, 0);
 }
 
@@ -103,12 +104,13 @@ void speed_view_main(speed_view_t *view, lv_obj_t *background) {
   }
 
   for (int i = 0; i < 3; ++i) {
-    view->block_position[i] = create_image_pos(view->image_paths[0], 320, 258);
+    view->block_position[i] =
+        ui_helpers_init_image_position(view->image_paths[0], 320, 258);
   }
 
   label_color_e color = tool_get_color_base();
-  view->unit_position =
-      create_label_pos(507, 334, 55, 30, color, LABEL_FONT_SOURCEHANSANSCN_22,
-                       VALUE_TYPE_CHAR, (label_value_t){"km/h"});
+  view->unit_position = ui_helpers_init_label_position(
+      507, 334, 55, 30, color, LABEL_FONT_SOURCEHANSANSCN_22, VALUE_TYPE_CHAR,
+      (label_value_t){"km/h"});
   speed_view_create(view);
 }

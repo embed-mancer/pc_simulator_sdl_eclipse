@@ -18,6 +18,8 @@
 #ifndef LANG_H_
 #define LANG_H_
 
+#include "../tool/enums.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -30,30 +32,48 @@ extern "C" {
  * settings, and phone-related options.
  */
 typedef enum {
-  TEXT_ID_BASIC_INFO,        /**< Basic vehicle information. */
-  TEXT_ID_ODO,               /**< Odometer information. */
-  TEXT_ID_TRIP,              /**< Trip information. */
-  TEXT_ID_FAULT_INFO,        /**< Fault information. */
-  TEXT_ID_MAINTAIN_MILEAGE,  /**< Maintenance mileage information. */
-  TEXT_ID_VEHICLE_SETTINGS,  /**< Vehicle settings. */
-  TEXT_ID_VEHICLE_INFO,      /**< Vehicle information. */
-  TEXT_ID_QUICK_SHIFT,       /**< Quick shift option. */
-  TEXT_ID_UPSHIFT,           /**< Upshift information. */
-  TEXT_ID_PHONE,             /**< Phone-related options. */
-  TEXT_ID_MUSIC,             /**< Music-related options. */
-  TEXT_ID_SETTINGS,          /**< General settings. */
-  TEXT_ID_OPEN,              /**< Open option. */
-  TEXT_ID_CLOSE,             /**< Close option. */
-  TEXT_ID_CONTACTS,          /**< Phone contacts. */
-  TEXT_ID_RECENT_CALLS,      /**< Recent calls information. */
-  TEXT_ID_DEVICE_CONNECTION, /**< Device connection status. */
-  TEXT_ID_OPTIONAL_INFO_1,   /**< Optional information 1. */
-  TEXT_ID_OPTIONAL_INFO_2,   /**< Optional information 2. */
-  TEXT_ID_AUTO_BRIGHTNESS,   /**< Auto brightness setting. */
-  TEXT_ID_UNIT_SETTINGS,     /**< Unit settings. */
-  TEXT_ID_TIME_SETTINGS,     /**< Time settings. */
-  TEXT_ID_LANGUAGE_SETTINGS, /**< Language settings. */
-  TEXT_ID_COUNT              /**< Total count of text IDs. */
+  TEXT_ID_DISPLAY,
+  TEXT_ID_BACKLIGHT,
+  TEXT_ID_BLUETOOTH,
+  TEXT_ID_CLOCK,
+  TEXT_ID_UNIT,
+  TEXT_ID_LANGUAGE,
+  TEXT_ID_VEHICLE,
+  TEXT_ID_FAULT,
+  TEXT_ID_MOBILE,
+  TEXT_ID_BASIC,
+  TEXT_ID_ODO,
+  TEXT_ID_TRIP,
+  TEXT_ID_FAULT_INFO,
+  TEXT_ID_MAINTAIN,
+  TEXT_ID_VOLTAGE,
+  TEXT_ID_RANGE,
+  TEXT_ID_TEMPERATURE,
+  TEXT_ID_OPEN,
+  TEXT_ID_CLOSE,
+  TEXT_ID_DAY,
+  TEXT_ID_NIGHT,
+  TEXT_ID_AUTO,
+  TEXT_ID_METRIC,
+  TEXT_ID_IMPERIAL,
+  TEXT_ID_BT_NAME,
+  TEXT_ID_BT_CONNECT,
+  TEXT_ID_BT_SYNC,
+  TEXT_ID_BT_OPEN,
+  TEXT_ID_BT_CLOSE,
+
+  TEXT_ID_FAULT_CURRENT,
+  TEXT_ID_FAULT_HISTORY,
+  TEXT_ID_FAULT_OS,
+  TEXT_ID_FAULT_MCU,
+
+  TEXT_ID_MAIN_TRIP,
+  TEXT_ID_MAIN_AVG_SPEED,
+  TEXT_ID_MAIN_RIDE_TIME,
+  TEXT_ID_MAIN_BATTERY,
+
+  TEXT_ID_SETTINGS,
+  TEXT_ID_COUNT /**< Total count of text IDs. */
 } text_id_t;
 
 /**
@@ -65,6 +85,7 @@ typedef enum {
  * ID.
  */
 const char* lang_text(text_id_t id);
+void lang_set(language_e e);
 
 #ifdef __cplusplus
 }

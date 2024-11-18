@@ -11,11 +11,11 @@ char *strdup(const char *str) {
 }
 
 navigation_state_t *menu_navigate_create(screen_t *screen) {
-  navigation_state_t *nav_state = malloc(sizeof(navigation_state_t));
-  nav_state->current_screen     = screen;
-  nav_state->selected_index     = 0;
-  nav_state->prev               = NULL;
-  return nav_state;
+  navigation_state_t *state = malloc(sizeof(navigation_state_t));
+  state->current_screen     = screen;
+  state->selected_index     = 0;
+  state->prev               = NULL;
+  return state;
 }
 
 screen_t *menu_navigate_create_screen(int id, const char *title_text,
@@ -34,6 +34,7 @@ screen_t *menu_navigate_create_screen(int id, const char *title_text,
   screen->menu_items      = items;
   screen->menu_item_count = item_count;
   screen->element_count   = element_count;
+  screen->on_return       = NULL;
 
   // screen->elements = malloc(element_count * sizeof(lv_obj_t *));
   screen->elements = calloc(element_count, sizeof(lv_obj_t *));
@@ -48,60 +49,78 @@ screen_t *menu_navigate_create_screen(int id, const char *title_text,
   return screen;
 }
 
-void menu_navigate_free_screen(screen_t *screen) {
-  if (screen) {
-    free((char *)screen->title);
-    if (screen->menu_items)
-      free(screen->menu_items);
-    if (screen->elements) {
-      for (int i = 0; i < screen->element_count; ++i) {
-        if (screen->elements[i])
-          lv_obj_del(screen->elements[i]);
-      }
-      free(screen->elements);
+void menu_navigate_free_screen(screen_t **screen) {
+  if (screen && *screen) {
+    screen_t *current_screen = *screen;
+
+    if (current_screen->title) {
+      free((char *)current_screen->title);
     }
-    free(screen);
-    screen = NULL;
+
+    if (current_screen->menu_items) {
+      free(current_screen->menu_items);
+    }
+
+    if (current_screen->elements) {
+      for (int i = 0; i < current_screen->element_count; ++i) {
+        if (current_screen->elements[i]) {
+          lv_obj_del(current_screen->elements[i]);
+        }
+      }
+      free(current_screen->elements);
+    }
+
+    if (current_screen->component) {
+      free_component(current_screen->component);
+    }
+
+    free(current_screen);
+    *screen = NULL;
   }
 }
 
-void menu_navigate_free(navigation_state_t *state) {
-  if (!state)
+void menu_navigate_free(navigation_state_t **state) {
+  if (!(*state))
     return;
-  menu_navigate_free_screen(state->current_screen);
-  free(state);
-  state = NULL;
+  menu_navigate_free_screen(&(*state)->current_screen);
+  free(*state);
+  *state = NULL;
 }
 
-navigation_state_t *menu_navigate_to(navigation_state_t *current_state,
-                                     screen_t *new_screen) {
+void menu_navigate_to(navigation_state_t **current_state,
+                      screen_t *new_screen) {
   if (!new_screen)
-    return current_state;
+    return;
 
   navigation_state_t *new_state = malloc(sizeof(navigation_state_t));
   if (!new_state)
-    return current_state;
+    return;
 
   new_state->current_screen = new_screen;
   new_state->selected_index = 0;
-  new_state->prev           = current_state;
+  new_state->prev           = *current_state;
 
   // hide current screen
-  if (current_state && current_state->current_screen) {
-    menu_navigate_hide_screen(current_state->current_screen);
+  if (*current_state && (*current_state)->current_screen) {
+    menu_navigate_hide_screen((*current_state)->current_screen);
   }
   menu_navigate_show_screen(new_screen);
-  return new_state;
+
+  *current_state = new_state;
 }
 
-navigation_state_t *menu_navigate_go_back(navigation_state_t *current_state) {
-  if (current_state && current_state->prev) {
-    navigation_state_t *prev_state = current_state->prev;
+void menu_navigate_go_back(navigation_state_t **current_state) {
+  if (*current_state && (*current_state)->prev) {
+    navigation_state_t *prev_state = (*current_state)->prev;
     menu_navigate_free(current_state);
     menu_navigate_show_screen(prev_state->current_screen);
-    return prev_state;
+    *current_state        = prev_state;
+    screen_t *prev_screen = (*current_state)->current_screen;
+    if (prev_screen->on_return) {
+      prev_screen->on_return();
+    }
+    // prev_screen->component->refresh();
   }
-  return current_state;
 }
 
 void print_navigation_state(navigation_state_t *state) {

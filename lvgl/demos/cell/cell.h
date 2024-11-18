@@ -11,7 +11,7 @@
 #include "tool/enums.h"
 
 #define MAX_IMAGE_CHARS 64
-#define RIGHT_ARROW_IMG_PATH (RES_PRFIX "menu/right_arrow.png")
+#define RIGHT_ARROW_IMG_PATH (RES_PRFIX "menu/night/right_arrow.png")
 
 typedef struct {
   int x;
@@ -63,6 +63,14 @@ LV_FONT_DECLARE(MicrosoftYaHei_18);
 LV_FONT_DECLARE(MicrosoftYaHei_20);
 LV_FONT_DECLARE(MicrosoftYaHei_22);
 LV_FONT_DECLARE(MicrosoftYaHei_30);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_16);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_20);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_24);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_28);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_30);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_36);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_40);
+LV_FONT_DECLARE(HarmonyOS_Sans_SC_80);
 
 #include "light/light.h"
 #include "light/light_view.h"
@@ -78,8 +86,10 @@ LV_FONT_DECLARE(MicrosoftYaHei_30);
 #include "view/rpm_view.h"
 #include "view/speed_view.h"
 #include "view/time_view.h"
-#include "screens/screen_interface.h"
 #include "tool/log.h"
+#include "tool/ui_helpers.h"
 #include <stdlib.h>
+
+void cell_init();
 
 #endif  // CELL_H_
