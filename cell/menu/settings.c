@@ -125,7 +125,7 @@ static void close_window() {
 }
 
 void settings_update() {
-  static const language_e labels[] = {TEXT_ID_DISPLAY,   TEXT_ID_BACKLIGHT,
+  static const text_id_e labels[] = {TEXT_ID_DISPLAY,   TEXT_ID_BACKLIGHT,
                                       TEXT_ID_BLUETOOTH, TEXT_ID_CLOCK,
                                       TEXT_ID_UNIT,      TEXT_ID_LANGUAGE};
 

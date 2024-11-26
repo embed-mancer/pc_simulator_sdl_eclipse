@@ -74,7 +74,7 @@ typedef enum {
 
   TEXT_ID_SETTINGS,
   TEXT_ID_COUNT /**< Total count of text IDs. */
-} text_id_t;
+} text_id_e;
 
 /**
  * @brief Retrieves the language text corresponding to a given text ID.
@@ -84,7 +84,7 @@ typedef enum {
  * @return A pointer to the language string corresponding to the provided text
  * ID.
  */
-const char* lang_text(text_id_t id);
+const char* lang_text(text_id_e id);
 void lang_set(language_e e);
 
 #ifdef __cplusplus

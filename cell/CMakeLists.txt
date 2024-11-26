@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 
 string(REGEX REPLACE ".*/(.*)" "\\1" CURRENT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR} ) 
-project(${CURRENT_FOLDER})
+project(cell)
 
 # add_compile_options(-Wall -Wextra -Wpedantic -Wshadow -Werror ) 
 # add_compile_options(-Wall -Wextra -Wpedantic -Wshadow -Werror)
@@ -51,13 +51,44 @@ file(GLOB ${PROJECT_NAME}_SRC
   "*.c"
 )
 
+include_directories(${CMAKE_SOURCE_DIR}/../lvgl-ui)
 list (SORT ${PROJECT_NAME}_SRC)
-add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SRC} )
+add_library(${PROJECT_NAME} SHARED ${cell_SRC} )
 
-
-install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION lib  # 动态库安装路径
-  ARCHIVE DESTINATION lib  # 静态库安装路径
-  RUNTIME DESTINATION bin  # 可执行文件安装路径
-  PUBLIC_HEADER DESTINATION include  # 头文件安装路径
+set(HEADERS)
+file(GLOB HEADERS
+    # "config/*.h"
+    # "data/*.h"
+    # "font/*.h"
+    "key/*.h"
+    "screens/main_window.h"
+    # "language/*.h"
+    # "light/*.h"
+    # "menu/*.h"
+    # "other/*.h"
+    # "screens/*.h"
+    # "tool/*.h"
+    # "view/*.h"
+    # "*.h"
 )
+
+# 安装头文件
+# install(FILES ${HEADER_FILES} DESTINATION include)
+
+
+# install(TARGETS cell
+#   LIBRARY DESTINATION lib
+#   ARCHIVE DESTINATION lib
+#   RUNTIME DESTINATION bin
+#   PUBLIC_HEADER DESTINATION include
+# )
+install(FILES ${HEADERS} DESTINATION "${CMAKE_INSTALL_PREFIX}/include/cell")
+
+# 安装库文件
+if(DEFINED CMAKE_INSTALL_FULL_LIBDIR)
+    install(TARGETS ${PROJECT_NAME}
+        LIBRARY DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}"
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}"
+        RUNTIME DESTINATION bin
+    )
+endif()

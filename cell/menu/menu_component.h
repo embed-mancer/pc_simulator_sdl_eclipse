@@ -50,7 +50,7 @@ void init_component(menu_component_t *component, void (*refresh)(),
                     bool (*handle_click_event)(const click_e),
                     void (*toggle_day_night)(), void (*destroy)(),
                     void (*open_window)(), void (*close_window)());
-void create_item(item_t **, int, text_id_t, const char *, bool);
+void create_item(item_t **, int, text_id_e, const char *, bool);
 void set_item_color(item_t **, bool);
 void update_index(int direction);
 

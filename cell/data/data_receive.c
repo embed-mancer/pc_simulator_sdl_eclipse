@@ -8,9 +8,12 @@ void data_task_init() {
 
 void data_task_add(uint8_t *_msg) {
   uint8_t *msg = malloc(MAX_MSG_LEN);
-  if (!msg) {
-    memcpy(msg, _msg, 256);
-  }
+  if (msg == NULL || _msg == NULL) {
+    return;
+  memcpy(msg, _msg, 256);
+}
+
+memcpy(msg, _msg, 256);
 }
 
 void data_task_process(uint8_t *msg) {

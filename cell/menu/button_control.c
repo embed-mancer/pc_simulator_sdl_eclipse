@@ -78,8 +78,8 @@ void button_control_destroy() {
   title = NULL;
 }
 
-void button_control_set_title(language_e e) {
-  lv_label_set_text(title, lang_text(e));
+void button_control_set_title(text_id_e id) {
+  lv_label_set_text(title, lang_text(id));
 }
 
 void button_control_toggle_display() {

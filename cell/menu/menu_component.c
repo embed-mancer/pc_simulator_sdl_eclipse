@@ -37,7 +37,7 @@ void init_component(menu_component_t* component, void (*refresh)(),
                                   .close_window       = close_window};
 }
 
-void create_item(item_t** item_ptr, int y, text_id_t title_id, const char* num,
+void create_item(item_t** item_ptr, int y, text_id_e title_id, const char* num,
                  bool is_arrow) {
   if (!item_ptr)
     return;

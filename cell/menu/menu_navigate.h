@@ -5,6 +5,7 @@
 #include "menu_component.h"
 #include "button_control.h"
 #include "../screens/menu_window.h"
+#include "../language/lang.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -23,7 +23,7 @@ void button_control_update(int button_index);
 void button_control_refresh();
 void button_control_init();
 void button_control_destroy();
-void button_control_set_title(language_e e);
+void button_control_set_title(text_id_e id);
 void button_control_toggle_display();
 
 #ifdef __cplusplus

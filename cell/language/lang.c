@@ -58,7 +58,7 @@ static const char* languages[TEXT_ID_COUNT][LANGUAGE_COUNT] = {
     [TEXT_ID_SETTINGS] = {"设置", "Settings"},
 };
 
-static const char* get_translation(text_id_t text_id, language_e language) {
+static const char* get_translation(text_id_e text_id, language_e language) {
   if (text_id < 0 || text_id >= TEXT_ID_COUNT) {
     LOG_ERROR("Error: Invalid TextID: %d\n", text_id);
     return NULL;
@@ -76,7 +76,7 @@ static const char* get_translation(text_id_t text_id, language_e language) {
   return languages[text_id][language];
 }
 
-const char* lang_text(text_id_t text_id) {
+const char* lang_text(text_id_e text_id) {
   return get_translation(text_id, default_language);
 }
 
