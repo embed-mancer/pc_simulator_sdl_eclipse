@@ -360,14 +360,7 @@
 /*Optionally declare custom fonts here.
  *You can use these fonts as default font too and they will be available globally.
  *E.g. #define LV_FONT_CUSTOM_DECLARE   LV_FONT_DECLARE(my_font_1) LV_FONT_DECLARE(my_font_2)*/
-#define LV_FONT_CUSTOM_DECLARE LV_FONT_DECLARE(Plagiata_27)\
-                               LV_FONT_DECLARE(Plagiata_37)\
-                               LV_FONT_DECLARE(SourceHanSansCN_18)\
-                               LV_FONT_DECLARE(SourceHanSansCN_22)\
-                               LV_FONT_DECLARE(SourceHanSansCN_28)\
-                               LV_FONT_DECLARE(SourceHanSansCN_34)\
-                               LV_FONT_DECLARE(MicrosoftYaHei_20)\
-                               LV_FONT_DECLARE(MicrosoftYaHei_22)
+#define LV_FONT_CUSTOM_DECLARE 
 /*Always set a default font*/
 #define LV_FONT_DEFAULT &lv_font_montserrat_14
 

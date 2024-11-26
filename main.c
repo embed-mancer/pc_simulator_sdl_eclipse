@@ -16,8 +16,8 @@
 #include "lvgl/examples/lv_examples.h"
 #include "lvgl/demos/lv_demos.h"
 #include "lv_drivers/sdl/sdl.h"
-#include "lvgl/demos/cell/cell.h"
-#include "lvgl/demos/cell/screens/menu_window.h"
+#include "cell/cell.h"
+#include "cell/screens/menu_window.h"
 
 /*********************
  *      DEFINES

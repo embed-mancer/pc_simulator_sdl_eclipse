@@ -187,7 +187,7 @@ void mousewheel_handler(SDL_Event * event)
  * Called periodically from the SDL thread, store text input or control characters in the buffer.
  * @param event describes the event
  */
-#include "lvgl/demos/cell/key/button_manager.h"
+#include "cell/key/button_manager.h"
 // #include "../../lvgl/demos/cell/key/button_manager.h"
 void keyboard_handler(SDL_Event * event)
 {
