@@ -79,7 +79,7 @@ static void open_window() {
 
   for (int i = 0; i < VEHICLE_COUNT; ++i) y_pos[i] = 70 + 68 * i;
 
-  ui_helpers_menu_image(elements, "selected.png", 19, 290, y_pos[0]);
+  ui_helpers_menu_image(elements, "selected.png", 19, 292, y_pos[0]);
 
   ui_helpers_menu_image(elements, "icon_basic.png", 1, 301, 77);
   ui_helpers_menu_image(elements, "arrow_down.png", 2, 755, y_pos[0] + 20);

@@ -60,7 +60,7 @@ static void open_window() {
 
   y_pos[0] = 210;
   y_pos[1] = 280;
-  ui_helpers_menu_image(elements, "selected.png", 9, 290, y_pos[0]);
+  ui_helpers_menu_image(elements, "selected2.png", 9, 290, y_pos[0]);
 
   ui_helpers_create_label_left(menu_window_get(), &elements[0], 391, 140, 200,
                                48, color, LABEL_FONT_HARMONYOS_24,

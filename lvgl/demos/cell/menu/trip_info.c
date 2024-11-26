@@ -58,13 +58,13 @@ static void open_window() {
   const char* theme_suffix = tool_get_theme_suffix();
   label_color_e color      = tool_get_color_base();
 
-  ui_helpers_menu_image(elements, "selected.png", 29, 290, y_pos[2]);
+  ui_helpers_menu_image(elements, "selected.png", 29, 292, y_pos[2]);
   ui_helpers_menu_image(elements, "icon_basic.png", 1, 301, 77);
   ui_helpers_menu_image(elements, "arrow_down.png", 2, 755, y_pos[0] + 20);
   ui_helpers_menu_image(elements, "icon_odo.png", 3, 295, 147);
   ui_helpers_menu_image(elements, "arrow_down.png", 4, 755, y_pos[1] + 20);
   ui_helpers_menu_image(elements, "icon_trip.png", 5, 295, 215);
-  ui_helpers_menu_image(elements, "arrow_down.png", 6, 755, y_pos[2] + 20);
+  ui_helpers_menu_image(elements, "arrow_top.png", 6, 755, y_pos[2] + 20);
 
   ui_helpers_create_label_left(menu_window_get(), &elements[7], 345, y_pos[0],
                                300, 48, color, LABEL_FONT_HARMONYOS_24,

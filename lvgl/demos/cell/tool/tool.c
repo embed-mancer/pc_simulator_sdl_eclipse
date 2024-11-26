@@ -23,6 +23,7 @@ font_map_t font_map[LABEL_FONT_COUNT] = {
     {LABEL_FONT_HARMONYOS_20, &HarmonyOS_Sans_SC_20},
     {LABEL_FONT_HARMONYOS_24, &HarmonyOS_Sans_SC_24},
     {LABEL_FONT_HARMONYOS_28, &HarmonyOS_Sans_SC_28},
+    {LABEL_FONT_HARMONYOS_36, &HarmonyOS_Sans_SC_36},
     {LABEL_FONT_HARMONYOS_40, &HarmonyOS_Sans_SC_40},
     {LABEL_FONT_HARMONYOS_80, &HarmonyOS_Sans_SC_80},
     {LABEL_FONT_HARMONYOS_MEDIUM_30, &HarmonyOS_Sans_SC_30}};

@@ -92,6 +92,24 @@ void ui_helpers_create_label_right(lv_obj_t *parent, lv_obj_t **label, int x,
                                    const char *text);
 
 /**
+ * @brief Creates a right-aligned label at the center of the specified parent
+ * object.
+ *
+ * @param[in] parent The parent object to which the label will be added.
+ * @param[out] label Pointer to the created label object.
+ * @param[in] x The x-coordinate of the label.
+ * @param[in] y The y-coordinate of the label.
+ * @param[in] width The width of the label.
+ * @param[in] height The height of the label.
+ * @param[in] color The color of the label.
+ * @param[in] font The font of the label.
+ * @param[in] text The text content of the label.
+ */
+void ui_helpers_create_label_center(lv_obj_t *parent, lv_obj_t **label, int x,
+                                    int y, int width, int height,
+                                    label_color_e color, label_font_e font,
+                                    const char *text);
+/**
  * @brief Creates an image position structure.
  *
  * @param[in] image_path The path to the image file.
@@ -140,6 +158,10 @@ label_pos_t ui_helpers_init_label_position(int x, int y, int w, int h,
  */
 void initialize_background(lv_obj_t **bg, lv_obj_t *parent, int x, int y,
                            int width, int height, lv_color_t color);
+void ui_helpers_centered_y_positions(int *y_positions, int count,
+                                     int item_height);
+void ui_helpers_set_element_style(lv_obj_t *element, bool selected,
+                                  lv_color_t color);
 #ifdef __cplusplus
 }
 #endif

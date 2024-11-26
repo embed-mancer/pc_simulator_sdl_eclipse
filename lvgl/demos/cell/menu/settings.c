@@ -5,6 +5,7 @@
 
 navigation_state_t *nav_state = NULL;
 bool is_active                = true;
+static int y_pos[6];
 
 extern void display_init();
 extern void backlight_init();
@@ -20,7 +21,7 @@ static const void (*setting_init_handlers[])(void) = {
 
 static void update_selection_display() {
   lv_obj_t **elements = nav_state->current_screen->elements;
-  lv_obj_set_y(elements[6], 70 + 60 * nav_state->selected_index);
+  lv_obj_set_y(elements[6], y_pos[nav_state->selected_index] + 6);
 }
 
 static void refresh() {
@@ -78,11 +79,11 @@ static bool handle_click_event(const click_e click) {
 }
 
 static void toggle_day_night() {
-  lv_obj_t **elements = nav_state->current_screen->elements;
+  lv_obj_t **elements         = nav_state->current_screen->elements;
   menu_component_t *component = nav_state->current_screen->component;
   if (component->last_mode == motor_model_get_day_night_mode())
     return;
-  lv_color_t color    = tool_get_theme_color();
+  lv_color_t color = tool_get_theme_color();
   for (int i = 0; i < 6; ++i)
     lv_obj_set_style_text_color(elements[i], color, 0);
 }
@@ -93,32 +94,31 @@ static void destroy() {
 
 static void open_window() {
   lv_obj_t **elements = nav_state->current_screen->elements;
+  ui_helpers_menu_image(elements, "selected.png", 6, 292, 70);
+  y_pos[5] = 374; 
+  for (int i = 0; i < 5; ++i) {
+    y_pos[i] = 64 + 62*i;
+    ui_helpers_menu_image(elements, "arrow_down.png", 7+i, 755, y_pos[i] + 27);
+    ui_helpers_menu_image(elements, "line.png", 13+i, 292, y_pos[i]+ 62);
+  }
+  ui_helpers_menu_image(elements, "arrow_down.png", 12, 755, y_pos[5] + 27);
 
-  ui_helpers_menu_image(elements, "selected.png", 6, 293, 70);
-
-  label_params_t params = ui_helpers_params(320, 70, lang_text(TEXT_ID_DISPLAY),
-                                            RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[0], &elements[10], params);
-
-  params = ui_helpers_params(320, 130, lang_text(TEXT_ID_BACKLIGHT),
-                             RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[1], &elements[11], params);
-
-  params = ui_helpers_params(320, 190, lang_text(TEXT_ID_BLUETOOTH),
-                             RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[2], &elements[12], params);
-
-  params = ui_helpers_params(320, 250, lang_text(TEXT_ID_CLOCK),
-                             RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[3], &elements[13], params);
-
-  params = ui_helpers_params(320, 310, lang_text(TEXT_ID_UNIT),
-                             RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[4], &elements[14], params);
-
-  params = ui_helpers_params(320, 370, lang_text(TEXT_ID_LANGUAGE),
-                             RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[5], &elements[15], params);
+  lv_obj_t *parent    = menu_window_get();
+  label_font_e font   = LABEL_FONT_HARMONYOS_24;
+  label_color_e color = tool_get_color_base();
+  ui_helpers_create_label_left(parent, &elements[0], 320, y_pos[0], 300, 62, color,
+                               font, lang_text(TEXT_ID_DISPLAY));
+  ui_helpers_create_label_left(parent, &elements[1], 320, y_pos[1], 300, 62, color,
+                               font, lang_text(TEXT_ID_BACKLIGHT));
+  ui_helpers_create_label_left(parent, &elements[2], 320, y_pos[2], 300, 62, color,
+                               font, lang_text(TEXT_ID_BLUETOOTH));
+  ui_helpers_create_label_left(parent, &elements[3], 320, y_pos[3], 300, 62, color,
+                               font, lang_text(TEXT_ID_CLOCK));
+  ui_helpers_create_label_left(parent, &elements[4], 320, y_pos[4], 300, 62, color,
+                               font, lang_text(TEXT_ID_UNIT));
+  ui_helpers_create_label_left(parent, &elements[5], 320, y_pos[5], 300, 62, color,
+                               font, lang_text(TEXT_ID_LANGUAGE));
+  update_selection_display();
 }
 
 static void close_window() {
@@ -138,6 +138,18 @@ void settings_update() {
     lv_label_set_text(elements[i], lang_text(labels[i]));
     lv_obj_set_style_text_color(elements[i], color, 0);
   }
+
+  char image_path[MAX_IMAGE_CHARS];
+  sprintf(image_path, RES_PRFIX "menu/%s/%s", tool_get_theme_suffix(), "selected.png");
+  lv_img_set_src(elements[6], image_path);
+  y_pos[5] = 374; 
+  for (int i = 0; i < 5; ++i) {
+    y_pos[i] = 64 + 62*i;
+    ui_helpers_menu_image(elements, "arrow_down.png", 7+i, 755, y_pos[i] + 27);
+    ui_helpers_menu_image(elements, "line.png", 13+i, 292, y_pos[i]+ 62);
+  }
+  ui_helpers_menu_image(elements, "arrow_down.png", 12, 755, y_pos[5] + 27);
+  update_selection_display();
 }
 
 void settings_init() {

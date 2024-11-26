@@ -3,6 +3,7 @@
 #include "../screens/mobile_window.h"
 
 #define SETTINGS_COUNT 3
+static int y_pos[6];
 
 extern void vehicle_init();
 extern void fault_init();
@@ -30,6 +31,11 @@ static void handle_back() {
   menu_navigate_go_back(&nav_state);
 }
 
+static void update_selection_display() {
+  lv_obj_t **elements = nav_state->current_screen->elements;
+  lv_obj_set_y(elements[6], y_pos[nav_state->selected_index] + 6);
+}
+
 static void handle_up() {
   if (nav_state->selected_index == 0) {
     nav_state->prev->selected_index = 5;
@@ -37,8 +43,7 @@ static void handle_up() {
     return;
   }
   update_index(DIRECTION_UP);
-  lv_obj_t **elements = nav_state->current_screen->elements;
-  lv_obj_set_y(elements[6], 70 + 60 * nav_state->selected_index);
+  update_selection_display();
 }
 
 static void handle_down() {
@@ -48,8 +53,7 @@ static void handle_down() {
     return;
   }
   update_index(DIRECTION_DOWN);
-  lv_obj_t **elements = nav_state->current_screen->elements;
-  lv_obj_set_y(elements[6], 70 + 60 * nav_state->selected_index);
+  update_selection_display();
 }
 
 static click_handler_t click_handlers[] = {
@@ -76,6 +80,27 @@ static void destroy() {
 }
 
 static void open_window() {
+  lv_obj_t **elements = nav_state->current_screen->elements;
+  ui_helpers_menu_image(elements, "selected.png", 6, 292, 70);
+
+  y_pos[2] = 188;
+  for (int i = 0; i < 2; ++i) {
+    y_pos[i] = 64 + 62*i;
+    ui_helpers_menu_image(elements, "arrow_down.png", 7+i, 755, y_pos[i] + 27);
+    ui_helpers_menu_image(elements, "line.png", 13+i, 292, y_pos[i]+ 62);
+  }
+  ui_helpers_menu_image(elements, "arrow_down.png", 12, 755, y_pos[2] + 27);
+
+  lv_obj_t *parent    = menu_window_get();
+  label_font_e font   = LABEL_FONT_HARMONYOS_24;
+  label_color_e color = tool_get_color_base();
+  ui_helpers_create_label_left(parent, &elements[0], 320, y_pos[0], 300, 62, color,
+                               font, lang_text(TEXT_ID_VEHICLE));
+  ui_helpers_create_label_left(parent, &elements[1], 320, y_pos[1], 300, 62, color,
+                               font, lang_text(TEXT_ID_FAULT));
+  ui_helpers_create_label_left(parent, &elements[2], 320, y_pos[2], 300, 62, color,
+                               font, lang_text(TEXT_ID_MOBILE));
+  update_selection_display();
 }
 
 static void close_window() {
@@ -99,24 +124,10 @@ void settings2_init(int index) {
   menu_component_t *component = allocate_component();
   init_component(component, refresh, handle_click_event, toggle_day_night,
                  destroy, open_window, close_window);
-  screen->component   = component;
-  lv_obj_t **elements = screen->elements;
-
-  ui_helpers_menu_image(elements, "selected.png", 6, 293, 70);
-  label_params_t params = ui_helpers_params(320, 70, lang_text(TEXT_ID_VEHICLE),
-                                            RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[0], &elements[10], params);
-
-  params = ui_helpers_params(320, 130, lang_text(TEXT_ID_FAULT),
-                             RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[1], &elements[11], params);
-
-  params = ui_helpers_params(320, 190, lang_text(TEXT_ID_MOBILE),
-                             RIGHT_ARROW_IMG_PATH, NULL);
-  ui_helpers_component(menu_window_get(), &elements[2], &elements[12], params);
+  screen->component = component;
 
   menu_navigate_to(&nav_state, screen);
   nav_state->selected_index            = index;
   nav_state->current_screen->on_return = on_return;
-  lv_obj_set_y(elements[6], 70 + 60 * index);
+  open_window();
 }

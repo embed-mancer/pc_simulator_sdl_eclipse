@@ -1,4 +1,5 @@
 #include "menu_navigate.h"
+#include "../other/motor_model.h"
 
 #define TIME_X_CENTER 500
 #define TIME_Y_POSITION 204
@@ -15,9 +16,9 @@ typedef struct {
 } time_data_t;
 
 static time_data_t time_data = {1, 7, 1, 7};
-static bool is_active        = false;
+static bool is_active = false;
 static int x_pos[4];
-static bool blink_state         = false;
+static bool blink_state = false;
 static uint32_t last_blink_time = 0;
 
 static void update_label_text(lv_obj_t* label, int value) {
@@ -36,7 +37,7 @@ static void refresh() {
 
   if (lv_tick_elaps(last_blink_time) >= 500) {
     last_blink_time = lv_tick_get();
-    blink_state     = !blink_state;
+    blink_state = !blink_state;
   }
 
   if (is_active) {
@@ -49,13 +50,9 @@ static void refresh() {
   }
 }
 
-static void handle_set() {
-  is_active = !is_active;
-}
+static void handle_set() { is_active = !is_active; }
 
-static void handle_back() {
-  menu_navigate_go_back(&nav_state);
-}
+static void handle_back() { menu_navigate_go_back(&nav_state); }
 
 static void handle_up() {
   if (!is_active) {
@@ -66,25 +63,25 @@ static void handle_up() {
   }
 
   switch (nav_state->selected_index) {
-  case 0:
-    time_data.hour1 = (time_data.hour1 + 2) % 3;
-    if (time_data.hour1 == 2 && time_data.hour2 > 3) {
-      time_data.hour2 = 3;
-    }
-    break;
-  case 1:
-    if (time_data.hour1 == 2) {
-      time_data.hour2 = (time_data.hour2 + 2) % 3;
-    } else {
-      time_data.hour2 = (time_data.hour2 + 9) % 10;
-    }
-    break;
-  case 2:
-    time_data.min1 = (time_data.min1 + 5) % 6;
-    break;
-  case 3:
-    time_data.min2 = (time_data.min2 + 9) % 10;
-    break;
+    case 0:
+      time_data.hour1 = (time_data.hour1 + 2) % 3;
+      if (time_data.hour1 == 2 && time_data.hour2 > 3) {
+        time_data.hour2 = 3;
+      }
+      break;
+    case 1:
+      if (time_data.hour1 == 2) {
+        time_data.hour2 = (time_data.hour2 + 2) % 3;
+      } else {
+        time_data.hour2 = (time_data.hour2 + 9) % 10;
+      }
+      break;
+    case 2:
+      time_data.min1 = (time_data.min1 + 5) % 6;
+      break;
+    case 3:
+      time_data.min2 = (time_data.min2 + 9) % 10;
+      break;
   }
   refresh();
 }
@@ -98,26 +95,26 @@ static void handle_down() {
   }
 
   switch (nav_state->selected_index) {
-  case 0:
-    time_data.hour1 = (time_data.hour1 + 1) % 3;
-    break;
-  case 1:
-    time_data.hour2 = (time_data.hour2 + 1) % 10;
-    break;
-  case 2:
-    time_data.min1 = (time_data.min1 + 1) % 6;
-    break;
-  case 3:
-    time_data.min2 = (time_data.min2 + 1) % 10;
-    break;
+    case 0:
+      time_data.hour1 = (time_data.hour1 + 1) % 3;
+      break;
+    case 1:
+      time_data.hour2 = (time_data.hour2 + 1) % 10;
+      break;
+    case 2:
+      time_data.min1 = (time_data.min1 + 1) % 6;
+      break;
+    case 3:
+      time_data.min2 = (time_data.min2 + 1) % 10;
+      break;
   }
   refresh();
 }
 
 static click_handler_t click_handlers[] = {
-    [CLICK_SHORT_SET]  = handle_set,
+    [CLICK_SHORT_SET] = handle_set,
     [CLICK_SHORT_BACK] = handle_back,
-    [CLICK_SHORT_UP]   = handle_up,
+    [CLICK_SHORT_UP] = handle_up,
     [CLICK_SHORT_DOWN] = handle_down,
 };
 
@@ -130,11 +127,9 @@ static bool handle_click_event(const click_e click) {
   return is_active;
 }
 
-static void toggle_day_night() {
-}
+static void toggle_day_night() {}
 
-static void destroy() {
-}
+static void destroy() {}
 
 static void open_window() {
   button_control_set_title(TEXT_ID_CLOCK);
@@ -149,8 +144,8 @@ static void open_window() {
   };
 
   label_color_e color = tool_get_color_base();
-  label_font_e font   = LABEL_FONT_HARMONYOS_80;
-  int height          = 100;
+  label_font_e font = LABEL_FONT_HARMONYOS_80;
+  int height = 100;
 
   label_pos_t label_positions[5] = {
       ui_helpers_init_label_position(positions[0], TIME_Y_POSITION, FIX_WIDTH,
@@ -169,9 +164,12 @@ static void open_window() {
                                      height, color, font, VALUE_TYPE_INT,
                                      (label_value_t)7)};
 
+  lv_color_t selected_color = motor_model_get_day_night_mode()
+                                  ? lv_color_make(0xc7, 0x3f, 0x0f)
+                                  : lv_color_make(0x33, 0xa4, 0xd6);
   initialize_background(&elements[5], menu_window_get(), label_positions[0].x,
                         TIME_Y_POSITION - 10, FIX_WIDTH, height - 20,
-                        lv_color_make(0xFF, 0, 0));
+                        selected_color);
 
   x_pos[0] = label_positions[0].x;
   x_pos[1] = label_positions[1].x;
@@ -185,8 +183,7 @@ static void open_window() {
   }
 }
 
-static void close_window() {
-}
+static void close_window() {}
 
 void clock_init() {
   menu_item_t* items = (menu_item_t*)malloc(4 * sizeof(menu_item_t));

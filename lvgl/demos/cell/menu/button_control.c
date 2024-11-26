@@ -45,12 +45,6 @@ void button_control_init() {
   sprintf(bg_path, RES_PRFIX "menu/%s/bg.png", theme_suffix);
   image_pos_t pos = ui_helpers_init_image_position(bg_path, 0, 0);
   ui_helpers_create_image(menu_window_get(), &bg, pos);
-  if (config_get_data(CONFIG_DAYNIGHT_DISPLAY) == METER_MODE_DAY) {
-    lv_obj_add_flag(bg, LV_OBJ_FLAG_HIDDEN);
-  } else {
-    lv_obj_clear_flag(bg, LV_OBJ_FLAG_HIDDEN);
-    lv_img_set_src(bg, bg_path);
-  }
 
   pos = ui_helpers_init_image_position(image_paths[0], 89, 173);
   ui_helpers_create_image(menu_window_get(), &button_images[0], pos);
@@ -101,12 +95,8 @@ void button_control_toggle_display() {
 
   char bg_path[MAX_IMAGE_CHARS];
   sprintf(bg_path, RES_PRFIX "menu/%s/bg.png", theme_suffix);
-  if (config_get_data(CONFIG_DAYNIGHT_DISPLAY) == METER_MODE_DAY) {
-    lv_obj_add_flag(bg, LV_OBJ_FLAG_HIDDEN);
-  } else {
-    lv_obj_clear_flag(bg, LV_OBJ_FLAG_HIDDEN);
-    lv_img_set_src(bg, bg_path);
-  }
+  lv_img_set_src(bg, bg_path);
+
   lv_img_set_src(button_images[0], image_paths[0]);
   lv_img_set_src(button_images[1], image_paths[2]);
   lv_img_set_src(button_images[2], image_paths[4]);

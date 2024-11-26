@@ -58,14 +58,14 @@ static void open_window() {
   const char* theme_suffix = tool_get_theme_suffix();
   label_color_e color      = tool_get_color_base();
 
-  ui_helpers_menu_image(elements, "selected.png", 29, 290, y_pos[0]);
+  ui_helpers_menu_image(elements, "selected.png", 29, 292, y_pos[0]);
   ui_helpers_menu_image(elements, "icon_basic.png", 1, 301, 77);
   ui_helpers_menu_image(elements, "arrow_top.png", 2, 755, y_pos[0] + 20);
   ui_helpers_menu_image(elements, "icon_odo.png", 4, 300, 376);
   ui_helpers_menu_image(elements, "arrow_down.png", 5, 755, 394);
   ui_helpers_menu_image(elements, "icon_trip.png", 7, 300, 426);
   ui_helpers_menu_image(elements, "arrow_down.png", 8, 755, 441);
-  ui_helpers_menu_image(elements, "basic_bg.png", 9, 290, 116);
+  ui_helpers_menu_image(elements, "basic_bg.png", 9, 292, 116);
   ui_helpers_menu_image(elements, "basic_frame.png", 10, 302, 126);
   ui_helpers_menu_image(elements, "basic_frame.png", 11, 462, 126);
   ui_helpers_menu_image(elements, "basic_frame.png", 12, 622, 126);

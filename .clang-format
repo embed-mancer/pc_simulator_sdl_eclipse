@@ -6,6 +6,6 @@ SortIncludes: false
 BinPackParameters: true
 BinPackArguments: true
 AllowShortIfStatementsOnASingleLine: false
-AlignConsecutiveAssignments: true
-AllowShortFunctionsOnASingleLine: None
-IndentCaseLabels: false
+# AlignConsecutiveAssignments: true
+# AllowShortFunctionsOnASingleLine: None
+# IndentCaseLabels: false
