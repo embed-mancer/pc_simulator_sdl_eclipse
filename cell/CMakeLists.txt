@@ -27,7 +27,7 @@ file(
   "*.c")
 
 include_directories(${CMAKE_SOURCE_DIR}/../lvgl-ui)
-add_definitions(-DLVGL_DIR="L:${CMAKE_INSTALL_FULL_DATAROOTDIR}/lvgl_data/")
+# add_definitions(-DLVGL_DIR="L:${CMAKE_INSTALL_FULL_DATAROOTDIR}/lvgl_data/")
 list(SORT ${PROJECT_NAME}_SRC)
 add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC})
 

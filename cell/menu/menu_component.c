@@ -16,7 +16,7 @@ menu_component_t* allocate_component() {
   menu_component_t* component =
       (menu_component_t*)malloc(sizeof(menu_component_t));
   if (!component) {
-    printf("Error: Failed to allocate memory for menu component.\n");
+    LOG_ERROR("Error: Failed to allocate memory for menu component.\n");
     exit(EXIT_FAILURE);
   }
   return component;
@@ -44,7 +44,7 @@ void create_item(item_t** item_ptr, int y, text_id_e title_id, const char* num,
 
   *item_ptr = (item_t*)malloc(sizeof(item_t));
   if (!*item_ptr) {
-    printf("Error: Failed to allocate memory for item.\n");
+    LOG_ERROR("Error: Failed to allocate memory for item.\n");
     exit(EXIT_FAILURE);
   }
   item_t* item = *item_ptr;

@@ -161,6 +161,20 @@ void ui_helpers_centered_y_positions(int *y_positions, int count,
                                      int item_height);
 void ui_helpers_set_element_style(lv_obj_t *element, bool selected,
                                   lv_color_t color);
+/**
+ * @brief Cache images for LVGL usage. Supports caching multiple images or a
+ * single image.
+ *
+ * @param img_paths Array of image paths to be cached (can be NULL if caching a
+ * single image).
+ * @param img_count Number of images to be cached (ignored if caching a single
+ * image).
+ * @param single_img_path Path of a single image to be cached (can be NULL if
+ * caching multiple images).
+ * @return int Returns 0 on success, -1 if an error occurred.
+ */
+int ui_helpers_cache_images(const char *img_paths[], int img_count,
+                            const char *single_img_path);
 #ifdef __cplusplus
 }
 #endif

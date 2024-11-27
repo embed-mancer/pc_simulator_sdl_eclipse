@@ -10,8 +10,8 @@
 #include "menu_window.h"
 #include "../screens/window_manager.h"
 
-#define INIT_VIEW(view_ptr, type)                                      \
-  view_ptr             = (type *)allocate_memory(sizeof(type), #type); \
+#define INIT_VIEW(view_ptr, type)                          \
+  view_ptr = (type *)allocate_memory(sizeof(type), #type); \
   view_ptr->background = window;
 
 static lv_obj_t *window = NULL;
@@ -30,7 +30,7 @@ static lv_obj_t *img_bg = NULL;
 void *allocate_memory(size_t size, const char *type_name) {
   void *ptr = malloc(size);
   if (!ptr) {
-    printf("Failed to allocate memory for %s\n", type_name);
+    LOG_ERROR("Failed to allocate memory for %s\n", type_name);
     exit(EXIT_FAILURE);
   }
   return ptr;
@@ -86,7 +86,6 @@ static void set_screen_appearance(lv_obj_t *screen) {
 
 void main_window_init() {
   cell_init();
-  tool_init();
   window = lv_obj_create(NULL);
   set_screen_appearance(window);
 
@@ -116,7 +115,7 @@ void main_window_signal_light() {
 
 void main_window_gear() {
   INIT_VIEW(main_gear, gear_view_t);
-  label_color_e color     = tool_get_color_base();
+  label_color_e color = tool_get_color_base();
   main_gear->key_position = ui_helpers_init_label_position(
       725, 397, 50, 20, color, LABEL_FONT_SOURCEHANSANSCN_18, VALUE_TYPE_CHAR,
       (label_value_t){"GEAR"});
@@ -173,24 +172,22 @@ void main_window_toggle_day_night() {
   time_view_toggle_day_night(main_time);
 }
 
-lv_obj_t *main_window_get() {
-  return window;
-}
+lv_obj_t *main_window_get() { return window; }
 
 void main_window_click(click_e click) {
   switch (click) {
-  case CLICK_SHORT_UP:
-    break;
-  case CLICK_SHORT_DOWN:
-    break;
-  case CLICK_SHORT_BACK:
-    break;
-  case CLICK_SHORT_SET:
-    menu_window_init();
-    window_manager_set_target(WINDOW_MENU);
-    break;
+    case CLICK_SHORT_UP:
+      break;
+    case CLICK_SHORT_DOWN:
+      break;
+    case CLICK_SHORT_BACK:
+      break;
+    case CLICK_SHORT_SET:
+      menu_window_init();
+      window_manager_set_target(WINDOW_MENU);
+      break;
     default:
-    break;
+      break;
   }
 }
 

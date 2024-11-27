@@ -59,7 +59,7 @@ void check_state_idle() {
 }
 
 void check_state_waiting() {
-  if (lv_tick_elaps(manager.start_tick) > 3000) {
+  if (lv_tick_elaps(manager.start_tick) > 500) {
     manager.state      = CHECK_STATE_CHECKING;
     manager.start_tick = lv_tick_get();
   }

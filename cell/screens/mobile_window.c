@@ -1,18 +1,18 @@
 #include "mobile_window.h"
 #include "window_manager.h"
 
-static lv_obj_t *window  = NULL;
+static lv_obj_t *window = NULL;
 static lv_timer_t *timer = NULL;
-static lv_obj_t *uuid    = NULL;
+static lv_obj_t *uuid = NULL;
+static lv_obj_t *qr = NULL;
 
-static void task_cb(lv_timer_t *task_timer __attribute__((unused))) {
-}
+static void task_cb(lv_timer_t *task_timer __attribute__((unused))) {}
 
 static void create_qrcode() {
   lv_color_t bg_color = lv_palette_lighten(LV_PALETTE_LIGHT_BLUE, 5);
   lv_color_t fg_color = lv_palette_darken(LV_PALETTE_LIGHT_BLUE, 5);
 
-  lv_obj_t *qr = lv_qrcode_create(window, 190, fg_color, bg_color);
+  qr = lv_qrcode_create(window, 190, fg_color, bg_color);
 
   const char *data = "https://lvgl.io";
   lv_qrcode_update(qr, data, strlen(data));
@@ -22,11 +22,15 @@ static void create_qrcode() {
   lv_obj_set_style_border_width(qr, -5, 0);
 
   ui_helpers_create_label_left(window, &uuid, 70, 230, 500, 48,
-                               tool_get_color_base(), LABEL_FONT_HARMONYOS_24,
+                               LABEL_COLOR_WHITE, LABEL_FONT_HARMONYOS_24,
                                "UUID:1990010010123456789");
 }
 
 void mobile_window_init() {
+  if (window) {
+    mobile_window_destroy();
+    lv_obj_del(window);
+  }
   window = lv_obj_create(NULL);
   lv_obj_set_style_bg_color(window, lv_color_black(), 0);
   create_qrcode();
@@ -35,27 +39,36 @@ void mobile_window_init() {
   window_manager_set_target(WINDOW_MOBILE);
 }
 
-void mobile_dindow_destroy() {
-  lv_timer_del(timer);
-  timer = NULL;
+void mobile_window_destroy() {
+  if (timer) {
+    lv_timer_del(timer);
+    timer = NULL;
+  }
+
+  if (qr) {
+    lv_obj_del(qr);
+    qr = NULL;
+  }
+  if (uuid) {
+    lv_obj_del(uuid);
+    uuid = NULL;
+  }
 }
 
-lv_obj_t *mobile_window_get() {
-  return window;
-}
+lv_obj_t *mobile_window_get() { return window; }
 
 void mobile_window_click(click_e click) {
   switch (click) {
-  case CLICK_SHORT_SET:
-    break;
-  case CLICK_SHORT_BACK:
-    window_manager_set_target(WINDOW_MENU);
-    break;
-  case CLICK_SHORT_UP:
-    break;
-  case CLICK_SHORT_DOWN:
-    break;
-  default:
-  break;
+    case CLICK_SHORT_SET:
+      break;
+    case CLICK_SHORT_BACK:
+      window_manager_set_target(WINDOW_MENU);
+      break;
+    case CLICK_SHORT_UP:
+      break;
+    case CLICK_SHORT_DOWN:
+      break;
+    default:
+      break;
   }
 }

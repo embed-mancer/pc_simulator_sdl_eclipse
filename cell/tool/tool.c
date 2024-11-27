@@ -29,18 +29,16 @@ font_map_t font_map[LABEL_FONT_COUNT] = {
     {LABEL_FONT_HARMONYOS_MEDIUM_30, &HarmonyOS_Sans_SC_30}};
 
 void tool_init_color_map() {
-  color_map[LABEL_COLOR_WHITE]      = lv_color_make(255, 255, 255);
-  color_map[LABEL_COLOR_BLACK]      = lv_color_make(0, 0, 0);
-  color_map[LABEL_COLOR_RED]        = lv_color_make(255, 0, 0);
-  color_map[LABEL_COLOR_GREEN]      = lv_color_make(0, 255, 0);
-  color_map[LABEL_COLOR_BLUE]       = lv_color_make(0, 0, 255);
+  color_map[LABEL_COLOR_WHITE] = lv_color_make(255, 255, 255);
+  color_map[LABEL_COLOR_BLACK] = lv_color_make(0, 0, 0);
+  color_map[LABEL_COLOR_RED] = lv_color_make(255, 0, 0);
+  color_map[LABEL_COLOR_GREEN] = lv_color_make(0, 255, 0);
+  color_map[LABEL_COLOR_GRAY] = lv_color_make(67, 67, 67);
+  color_map[LABEL_COLOR_BLUE] = lv_color_make(0, 0, 255);
   color_map[LABEL_COLOR_LIME_GREEN] = lv_color_make(0x31, 0xC9, 0x18);
 }
 
-void tool_init() {
-  tool_init_color_map();
-}
-
+void tool_init() { tool_init_color_map(); }
 
 lv_color_t tool_get_color(label_color_e color) {
   if (color < 0 || color >= LABEL_COLOR_COUNT) {
@@ -58,10 +56,10 @@ const lv_font_t* tool_get_font(label_font_e font) {
 
 lv_coord_t tool_get_width(label_font_e font) {
   switch (font) {
-  case LABEL_FONT_PLAGIATA_27:
-    return 10;
-  default:
-    return 0;
+    case LABEL_FONT_PLAGIATA_27:
+      return 10;
+    default:
+      return 0;
   }
 }
 

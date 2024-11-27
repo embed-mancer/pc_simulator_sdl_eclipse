@@ -11,7 +11,7 @@ static void window_manager_update_task(lv_timer_t *timer __attribute__((unused))
 }
 
 void window_manager_init() {
-  LOG_DEBUG("Window Manager Initialized");
+  LOG_INFO("Window Manager Initialized");
   lv_timer_t *timer = lv_timer_create(window_manager_update_task, 33, NULL);
   lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
 }

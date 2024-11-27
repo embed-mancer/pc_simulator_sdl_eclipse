@@ -82,7 +82,7 @@ static void open_window() {
   ui_helpers_create_label(menu_window_get(), &elements[14], pos_voltage);
   lv_obj_set_style_text_align(elements[14], LV_TEXT_ALIGN_CENTER, 0);
   pos_voltage = ui_helpers_init_label_position(
-      302, 175, 156, 20, LABEL_COLOR_GREEN, LABEL_FONT_HARMONYOS_16,
+      302, 175, 156, 20, LABEL_COLOR_RED, LABEL_FONT_HARMONYOS_16,
       VALUE_TYPE_CHAR, ui_helpers_init_label_value(lang_text(TEXT_ID_VOLTAGE)));
   ui_helpers_create_label(menu_window_get(), &elements[15], pos_voltage);
   lv_obj_set_style_text_align(elements[15], LV_TEXT_ALIGN_CENTER, 0);
@@ -93,7 +93,7 @@ static void open_window() {
   ui_helpers_create_label(menu_window_get(), &elements[16], pos_range);
   lv_obj_set_style_text_align(elements[16], LV_TEXT_ALIGN_CENTER, 0);
   pos_range = ui_helpers_init_label_position(
-      462, 175, 156, 20, LABEL_COLOR_GREEN, LABEL_FONT_HARMONYOS_16,
+      462, 175, 156, 20, LABEL_COLOR_RED, LABEL_FONT_HARMONYOS_16,
       VALUE_TYPE_CHAR, ui_helpers_init_label_value(lang_text(TEXT_ID_RANGE)));
   ui_helpers_create_label(menu_window_get(), &elements[17], pos_range);
   lv_obj_set_style_text_align(elements[17], LV_TEXT_ALIGN_CENTER, 0);
@@ -104,7 +104,7 @@ static void open_window() {
   ui_helpers_create_label(menu_window_get(), &elements[18], pos_temp);
   lv_obj_set_style_text_align(elements[18], LV_TEXT_ALIGN_CENTER, 0);
   pos_temp = ui_helpers_init_label_position(
-      622, 175, 156, 20, LABEL_COLOR_GREEN, LABEL_FONT_HARMONYOS_16,
+      622, 175, 156, 20, LABEL_COLOR_RED, LABEL_FONT_HARMONYOS_16,
       VALUE_TYPE_CHAR,
       ui_helpers_init_label_value(lang_text(TEXT_ID_TEMPERATURE)));
   ui_helpers_create_label(menu_window_get(), &elements[19], pos_temp);

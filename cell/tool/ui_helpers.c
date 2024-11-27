@@ -1,5 +1,6 @@
 #include "../menu/menu_navigate.h"
 #include "../tool/tool.h"
+#include "lvgl/lvgl.h"
 
 #define INIT_DEFAULT_LABEL_PARAMS()                                          \
   (label_params_t) {                                                         \
@@ -210,4 +211,19 @@ void ui_helpers_set_element_style(lv_obj_t* element, bool selected,
       selected ? &HarmonyOS_Sans_SC_36 : &HarmonyOS_Sans_SC_24;
   lv_obj_set_style_text_font(element, font, 0);
   lv_obj_set_style_text_color(element, color, 0);
+}
+
+int ui_helpers_cache_images(const char* img_paths[], int img_count,
+                            const char* single_img_path) {
+  if (single_img_path != NULL) {
+    _lv_img_cache_open(single_img_path, lv_color_black(), 0);
+  } else if (img_paths != NULL) {
+    for (int i = 0; i < img_count; i++) {
+      _lv_img_cache_open(img_paths[i], lv_color_black(), 0);
+    }
+  } else {
+    return -1;
+  }
+
+  return 0;
 }

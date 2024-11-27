@@ -125,15 +125,15 @@ void menu_navigate_go_back(navigation_state_t **current_state) {
 
 void print_navigation_state(navigation_state_t *state) {
   if (state && state->current_screen) {
-    printf("Current Screen: %s\n", state->current_screen->title);
+    LOG_DEBUG("Current Screen: %s", state->current_screen->title);
     if (state->selected_index < state->current_screen->menu_item_count) {
-      printf("Selected Item: %s\n",
+      LOG_DEBUG("Selected Item: %s",
              state->current_screen->menu_items[state->selected_index].name);
     } else {
-      printf("Selected index out of range.\n");
+      LOG_DEBUG("Selected index out of range.\n");
     }
   } else {
-    printf("Navigation state or current screen is NULL.\n");
+    LOG_DEBUG("Navigation state or current screen is NULL.\n");
   }
 }
 
