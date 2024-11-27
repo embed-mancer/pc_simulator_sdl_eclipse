@@ -11,7 +11,6 @@
 #include "tool/enums.h"
 
 #define MAX_IMAGE_CHARS 64
-#define RIGHT_ARROW_IMG_PATH (RES_PRFIX "menu/night/right_arrow.png")
 
 typedef struct {
   int x;

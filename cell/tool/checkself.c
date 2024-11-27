@@ -11,6 +11,9 @@ extern rpm_view_t *main_rpm;
 extern speed_view_t *main_speed;
 extern other_view_t *main_other;
 
+void set_checkself_state(bool state __attribute__((unused))) {
+}
+
 typedef struct {
   int check_time;
   int oil_divisor;
@@ -66,6 +69,7 @@ void check_state_checking() {
   const int max_check_count  = 60;
   const int half_check_count = 30;
 
+  set_checkself_state(true);
   manager.is_checking = true;
   manager.check_count++;
 
@@ -129,6 +133,7 @@ void checkself_finish() {
     lv_timer_del(manager.timer);
     manager.timer = NULL;
   }
+  set_checkself_state(false);
   manager.is_checking = false;
   manager.state       = CHECK_STATE_IDLE;
   checkself_update_views(0, 0, 0, 0);

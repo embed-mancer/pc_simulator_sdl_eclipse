@@ -83,5 +83,5 @@ void button_manager_event(uint32_t id) {
     break;
   }
 
-  printf("Event ID = %d processed.\n", id);
+  LOG_DEBUG("Event ID = %d processed.", id);
 }
