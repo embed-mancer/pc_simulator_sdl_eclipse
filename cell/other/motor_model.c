@@ -1,4 +1,5 @@
 #include "motor_model.h"
+#include "../data/veh_data.h"
 
 static int32_t oil                      = 0;
 static int32_t water                    = 0;
@@ -58,7 +59,8 @@ int motor_model_get_avg_speed() {
   return avg_speed;
 }
 int motor_model_get_speed() {
-  return speed;
+  return veh_get_data(VEH_SPEED_CURRENT);
+  // return speed;
 }
 int motor_model_get_odo() {
   return odo;
@@ -67,7 +69,8 @@ double motor_model_get_trip() {
   return trip;
 }
 int motor_model_get_rpm() {
-  return rpm;
+  return veh_get_data(VEH_SPEED_ENGINE);
+  // return rpm;
 }
 meter_mode_e motor_model_get_day_night_mode() {
   return current_motor_model;

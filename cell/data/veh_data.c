@@ -26,7 +26,7 @@ static void veh_set_speed_callback(uint32_t value) {
     value = MAX_SPEED;
 
   veh_data[VEH_SPEED_CURRENT] = value;
-  LOG_DEBUG("Speed change to %d km/h", value);
+  // LOG_DEBUG("Speed change to %d km/h", value);
 }
 
 static void veh_set_rpm_callbakc(uint32_t value) {
@@ -34,7 +34,7 @@ static void veh_set_rpm_callbakc(uint32_t value) {
     value = MAX_RPM;
 
   veh_data[VEH_SPEED_ENGINE] = value;
-  LOG_DEBUG("Rpm change to %d RPM", value);
+  // LOG_DEBUG("Rpm change to %d RPM", value);
 }
 
 void veh_init() {

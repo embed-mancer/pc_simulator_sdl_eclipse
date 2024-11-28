@@ -3,7 +3,7 @@
 #include "../other/motor_model.h"
 #include "../tool/constrant.h"
 
-static data_accumulator_t acc;
+static data_accumulator_t acc = {.accumulated = 100, .current = 0};
 
 void rpm_view_init(rpm_view_t *view, lv_obj_t *background) {
   memset(view, 0, sizeof(*view));

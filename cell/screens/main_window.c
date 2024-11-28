@@ -9,6 +9,7 @@
 #include "../key/button_manager.h"
 #include "menu_window.h"
 #include "../screens/window_manager.h"
+#include "../data/veh_data.h"
 
 #define INIT_VIEW(view_ptr, type)                          \
   view_ptr = (type *)allocate_memory(sizeof(type), #type); \
@@ -43,6 +44,10 @@ void main_window_task_cb(lv_timer_t *timer __attribute__((unused))) {
   if (checkself_is_checking())
     return;
   blink_manager_refresh(main_blink);
+  speed_view_run();
+  speed_view_update(main_speed, speed_view_current());
+  rpm_view_run();
+  rpm_view_update(main_rpm, rpm_view_current());
   // for test
   // {
   //   static unsigned long last_switch_time = 0;

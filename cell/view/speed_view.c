@@ -3,7 +3,7 @@
 #include "../other/motor_model.h"
 #include "../tool/constrant.h"
 
-static data_accumulator_t speed_accumulator;
+static data_accumulator_t speed_accumulator = {.current = 0, .accumulated = 1,};
 static const int mid_position = 400;
 static const int width        = 94;
 
