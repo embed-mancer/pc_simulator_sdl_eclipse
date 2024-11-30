@@ -166,17 +166,32 @@ void rpm_view_toggle_day_night(rpm_view_t *view) {
   rpm_view_update(view, current_value);
 }
 
-void rpm_view_run() {
-  int data = motor_model_get_rpm();
-  if (acc.current < data) {
-    acc.current += acc.accumulated;
-    if (acc.current > data)
-      acc.current = data;
-  } else if (acc.current > data) {
-    acc.current -= acc.accumulated;
-    if (acc.current < data)
-      acc.current = data;
+static void run() {
+  int inc = acc.accumulated;
+  int target = acc.data;
+
+  if (acc.current < target) {
+    acc.current = (acc.current + inc > target) ? target : acc.current + inc;
+  } else if (acc.current > target) {
+    acc.current = (acc.current - inc < target) ? target : acc.current - inc;
   }
+}
+
+static bool should_udpate(int target, int current) {
+  if (target <= 1000)
+    return true;
+  else if (target > current)
+    return true;
+  else if ((target + 200) < current)
+    return true;
+
+  return false;
+}
+
+void rpm_view_run() {
+  acc.data = motor_model_get_rpm();
+  if (should_udpate(acc.data, acc.current))
+    run();
 }
 
 int rpm_view_current() {

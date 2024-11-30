@@ -3,9 +3,12 @@
 #include "../other/motor_model.h"
 #include "../tool/constrant.h"
 
-static data_accumulator_t speed_accumulator = {.current = 0, .accumulated = 1,};
+static data_accumulator_t acc = {
+    .current = 0,
+    .accumulated = 1,
+};
 static const int mid_position = 400;
-static const int width        = 94;
+static const int width = 94;
 
 void speed_view_init(speed_view_t *view, lv_obj_t *background) {
   memset(view, 0, sizeof(*view));
@@ -71,28 +74,39 @@ void speed_view_toggle_day_night(speed_view_t *view) {
   tool_set_text_on_mode_and_update(view->unit, &view->unit_position.color,
                                    LABEL_COLOR_WHITE, LABEL_COLOR_BLACK);
   int current_value = speed_view_current();
-  view->last_index  = -1;
+  view->last_index = -1;
   speed_view_update(view, current_value);
 }
 
-void speed_view_run() {
-  int data      = motor_model_get_speed();
-  int increment = speed_accumulator.accumulated;
+static void run() {
+  int inc = acc.accumulated;
+  int target = acc.data;
 
-  if (speed_accumulator.current < data) {
-    speed_accumulator.current = (speed_accumulator.current + increment > data)
-                                    ? data
-                                    : speed_accumulator.current + increment;
-  } else if (speed_accumulator.current > data) {
-    speed_accumulator.current = (speed_accumulator.current - increment < data)
-                                    ? data
-                                    : speed_accumulator.current - increment;
+  if (acc.current < target) {
+    acc.current = (acc.current + inc > target) ? target : acc.current + inc;
+  } else if (acc.current > target) {
+    acc.current = (acc.current - inc < target) ? target : acc.current - inc;
   }
 }
 
-int speed_view_current() {
-  return speed_accumulator.current;
+static bool should_udpate(int target, int current) {
+  if (target <= 2)
+    return true;
+  else if (target > current)
+    return true;
+  else if ((target + 2) < current)
+    return true;
+
+  return false;
 }
+
+void speed_view_run() {
+  acc.data = motor_model_get_speed();
+  if (should_udpate(acc.data, acc.current))
+    run();
+}
+
+int speed_view_current() { return acc.current; }
 
 void speed_view_main(speed_view_t *view, lv_obj_t *background) {
   speed_view_init(view, background);
