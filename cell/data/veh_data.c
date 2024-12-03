@@ -41,11 +41,8 @@ void veh_init() {
   for (uint32_t i = 0; i < VEH_DATA_END; ++i) {
     data_callbacks[i] = NULL;
   }
-  // TODO
   veh_register_callback(VEH_SPEED_CURRENT, veh_set_speed_callback);
   veh_register_callback(VEH_SPEED_ENGINE, veh_set_rpm_callbakc);
-  veh_set_data(VEH_SPEED_CURRENT, 60);
-  veh_set_data(VEH_SPEED_ENGINE, 1200);
 }
 
 int32_t veh_get_data(uint32_t id) {

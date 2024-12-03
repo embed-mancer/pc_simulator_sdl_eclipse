@@ -10,6 +10,7 @@
 #include "menu_window.h"
 #include "../screens/window_manager.h"
 #include "../data/veh_data.h"
+#include "../tool/mirror.h"
 
 #define INIT_VIEW(view_ptr, type)                          \
   view_ptr = (type *)allocate_memory(sizeof(type), #type); \
@@ -103,6 +104,7 @@ void main_window_init() {
   main_window_other();
   main_window_time();
   main_window_speed();
+  mirror();
 
   checkself_init();
 

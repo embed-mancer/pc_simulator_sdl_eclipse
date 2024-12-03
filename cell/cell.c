@@ -17,5 +17,5 @@ void cell_init() {
   config_initialize();
   veh_init();
   tool_init();
-  cache_images();
+  // cache_images();
 }
