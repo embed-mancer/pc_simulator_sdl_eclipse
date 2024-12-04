@@ -35,7 +35,6 @@ void mobile_window_init() {
   lv_obj_set_style_bg_color(window, lv_color_black(), 0);
   create_qrcode();
   timer = lv_timer_create(task_cb, 50, NULL);
-  lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
   window_manager_set_target(WINDOW_MOBILE);
 }
 

@@ -28,44 +28,49 @@ void time_view_create(time_view_t *view) {
       TIME_X_CENTER + COLON_WIDTH / 2 + FIX_WIDTH       // min2_x
   };
 
+  label_value_t value1 = {.int_value = 1};
+  label_value_t value7 = {.int_value = 7};
+  label_color_e color = tool_get_color_base();
 
-label_value_t value1 = {.int_value = 1};
-label_value_t value7 = {.int_value = 7};
-  label_color_e color  = tool_get_color_base();
-  lv_obj_t **labels[5] = {&view->hour_digit1, &view->hour_digit2, &view->colon,
-                          &view->minute_digit1, &view->minute_digit2};
+  view->hour_digit1_position = ui_helpers_init_label_position(
+      positions[0], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+      LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT, value1);
+  view->hour_digit2_position = ui_helpers_init_label_position(
+      positions[1], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+      LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT, value7);
+  view->colon_position = ui_helpers_init_label_position(
+      positions[2], TIME_Y_POSITION, COLON_WIDTH, 25, color,
+      LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_CHAR, (label_value_t){":"});
+  view->minute_digit1_position = ui_helpers_init_label_position(
+      positions[3], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+      LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT, value1);
+  view->minute_digit2_position = ui_helpers_init_label_position(
+      positions[4], TIME_Y_POSITION, FIX_WIDTH, 25, color,
+      LABEL_FONT_SOURCEHANSANSCN_28, VALUE_TYPE_INT, value7);
 
-  label_pos_t label_positions[5] = {
-      ui_helpers_init_label_position(positions[0], TIME_Y_POSITION, FIX_WIDTH,
-                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
-                                     VALUE_TYPE_INT, value1),
-      ui_helpers_init_label_position(positions[1], TIME_Y_POSITION, FIX_WIDTH,
-                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
-                                     VALUE_TYPE_INT, value7),
-      ui_helpers_init_label_position(positions[2], TIME_Y_POSITION, COLON_WIDTH,
-                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
-                                     VALUE_TYPE_CHAR, (label_value_t){":"}),
-      ui_helpers_init_label_position(positions[3], TIME_Y_POSITION, FIX_WIDTH,
-                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
-                                     VALUE_TYPE_INT, value1),
-      ui_helpers_init_label_position(positions[4], TIME_Y_POSITION, FIX_WIDTH,
-                                     25, color, LABEL_FONT_SOURCEHANSANSCN_28,
-                                     VALUE_TYPE_INT, value7)};
-
-  for (size_t i = 0; i < 5; ++i) {
-    ui_helpers_create_label(view->background, labels[i], label_positions[i]);
-    lv_obj_set_style_text_align(*labels[i], LV_TEXT_ALIGN_CENTER, 0);
-  }
+  ui_helpers_create_label(view->background, &view->hour_digit1,
+                          view->hour_digit1_position);
+  ui_helpers_create_label(view->background, &view->hour_digit2,
+                          view->hour_digit2_position);
+  ui_helpers_create_label(view->background, &view->colon, view->colon_position);
+  ui_helpers_create_label(view->background, &view->minute_digit1,
+                          view->minute_digit1_position);
+  ui_helpers_create_label(view->background, &view->minute_digit2,
+                          view->minute_digit2_position);
+  lv_obj_set_style_text_align(view->hour_digit1, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->hour_digit2, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->colon, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->minute_digit1, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(view->minute_digit2, LV_TEXT_ALIGN_CENTER, 0);
 
   blink_manager_add(main_blink, view->colon, BLINK_INTERVAL_HZ_1);
 }
 
 // TODO
-void time_view_update(time_view_t *view __attribute__((unused))) {
-}
+void time_view_update(time_view_t *view __attribute__((unused))) {}
 
 void time_view_toggle_day_night(time_view_t *view) {
-  lv_color_t color    = tool_get_theme_color();
+  lv_color_t color = tool_get_theme_color();
   lv_obj_t *labels[5] = {view->hour_digit1, view->hour_digit2, view->colon,
                          view->minute_digit1, view->minute_digit2};
   for (size_t i = 0; i < 5; ++i) {
