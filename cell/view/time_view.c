@@ -8,7 +8,6 @@
 extern blink_manager_t *main_blink;
 
 void time_view_init(time_view_t *view, lv_obj_t *background) {
-  memset(view, 0, sizeof(*view));
   view->background = background;
 
   time_view_create(view);
