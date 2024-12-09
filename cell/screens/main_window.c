@@ -44,10 +44,14 @@ void main_window_task_cb(lv_timer_t *timer __attribute__((unused))) {
   if (checkself_is_checking())
     return;
   blink_manager_refresh(main_blink);
+  static uint8_t speed = 0;
+  speed = (speed + 1) % 200;
+  static uint16_t rpm = 0;
+  rpm = (rpm + 100) % 11100;
   speed_view_run();
-  speed_view_update(main_speed, speed_view_current());
+  speed_view_update(main_speed, speed);
   rpm_view_run();
-  rpm_view_update(main_rpm, rpm_view_current());
+  rpm_view_update(main_rpm, rpm);
   // for test
   // {
   //   static unsigned long last_switch_time = 0;
@@ -106,7 +110,7 @@ void main_window_init() {
 
   checkself_init();
 
-  lv_timer_t *timer = lv_timer_create(main_window_task_cb, 33, NULL);
+  lv_timer_t *timer = lv_timer_create(main_window_task_cb, 5, NULL);
   lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
   window_manager_init();
   window_manager_set_target(WINDOW_MAIN);
