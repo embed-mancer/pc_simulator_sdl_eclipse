@@ -18,7 +18,6 @@ void menu_window_init() {
   menu_window_toggle_display();
   menu_manager();
   timer = lv_timer_create(task_cb, 50, NULL);
-  lv_timer_set_repeat_count(timer, LV_ANIM_REPEAT_INFINITE);
 }
 
 void menu_window_toggle_display() {

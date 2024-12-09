@@ -122,7 +122,6 @@ void checkself_init() {
   manager.speed_factor = config.check_time / config.speed_divisor;
 
   manager.timer = lv_timer_create(task_cb, 33, NULL);
-  lv_timer_set_repeat_count(manager.timer, LV_ANIM_REPEAT_INFINITE);
 
   manager.state      = CHECK_STATE_WAITING;
   manager.start_tick = lv_tick_get();
