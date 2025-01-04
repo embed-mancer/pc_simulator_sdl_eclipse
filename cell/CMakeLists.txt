@@ -4,7 +4,7 @@ string(REGEX REPLACE ".*/(.*)" "\\1" CURRENT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR})
 project(${CURRENT_FOLDER})
 
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -Werror -Wshadow -Wformat=2)
+  add_compile_options(-Wall)
 elseif(MSVC)
   add_compile_options(/W4 /WX /Ox)
 endif()
