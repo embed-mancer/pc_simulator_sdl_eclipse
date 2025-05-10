@@ -133,7 +133,8 @@ static void hal_init(void) {
   /*Create a display buffer*/
   static lv_disp_draw_buf_t disp_buf1;
   static lv_color_t buf1_1[SDL_HOR_RES * 100];
-  lv_disp_draw_buf_init(&disp_buf1, buf1_1, NULL, SDL_HOR_RES * 100);
+  static lv_color_t buf1_2[SDL_HOR_RES * 100];
+  lv_disp_draw_buf_init(&disp_buf1, buf1_1, buf1_2, SDL_HOR_RES * 100);
 
   /*Create a display*/
   static lv_disp_drv_t disp_drv;
